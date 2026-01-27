@@ -1,7 +1,18 @@
 @import "tailwindcss";
+@import "tailwindcss-animated";
 
 @theme {
   --color-primary: #242424;
   --color-secondary: #e0ddd7;
   --color-accent: #f1ba35;
+
+  --header-height: 52px;
+
+  --menu-animation-slide-time: 0.6s;
+
+  --menu-slide-down-curve: cubic-bezier(0.85, 0, 0.24, 1);
+}
+
+html {
+  scrollbar-gutter: stable;
 }
