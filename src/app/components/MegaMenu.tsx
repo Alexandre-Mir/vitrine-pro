@@ -14,12 +14,12 @@ export default function MegaMenu({ isOpen }: MegaMenuProps) {
       >
         <div className="w-full lg:w-1/2 lg:pr-5">
           <h4
-            className={`lg:hidden tracking-widest uppercase text-[#727272] text-xs font-medium ${isOpen ? "animate-fade-right animate-once animate-normal" : ""}`}
+            className={`lg:hidden tracking-widest uppercase text-subtitle text-xs font-medium ${isOpen ? "animate-fade-right animate-once animate-normal" : ""}`}
           >
             Shop
           </h4>
           <ul>
-            <li className="border-b border-neutral-100 py-5 ">
+            <li className="border-b border-border py-5 ">
               <a
                 href=""
                 className={`text-xl tracking-tight flex ${
@@ -92,7 +92,7 @@ export default function MegaMenu({ isOpen }: MegaMenuProps) {
                 Item
               </a>
             </li>
-            <li className="mt-4 border-y border-neutral-100 py-5 ">
+            <li className="mt-4 border-y border-border py-5 ">
               <a
                 href=""
                 className={`text-xl tracking-tight flex ${
@@ -127,7 +127,7 @@ export default function MegaMenu({ isOpen }: MegaMenuProps) {
         />
         <div className="lg:hidden py-5">
           <h4
-            className={`tracking-widest uppercase text-[#727272] text-xs font-medium ${isOpen ? "animate-fade-right animate-once animate-normal animate-delay-900" : ""}`}
+            className={`tracking-widest uppercase text-subtitle text-xs font-medium ${isOpen ? "animate-fade-right animate-once animate-normal animate-delay-900" : ""}`}
           >
             Vitrine Pro
           </h4>

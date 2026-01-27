@@ -2,8 +2,8 @@ import { ChevronRight, GithubIcon, LinkedinIcon } from "lucide-react";
 
 export default function Footer() {
   return (
-    <footer className="bg-primary text-white py-16 ">
-      <div className="md:px-14 md:max-w-full max-w-sm mx-auto">
+    <footer className="bg-background text-primary py-16 ">
+      <div className="md:px-14 md:max-w-full max-w-xs mx-auto">
         <div className="grid lg:grid-cols-4 md:grid-cols-2 grid-cols-1 grid-rows-2 gap-10">
           <div className="flex-col flex">
             <h4 className="tracking-tight font-bold text-xl">Lorem ipsum</h4>
@@ -39,13 +39,13 @@ export default function Footer() {
             </p>
             <form className="max-w-[304px] flex-nowrap flex flex-row mt-5">
               <input
-                className="bg-white border border-primary h-14 w-full py-3 pl-5 rounded-l-full text-primary placeholder:text-primary"
+                className="bg-background border border-primary h-14 w-full py-3 pl-5 rounded-l-full text-primary placeholder:text-primary"
                 type="email"
                 placeholder="Seu email"
               />
               <button
                 type="submit"
-                className="rounded-r-full bg-white border border-primary w-1/4 text-primary"
+                className="rounded-r-full bg-background border border-primary w-1/4 text-primary"
               >
                 <ChevronRight className="m-auto" />
               </button>
@@ -56,7 +56,7 @@ export default function Footer() {
           </div>
         </div>
       </div>
-      <div className="md:px-14 mt-4 md:max-w-full max-w-sm mx-auto flex md:justify-between flex-col md:flex-row justify-center ">
+      <div className="md:px-14 mt-4 md:max-w-full max-w-xs mx-auto flex md:justify-between flex-col md:flex-row justify-center ">
         <div className="flex gap-2">
           <LinkedinIcon />
           <GithubIcon />
