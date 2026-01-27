@@ -61,7 +61,7 @@ export default function Header() {
           <button className="lg:hidden">
             <Menu size={20} color="var(--color-primary)" />
           </button>
-          <h1 className="px-5 border-r tracking-tighter border-neutral-100 h-full content-center text-2xl font-black">
+          <h1 className="px-5 border-r border-neutral-100 h-full content-center text-2xl h1-logo">
             <a href="#">Vitrine Pro</a>
           </h1>
           <ul className="flex gap-8 place-content-center">
