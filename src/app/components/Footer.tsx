@@ -2,8 +2,8 @@ import { ChevronRight, GithubIcon, LinkedinIcon } from "lucide-react";
 
 export default function Footer() {
   return (
-    <footer className="bg-primary text-white py-16">
-      <div className="px-14 mx-auto">
+    <footer className="bg-primary text-white py-16 ">
+      <div className="md:px-14 md:max-w-full max-w-sm mx-auto">
         <div className="grid lg:grid-cols-4 md:grid-cols-2 grid-cols-1 grid-rows-2 gap-10">
           <div className="flex-col flex">
             <h4 className="tracking-tight font-bold text-xl">Lorem ipsum</h4>
@@ -56,12 +56,12 @@ export default function Footer() {
           </div>
         </div>
       </div>
-      <div className="px-14 mt-4 mx-auto flex justify-between">
-        <div className="flex">
+      <div className="md:px-14 mt-4 md:max-w-full max-w-sm mx-auto flex md:justify-between flex-col md:flex-row justify-center ">
+        <div className="flex gap-2">
           <LinkedinIcon />
           <GithubIcon />
         </div>
-        <div>
+        <div className="mt-1">
           <span className="text-sm">
             © 2026 Vitrine Pro. Todos os direitos reservados.
           </span>

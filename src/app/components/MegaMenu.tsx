@@ -10,9 +10,14 @@ export default function MegaMenu({ isOpen }: MegaMenuProps) {
     >
       <div
         data-menu-content
-        className={`flex px-5 py-3 mb-5 ${isOpen ? "opacity-100 backdrop-blur-2xl" : "opacity-0"} transition-opacity duration-1000 ease-in`}
+        className={`flex lg:flex-row flex-col px-5 lg:py-3 py-5 mb-5 ${isOpen ? "opacity-100 backdrop-blur-2xl" : "opacity-0"} transition-opacity duration-1000 ease-in`}
       >
-        <div className="w-1/2 pr-5 ">
+        <div className="w-full lg:w-1/2 lg:pr-5">
+          <h4
+            className={`lg:hidden tracking-widest uppercase text-[#727272] text-xs font-medium ${isOpen ? "animate-fade-right animate-once animate-normal" : ""}`}
+          >
+            Shop
+          </h4>
           <ul>
             <li className="border-b border-neutral-100 py-5 ">
               <a
@@ -114,12 +119,45 @@ export default function MegaMenu({ isOpen }: MegaMenuProps) {
           </ul>
         </div>
         <img
-          className={` rounded-lg ${
+          className={` rounded-lg lg:block hidden ${
             isOpen ? "animate-fade-right animate-once animate-normal" : ""
           }`}
           src="https://placehold.co/317x402"
           alt=""
         />
+        <div className="lg:hidden py-5">
+          <h4
+            className={`tracking-widest uppercase text-[#727272] text-xs font-medium ${isOpen ? "animate-fade-right animate-once animate-normal animate-delay-900" : ""}`}
+          >
+            Vitrine Pro
+          </h4>
+          <ul>
+            <li className="pt-5 pb-1">
+              <a
+                href=""
+                className={`text-xl tracking-tight flex ${
+                  isOpen
+                    ? "animate-fade-right animate-once animate-normal  animate-delay-1000"
+                    : ""
+                }`}
+              >
+                Sobre
+              </a>
+            </li>
+            <li>
+              <a
+                href=""
+                className={`text-xl tracking-tight flex ${
+                  isOpen
+                    ? "animate-fade-right animate-once animate-normal  animate-delay-1100"
+                    : ""
+                }`}
+              >
+                Contato
+              </a>
+            </li>
+          </ul>
+        </div>
       </div>
     </nav>
   );
