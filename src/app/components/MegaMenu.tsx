@@ -1,3 +1,5 @@
+import ThemeToggle from "./ThemeToggle";
+
 interface MegaMenuProps {
   isOpen: boolean;
 }
@@ -10,7 +12,7 @@ export default function MegaMenu({ isOpen }: MegaMenuProps) {
     >
       <div
         data-menu-content
-        className={`flex lg:flex-row flex-col px-5 lg:py-3 py-5 mb-5 ${isOpen ? "opacity-100 backdrop-blur-2xl" : "opacity-0"} transition-opacity duration-1000 ease-in`}
+        className={`flex lg:flex-row flex-col px-5 lg:py-3 py-5  ${isOpen ? "opacity-100 backdrop-blur-2xl" : "opacity-0"} transition-opacity duration-1000 ease-in`}
       >
         <div className="w-full lg:w-1/2 lg:pr-5">
           <h4
@@ -158,6 +160,11 @@ export default function MegaMenu({ isOpen }: MegaMenuProps) {
             </li>
           </ul>
         </div>
+      </div>
+      <div
+        className={`w-full mb-5 border-t border-border pt-5 flex justify-center items-center ${isOpen ? "animate-fade-right animate-once animate-normal animate-delay-1200" : ""}`}
+      >
+        <ThemeToggle />
       </div>
     </nav>
   );

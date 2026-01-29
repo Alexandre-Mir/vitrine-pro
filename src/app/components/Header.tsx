@@ -3,8 +3,7 @@
 import { useEffect, useRef, useState } from "react";
 import Headroom from "headroom.js";
 import MegaMenu from "./MegaMenu";
-import { ChevronDown, Search, ShoppingCart } from "lucide-react";
-import ThemeToggle from "./ThemeToggle";
+import { ChevronDown, Search, ShoppingCart, User } from "lucide-react";
 
 export default function Header() {
   const headerRef = useRef<HTMLElement>(null);
@@ -49,7 +48,7 @@ export default function Header() {
     <header ref={headerRef} className="fixed left-0 w-full z-50 top-4">
       <div
         data-menu-blur
-        className={`bg-[#000000b3] h-screen w-full -z-10 absolute -top-4 left-0 backdrop-blur-sm transition-all duration-300 ease-in-out ${isMenuOpen ? "opacity-100" : "opacity-0"}`}
+        className={`bg-[#000000b3]  h-[200vh] w-[100vw] -z-10 fixed -top-4 left-0 pointer-events-none backdrop-blur-sm transition-all duration-(--menu-animation-slide-time) ease-(--menu-slide-down-curve) ${isMenuOpen ? "opacity-100" : "opacity-0"}`}
       ></div>
       <div className="relative md:max-w-2xl max-w-xs mx-auto overflow-hidden min-h-(--header-height)  text-primary color-primary  bg-background shadow-lg rounded-lg border border-border">
         <nav className="relative h-(--header-height) flex justify-between items-center border-b border-border ">
@@ -105,7 +104,12 @@ export default function Header() {
               color="var(--color-primary)"
               className="cursor-pointer"
             />
-            <ThemeToggle />
+
+            <User
+              size={20}
+              color="var(--color-primary)"
+              className="cursor-pointer"
+            />
           </div>
         </nav>
         <MegaMenu isOpen={isMenuOpen} />
