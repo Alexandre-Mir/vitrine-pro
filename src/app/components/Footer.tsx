@@ -46,6 +46,7 @@ export default function Footer() {
               <button
                 type="submit"
                 className="rounded-r-full bg-background border border-primary w-1/4 text-primary"
+                aria-label="Assinar newsletter"
               >
                 <ChevronRight className="m-auto" />
               </button>
