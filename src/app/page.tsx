@@ -74,6 +74,7 @@ export default async function Home() {
                   src={product.image}
                   alt={product.title}
                   fill
+                  sizes="80px"
                   className="object-contain lg:group-hover:scale-110 lg:duration-350 lg:ease-out p-4  w-full h-full "
                 />
               </div>
