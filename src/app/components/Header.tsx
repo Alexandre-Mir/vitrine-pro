@@ -53,6 +53,7 @@ export default function Header() {
       <div className="relative md:max-w-2xl max-w-xs mx-auto overflow-hidden min-h-(--header-height)  text-primary color-primary  bg-background shadow-lg rounded-lg border border-border">
         <nav className="relative h-(--header-height) flex justify-between items-center border-b border-border ">
           <button
+            aria-label="Abrir menu"
             className={`lg:hidden relative cursor-pointer ml-6 tham tham-e-slider tham-w-5 ${isMenuOpen ? "tham-active" : ""}`}
             onClick={() => {
               handleShopClick();
@@ -93,23 +94,29 @@ export default function Header() {
             </li>
           </ul>
           <div className="flex items-center gap-6 h-full px-6 lg:border-l lg:border-border md:border-0">
-            <Search
-              size={20}
-              color="var(--color-primary)"
-              className="cursor-pointer lg:static absolute left-16 top-[15px]"
-            />
+            <button aria-label="Abrir busca">
+              <Search
+                size={20}
+                color="var(--color-primary)"
+                className="cursor-pointer lg:static absolute left-16 top-[15px]"
+              />
+            </button>
 
-            <ShoppingCart
-              size={20}
-              color="var(--color-primary)"
-              className="cursor-pointer"
-            />
+            <button aria-label="Abrir carrinho">
+              <ShoppingCart
+                size={20}
+                color="var(--color-primary)"
+                className="cursor-pointer"
+              />
+            </button>
 
-            <User
-              size={20}
-              color="var(--color-primary)"
-              className="cursor-pointer"
-            />
+            <button aria-label="Abrir perfil">
+              <User
+                size={20}
+                color="var(--color-primary)"
+                className="cursor-pointer"
+              />
+            </button>
           </div>
         </nav>
         <MegaMenu isOpen={isMenuOpen} />
