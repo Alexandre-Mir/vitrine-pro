@@ -5,11 +5,6 @@ import Image from "next/image";
 
 import { Metadata } from "next";
 
-export const metadata: Metadata = {
-  title: "Vitrine Pro",
-  description: "Vitrine Pro",
-};
-
 interface Product {
   id: number;
   title: string;
@@ -33,6 +28,30 @@ async function getProducts(): Promise<Product[]> {
   return res.json();
 }
 
+export async function generateMetadata(): Promise<Metadata> {
+  const products = await getProducts();
+  const uniqueCategories = products.filter(
+    (product, index, self) =>
+      index === self.findIndex((t) => t.category === product.category),
+  );
+  const categoryCount = uniqueCategories.length;
+
+  return {
+    title: `Vitrine Pro | ${categoryCount} Categorias`,
+    description: `Vitrine Pro | ${categoryCount} Categorias`,
+    openGraph: {
+      title: `Vitrine Pro | ${categoryCount} Categorias`,
+      description: `Vitrine Pro | ${categoryCount} Categorias`,
+      type: "website",
+    },
+    twitter: {
+      title: `Vitrine Pro | ${categoryCount} Categorias`,
+      description: `Vitrine Pro | ${categoryCount} Categorias`,
+      card: "summary_large_image",
+    },
+  };
+}
+
 export default async function Home() {
   const products = await getProducts();
   const uniqueCategories = products.filter(
@@ -54,8 +73,7 @@ export default async function Home() {
                 <Image
                   src={product.image}
                   alt={product.title}
-                  width={80}
-                  height={80}
+                  fill
                   className="object-contain lg:group-hover:scale-110 lg:duration-350 lg:ease-out p-4  w-full h-full "
                 />
               </div>
