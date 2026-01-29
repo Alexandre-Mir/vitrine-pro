@@ -3,6 +3,13 @@ import Hero from "./components/Hero";
 import ProductCard from "./components/ProductCard";
 import Image from "next/image";
 
+import { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: "Vitrine Pro",
+  description: "Vitrine Pro",
+};
+
 interface Product {
   id: number;
   title: string;
