@@ -4,7 +4,7 @@ export default function Footer() {
   return (
     <footer className="bg-background text-primary py-16 ">
       <div className="md:px-14 md:max-w-full max-w-xs mx-auto">
-        <div className="grid lg:grid-cols-4 md:grid-cols-2 grid-cols-1 grid-rows-2 gap-10">
+        <div className="grid lg:grid-cols-4 md:grid-cols-2 grid-cols-1 grid-rows-2 gap-12 lg:gap-16">
           <div className="flex-col flex">
             <h4 className="tracking-tight font-bold text-xl">Lorem ipsum</h4>
             <p className="mt-5">
@@ -52,7 +52,7 @@ export default function Footer() {
               </button>
             </form>
           </div>
-          <div className="h1-logo lg:text-[10rem] md:text-[8rem] text-[5rem] self-end flex place-content-center col-span-full leading-none text-nowrap">
+          <div className="h1-logo mt-10 lg:text-[10rem] md:text-[8rem] text-[4rem] self-end flex place-content-center col-span-full leading-none text-nowrap">
             <span>Vitrine Pro</span>
           </div>
         </div>
