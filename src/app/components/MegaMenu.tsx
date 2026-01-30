@@ -1,3 +1,4 @@
+import { BadgeDollarSign } from "lucide-react";
 import ThemeToggle from "./ThemeToggle";
 
 interface MegaMenuProps {
@@ -30,7 +31,7 @@ export default function MegaMenu({ isOpen }: MegaMenuProps) {
                     : ""
                 }`}
               >
-                Lista
+                Categorias
               </a>
               <ul className="pt-3 pl-4 flex flex-col gap-1">
                 <li>
@@ -41,7 +42,7 @@ export default function MegaMenu({ isOpen }: MegaMenuProps) {
                         : ""
                     }`}
                   >
-                    Item 1
+                    Men's clothing
                   </a>
                 </li>
                 <li>
@@ -53,7 +54,7 @@ export default function MegaMenu({ isOpen }: MegaMenuProps) {
                         : ""
                     }`}
                   >
-                    Item 2
+                    Jewelery
                   </a>
                 </li>
                 <li>
@@ -65,7 +66,7 @@ export default function MegaMenu({ isOpen }: MegaMenuProps) {
                         : ""
                     }`}
                   >
-                    Item 3
+                    Electronics
                   </a>
                 </li>
               </ul>
@@ -97,13 +98,16 @@ export default function MegaMenu({ isOpen }: MegaMenuProps) {
             <li className="mt-4 border-y border-border py-5 ">
               <a
                 href=""
-                className={`text-xl tracking-tight flex ${
+                className={`text-xl tracking-tight flex items-center gap-2 ${
                   isOpen
                     ? "animate-fade-right animate-once animate-normal animate-delay-700"
                     : ""
                 }`}
               >
-                Item Especial ou Bundle
+                <div className="bg-accent p-1.5 rounded-sm">
+                  <BadgeDollarSign size={18} strokeWidth="1.5" />
+                </div>
+                Coleção
               </a>
             </li>
             <li className="py-5 ">

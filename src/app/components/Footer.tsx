@@ -1,4 +1,5 @@
 import { ChevronRight, GithubIcon, LinkedinIcon } from "lucide-react";
+import Button from "./ui/Button";
 
 export default function Footer() {
   return (
@@ -6,7 +7,7 @@ export default function Footer() {
       <div className="md:px-14 md:max-w-full max-w-xs mx-auto">
         <div className="grid lg:grid-cols-4 md:grid-cols-2 grid-cols-1 grid-rows-2 gap-12 lg:gap-16">
           <div className="flex-col flex">
-            <h4 className="tracking-tight font-bold text-xl">Lorem ipsum</h4>
+            <h4 className="tracking-tight font-bold text-xl">Sobre </h4>
             <p className="mt-5">
               Lorem ipsum dolor sit amet consectetur, adipisicing elit.
               Molestiae temporibus reiciendis modi repellat dolorem placeat
@@ -43,13 +44,15 @@ export default function Footer() {
                 type="email"
                 placeholder="Seu email"
               />
-              <button
+              <Button
                 type="submit"
-                className="rounded-r-full bg-background border border-primary w-1/4 text-primary"
+                variant="outline"
+                size="none"
+                className="rounded-r-full w-1/4"
                 aria-label="Assinar newsletter"
               >
-                <ChevronRight className="m-auto" />
-              </button>
+                <ChevronRight size={20} className="m-auto" />
+              </Button>
             </form>
           </div>
           <div className="h1-logo mt-10 lg:text-[10rem] md:text-[8rem] text-[4rem] self-end flex place-content-center col-span-full leading-none text-nowrap">

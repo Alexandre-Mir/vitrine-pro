@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 
 import { Redo } from "lucide-react";
 import Image from "next/image";
+import Button from "./ui/Button";
 
 export default function Hero() {
   const [opacity, setOpacity] = useState(1);
@@ -58,10 +59,10 @@ export default function Hero() {
         <h2 className="text-2xl font-medium mb-6 tracking-widest">
           Coleção Verão 2026!
         </h2>
-        <button className="cursor-pointer tracking-widest bg-accent hover:bg-[#f9e3ae] text-xs text-black py-3 px-8 rounded-lg flex items-center gap-2 transition-all uppercase">
+        <Button className="gap-2">
           Confira
           <Redo className="rotate-x-180" strokeWidth={1} />
-        </button>
+        </Button>
       </section>
     </section>
   );

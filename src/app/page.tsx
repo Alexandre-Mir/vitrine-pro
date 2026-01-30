@@ -73,15 +73,7 @@ export default async function Home() {
             <div className="flex-1 flex overflow-x-auto snap-x scrollbar-hide gap-4 lg:grid lg:grid-cols-3">
               {products.map((product) =>
                 product.rating.count >= 300 ? (
-                  <ProductCard
-                    key={product.id}
-                    id={product.id}
-                    title={product.title}
-                    price={product.price}
-                    image={product.image}
-                    rating={product.rating}
-                    category={product.category}
-                  />
+                  <ProductCard key={product.id} {...product} />
                 ) : null,
               )}
             </div>

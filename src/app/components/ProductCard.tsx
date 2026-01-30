@@ -1,26 +1,15 @@
 import { ShoppingBag, Star, StarHalf } from "lucide-react";
 import Image from "next/image";
-
-interface ProductProps {
-  id: number;
-  title: string;
-  price: number;
-  image: string;
-  rating: {
-    rate: number;
-    count: number;
-  };
-  category: string;
-}
+import Button from "./ui/Button";
+import { Product } from "@/types/product";
 
 export default function ProductCard({
-  id,
   title,
   price,
   image,
   rating,
   category,
-}: ProductProps) {
+}: Product) {
   const formattedPrice = price.toLocaleString("pt-BR", {
     style: "currency",
     currency: "BRL",
@@ -44,7 +33,7 @@ export default function ProductCard({
         />
         <div className="absolute top-2.5 left-2.5 flex gap-2">
           {fullStars >= 4 && (
-            <span className="bg-accent text-primary py-2 px-3 rounded-4xl text-xs font-bold first-letter:uppercase">
+            <span className="bg-accent text-primary py-2 px-3 rounded-4xl text-xs font-medium first-letter:uppercase">
               Bem avaliado
             </span>
           )}
@@ -89,9 +78,9 @@ export default function ProductCard({
               <span className="first-letter:uppercase">{category}</span>
             </div>
           </div>
-          <div className="bg-accent hover:bg-yellow-400 text-background p-2.5 rounded-full transition-colors shadow-sm">
+          <Button variant="icon" size="icon">
             <ShoppingBag size={18} />
-          </div>
+          </Button>
         </div>
       </div>
     </article>
