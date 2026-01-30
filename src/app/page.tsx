@@ -4,29 +4,7 @@ import ProductCard from "./components/ProductCard";
 import Image from "next/image";
 
 import { Metadata } from "next";
-
-interface Product {
-  id: number;
-  title: string;
-  price: number;
-  description: string;
-  category: string;
-  image: string;
-  rating: {
-    rate: number;
-    count: number;
-  };
-}
-
-async function getProducts(): Promise<Product[]> {
-  const res = await fetch("https://fakestoreapi.com/products");
-
-  if (!res.ok) {
-    throw new Error("Falha ao buscar produtos");
-  }
-
-  return res.json();
-}
+import getProducts from "@/services/product";
 
 export async function generateMetadata(): Promise<Metadata> {
   const products = await getProducts();
