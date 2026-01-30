@@ -1,44 +1,17 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
-import Headroom from "headroom.js";
 import MegaMenu from "./MegaMenu";
 import { ChevronDown, Search, ShoppingCart, User } from "lucide-react";
 import Button from "./ui/Button";
+import { useScrollDirection } from "@/hooks/use-scroll-direction";
+import { useLockedBody } from "@/hooks/use-locked-body";
 
 export default function Header() {
-  const headerRef = useRef<HTMLElement>(null);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-
-  useEffect(() => {
-    if (!headerRef.current) return;
-
-    // Inicializa o Headroom
-    const headroom = new Headroom(headerRef.current, {
-      offset: 0,
-      tolerance: 0,
-      classes: {
-        //Mapeamento das classes de estadp para classes Tailwind
-        initial: "transition-all duration-300 ease-in-out",
-        pinned: "translate-y-0 top-4", // Visivel
-        unpinned: "-translate-y-full -top-4", // Escondido
-      },
-    });
-
-    headroom.init();
-
-    // Cleanup ao desmontar
-    return () => headroom.destroy();
-  }, []);
-
-  // Bloqueia o scroll quando o menu está aberto
-  useEffect(() => {
-    if (isMenuOpen) {
-      document.body.style.overflow = "hidden";
-    } else {
-      document.body.style.overflow = "auto";
-    }
-  }, [isMenuOpen]);
+  const headerRef = useRef<HTMLElement>(null);
+  const scrollDir = useScrollDirection();
+  useLockedBody(isMenuOpen);
 
   // Função para abrir e fechar o menu
   function handleShopClick() {
@@ -46,7 +19,10 @@ export default function Header() {
   }
 
   return (
-    <header ref={headerRef} className="fixed left-0 w-full z-50 top-4">
+    <header
+      ref={headerRef}
+      className={`fixed left-0 w-full z-50 transition-all duration-300 ease-in-out ${scrollDir === "down" ? "-translate-y-full -top-4" : "top-4"}`}
+    >
       <div
         data-menu-blur
         className={`bg-[#000000b3]  h-[200vh] w-full -z-10 fixed -top-4 left-0 pointer-events-none backdrop-blur-sm transition-all duration-(--menu-animation-slide-time) ease-(--menu-slide-down-curve) ${isMenuOpen ? "opacity-100" : "opacity-0"}`}
