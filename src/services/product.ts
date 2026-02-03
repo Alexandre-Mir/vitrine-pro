@@ -1,6 +1,6 @@
 import { Product } from "@/types/product";
 
-async function getProducts(): Promise<Product[]> {
+export async function getProducts(): Promise<Product[]> {
   const res = await fetch("https://fakestoreapi.com/products");
 
   if (!res.ok) {
@@ -10,4 +10,12 @@ async function getProducts(): Promise<Product[]> {
   return res.json();
 }
 
-export default getProducts;
+export async function getProductById(id: string): Promise<Product> {
+  const res = await fetch(`https://fakestoreapi.com/products/${id}`);
+
+  if (!res.ok) {
+    throw new Error("Falha ao buscar produto");
+  }
+
+  return res.json();
+}
