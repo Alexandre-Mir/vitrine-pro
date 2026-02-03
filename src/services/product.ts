@@ -1,6 +1,6 @@
 import { Product } from "@/types/product";
 
-export async function getProducts(): Promise<Product[]> {
+export default async function getProducts(): Promise<Product[]> {
   const res = await fetch("https://fakestoreapi.com/products");
 
   if (!res.ok) {
