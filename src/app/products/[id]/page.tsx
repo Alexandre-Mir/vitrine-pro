@@ -1,9 +1,23 @@
 import Button from "@/app/components/ui/Button";
 import { getProductById } from "@/services/product";
 import Image from "next/image";
+import { Metadata } from "next";
 
 interface PageProps {
   params: Promise<{ id: string }>;
+}
+
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ id: string }>;
+}): Promise<Metadata> {
+  const { id } = await params;
+  const product = await getProductById(id);
+  return {
+    title: product.title,
+    description: product.description,
+  };
 }
 
 export default async function ProductPage({ params }: PageProps) {
