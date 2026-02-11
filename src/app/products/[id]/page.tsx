@@ -2,6 +2,7 @@ import Button from "@/app/components/ui/Button";
 import { getProductById } from "@/services/product";
 import Image from "next/image";
 import { Metadata } from "next";
+import Breadcrumbs from "@/app/components/ui/Breadcrumbs";
 
 interface PageProps {
   params: Promise<{ id: string }>;
@@ -23,6 +24,14 @@ export async function generateMetadata({
 export default async function ProductPage({ params }: PageProps) {
   const { id } = await params;
   const product = await getProductById(id);
+  const breadcrumbItems = [
+    { label: "Home", href: "/" },
+    {
+      label: product.category,
+      href: "/",
+    },
+    { label: product.title, href: `/products/${id}` },
+  ];
 
   return (
     <main className="flex w-full h-[calc(100vh+(var(--header-height)*2))] place-items-center place-content-center bg-secondary py-[calc(var(--header-height)*2)] px-4 gap-4">
@@ -35,6 +44,7 @@ export default async function ProductPage({ params }: PageProps) {
         />
       </section>
       <section className="bg-background w-1/2 h-full flex flex-col p-4 rounded-lg gap-4">
+        <Breadcrumbs items={breadcrumbItems} />
         <div className="flex flex-col gap-4 pb-4 border-b border-border">
           <div>
             <h1 className="text-5xl font-bold text-primary mb-2">
@@ -52,7 +62,7 @@ export default async function ProductPage({ params }: PageProps) {
           </p>
         </div>
         <Button>Adicionar ao carrinho</Button>
-        <p>{product.description}</p>
+        <p className="first-letter:uppercase">{product.description}</p>
       </section>
     </main>
   );
