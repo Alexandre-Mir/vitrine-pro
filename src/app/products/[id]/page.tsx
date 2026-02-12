@@ -3,6 +3,7 @@ import { getProductById } from "@/services/product";
 import Image from "next/image";
 import { Metadata } from "next";
 import Breadcrumbs from "@/app/components/ui/Breadcrumbs";
+import formatCurrency from "@/utils/format-currency";
 
 interface PageProps {
   params: Promise<{ id: string }>;
@@ -58,12 +59,7 @@ export default async function ProductPage({ params }: PageProps) {
               {product.category}
             </p>
           </div>
-          <p className="text-2xl">
-            {product.price.toLocaleString("pt-BR", {
-              style: "currency",
-              currency: "BRL",
-            })}
-          </p>
+          <p className="text-2xl">{formatCurrency(product.price)}</p>
         </div>
         <Button>Adicionar ao carrinho</Button>
         <p className="first-letter:uppercase">{product.description}</p>

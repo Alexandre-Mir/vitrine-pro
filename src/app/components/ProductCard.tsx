@@ -3,6 +3,7 @@ import Image from "next/image";
 import Button from "./ui/Button";
 import { Product } from "@/types/product";
 import Link from "next/link";
+import formatCurrency from "@/utils/format-currency";
 
 export default function ProductCard({
   title,
@@ -12,11 +13,6 @@ export default function ProductCard({
   category,
   id,
 }: Product) {
-  const formattedPrice = price.toLocaleString("pt-BR", {
-    style: "currency",
-    currency: "BRL",
-  });
-
   const fullStars = Math.floor(rating.rate);
   const hasHalfStar = rating.rate % 1 > 0;
 
@@ -54,7 +50,7 @@ export default function ProductCard({
               {title}
             </h3>
             <p className="leading-none text-2xl font-bold text-primary">
-              {formattedPrice}
+              {formatCurrency(price)}
             </p>
           </div>
           <div className="flex justify-between items-end mt-4">
