@@ -19,14 +19,17 @@ export default function Breadcrumbs({ items }: BreadcrumbsProps) {
           return (
             <li key={index} className="flex items-center gap-2">
               {isLast ? (
-                <span className="text-sm text-primary" aria-current="page">
+                <span
+                  className="first-letter:uppercase line-clamp-1 text-sm text-primary"
+                  aria-current="page"
+                >
                   {item.label}
                 </span>
               ) : (
                 <>
                   <Link
                     href={item.href}
-                    className="text-sm text-primary hover:underline"
+                    className="first-letter:uppercase line-clamp-1 text-sm text-primary hover:underline"
                   >
                     {item.label}
                   </Link>

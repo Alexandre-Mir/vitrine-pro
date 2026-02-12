@@ -34,20 +34,23 @@ export default async function ProductPage({ params }: PageProps) {
   ];
 
   return (
-    <main className="flex w-full h-[calc(100vh+(var(--header-height)*2))] place-items-center place-content-center bg-secondary py-[calc(var(--header-height)*2)] px-4 gap-4">
-      <section className="relative w-full h-full  bg-black/5 rounded-lg ">
-        <Image
-          src={product.image}
-          alt={product.title}
-          fill
-          className="object-contain p-2"
-        />
-      </section>
-      <section className="bg-background w-1/2 h-full flex flex-col p-4 rounded-lg gap-4">
+    <main className="grid grid-cols-1 lg:grid-cols-2  min-h-screen  place-content-center bg-secondary py-[calc(var(--header-height)*2)] px-6 gap-6">
+      <section className="bg-background p-8 rounded-lg flex flex-col gap-6">
         <Breadcrumbs items={breadcrumbItems} />
-        <div className="flex flex-col gap-4 pb-4 border-b border-border">
+        <div className="relative w-full h-96 lg:h-[800px]  bg-black/5 rounded-lg ">
+          <Image
+            src={product.image}
+            alt={product.title}
+            fill
+            className="object-contain p-10"
+          />
+        </div>
+      </section>
+
+      <section className="bg-background  h-full flex flex-col p-8 rounded-lg gap-6">
+        <div className="flex flex-col gap-6 pb-6 border-b border-border">
           <div>
-            <h1 className="text-5xl font-bold text-primary mb-2">
+            <h1 className="text-2xl lg:text-4xl font-bold text-primary mb-2 line-clamp-1 lg:line-clamp-3">
               {product.title}
             </h1>
             <p className="text-subtitle first-letter:uppercase">
