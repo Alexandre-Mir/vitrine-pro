@@ -34,7 +34,7 @@ export default async function RootLayout({
       >
         <ThemeProviderWrapper>
           <Header categories={categories} />
-          <main className="pt-[--header-height]">{children}</main>
+          <div className="pt-[--header-height]">{children}</div>
           <Footer />
         </ThemeProviderWrapper>
       </body>
