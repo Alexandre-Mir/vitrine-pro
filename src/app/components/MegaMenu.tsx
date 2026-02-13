@@ -3,9 +3,10 @@ import ThemeToggle from "./ThemeToggle";
 
 interface MegaMenuProps {
   isOpen: boolean;
+  categories: string[];
 }
 
-export default function MegaMenu({ isOpen }: MegaMenuProps) {
+export default function MegaMenu({ isOpen, categories }: MegaMenuProps) {
   return (
     <nav
       data-main-menu
@@ -34,41 +35,19 @@ export default function MegaMenu({ isOpen }: MegaMenuProps) {
                 Categorias
               </a>
               <ul className="pt-3 pl-4 flex flex-col gap-1">
-                <li>
-                  <a
-                    className={`flex ${
-                      isOpen
-                        ? "animate-fade-right animate-once animate-normal animate-delay-200"
-                        : ""
-                    }`}
-                  >
-                    Men's clothing
-                  </a>
-                </li>
-                <li>
-                  <a
-                    href=""
-                    className={`flex ${
-                      isOpen
-                        ? "animate-fade-right animate-once animate-normal  animate-delay-300"
-                        : ""
-                    }`}
-                  >
-                    Jewelery
-                  </a>
-                </li>
-                <li>
-                  <a
-                    href=""
-                    className={`flex ${
-                      isOpen
-                        ? "animate-fade-right animate-once animate-normal  animate-delay-400"
-                        : ""
-                    }`}
-                  >
-                    Electronics
-                  </a>
-                </li>
+                {categories.map((category, index) => (
+                  <li key={index}>
+                    <a
+                      className={`flex ${
+                        isOpen
+                          ? `animate-fade-right animate-once animate-normal animate-delay-${index * 100}`
+                          : ""
+                      }`}
+                    >
+                      {category}
+                    </a>
+                  </li>
+                ))}
               </ul>
             </li>
             <li className="pt-5 pb-1">

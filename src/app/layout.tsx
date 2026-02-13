@@ -4,6 +4,7 @@ import "./globals.css";
 import Header from "./components/Header";
 import Footer from "./components/Footer";
 import ThemeProviderWrapper from "./providers/theme-provider";
+import { getCategories } from "@/services/product";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -20,18 +21,19 @@ export const metadata: Metadata = {
   description: "Projeto de alta performance com Next.js App Router",
 };
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const categories = await getCategories();
   return (
     <html lang="pt-br" suppressHydrationWarning>
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased `}
       >
         <ThemeProviderWrapper>
-          <Header />
+          <Header categories={categories} />
           <main className="pt-[--header-height]">{children}</main>
           <Footer />
         </ThemeProviderWrapper>

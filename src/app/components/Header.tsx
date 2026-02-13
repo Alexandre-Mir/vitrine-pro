@@ -7,7 +7,11 @@ import Button from "./ui/Button";
 import { useScrollDirection } from "@/hooks/use-scroll-direction";
 import { useLockedBody } from "@/hooks/use-locked-body";
 
-export default function Header() {
+interface HeaderProps {
+  categories: string[];
+}
+
+export default function Header({ categories }: HeaderProps) {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const headerRef = useRef<HTMLElement>(null);
   const scrollDir = useScrollDirection();
@@ -106,7 +110,7 @@ export default function Header() {
             </Button>
           </div>
         </nav>
-        <MegaMenu isOpen={isMenuOpen} />
+        <MegaMenu categories={categories} isOpen={isMenuOpen} />
       </div>
     </header>
   );
