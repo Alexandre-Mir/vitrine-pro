@@ -12,10 +12,14 @@ export default async function getProducts(): Promise<Product[]> {
   return res.json();
 }
 
-export async function getProductById(id: string): Promise<Product> {
+export async function getProductById(id: string): Promise<Product | null> {
   const res = await fetch(`https://fakestoreapi.com/products/${id}`, {
     next: { revalidate: 3600 },
   });
+
+  if (res.status === 404) {
+    return null;
+  }
 
   if (!res.ok) {
     throw new Error("Falha ao buscar produto");

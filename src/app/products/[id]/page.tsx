@@ -4,6 +4,7 @@ import Image from "next/image";
 import { Metadata } from "next";
 import Breadcrumbs from "@/app/components/ui/Breadcrumbs";
 import formatCurrency from "@/utils/format-currency";
+import { notFound } from "next/navigation";
 
 interface PageProps {
   params: Promise<{ id: string }>;
@@ -16,6 +17,11 @@ export async function generateMetadata({
 }): Promise<Metadata> {
   const { id } = await params;
   const product = await getProductById(id);
+
+  if (!product) {
+    return { title: "Produto não encontrado" };
+  }
+
   return {
     title: product.title,
     description: product.description,
@@ -25,6 +31,11 @@ export async function generateMetadata({
 export default async function ProductPage({ params }: PageProps) {
   const { id } = await params;
   const product = await getProductById(id);
+
+  if (!product) {
+    notFound();
+  }
+
   const breadcrumbItems = [
     { label: "Home", href: "/" },
     {
