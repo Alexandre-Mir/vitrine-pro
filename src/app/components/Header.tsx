@@ -9,11 +9,14 @@ import { useLockedBody } from "@/hooks/use-locked-body";
 import Link from "next/link";
 import { useCart } from "@/context/cart-context";
 
+import { Product } from "@/types/product";
+
 interface HeaderProps {
   categories: string[];
+  featuredProducts: Product[];
 }
 
-export default function Header({ categories }: HeaderProps) {
+export default function Header({ categories, featuredProducts }: HeaderProps) {
   const { cartQuantity } = useCart();
   const [activeMenu, setActiveMenu] = useState<string | null>(null);
   const headerRef = useRef<HTMLElement>(null);
@@ -39,7 +42,9 @@ export default function Header({ categories }: HeaderProps) {
         className={`bg-[#000000b3]  h-[200vh] w-full -z-10 fixed -top-4 left-0 pointer-events-none backdrop-blur-sm transition-all duration-(--menu-animation-slide-time) ease-(--menu-slide-down-curve) ${activeMenu ? "opacity-100" : "opacity-0"}`}
       ></div>
       <div className="relative md:max-w-2xl max-w-xs mx-auto overflow-hidden min-h-(--header-height)  text-primary color-primary  bg-background shadow-lg rounded-lg border border-border">
+        {/* ... nav existente ... */}
         <nav className="relative h-(--header-height) flex justify-between items-center border-b border-border ">
+          {/* ... conteúdo da nav ... */}
           <Button
             variant="ghost"
             size="none"
@@ -126,6 +131,7 @@ export default function Header({ categories }: HeaderProps) {
         </nav>
         <MegaMenu
           categories={categories}
+          featuredProducts={featuredProducts}
           isOpen={activeMenu !== null}
           activeMenu={activeMenu}
         />

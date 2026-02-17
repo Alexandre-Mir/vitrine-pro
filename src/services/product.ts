@@ -39,3 +39,17 @@ export async function getCategories(): Promise<string[]> {
 
   return res.json();
 }
+
+export async function searchProducts(query: string): Promise<Product[]> {
+  const allProducts = await getProducts();
+  const lowerQuery = query.toLowerCase();
+
+  // Simulating API Latency for demonstration purposes
+  await new Promise((resolve) => setTimeout(resolve, 1000));
+
+  return allProducts.filter(
+    (product) =>
+      product.title.toLowerCase().includes(lowerQuery) ||
+      product.description.toLowerCase().includes(lowerQuery),
+  );
+}

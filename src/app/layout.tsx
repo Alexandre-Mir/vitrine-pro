@@ -5,7 +5,8 @@ import Header from "./components/Header";
 import Footer from "./components/Footer";
 import ThemeProviderWrapper from "./providers/theme-provider";
 import { CartProvider } from "@/context/cart-context";
-import { getCategories } from "@/services/product";
+import getProducts, { getCategories } from "@/services/product";
+import { Toaster } from "./components/ui/sonner";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -27,7 +28,18 @@ export default async function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  const categories = await getCategories();
+  // Parallel Data Fetching com Resiliência (Fail-Safe)
+  // Se os produtos falharem, o site ainda carrega o menu básico.
+  const [categories, products] = await Promise.all([
+    getCategories().catch(() => []), // Fallback para array vazio em caso de erro crítico
+    getProducts()
+      .then((p) => p.slice(0, 3))
+      .catch((err) => {
+        console.error("Falha ao carregar destaques do menu:", err);
+        return []; // Retorna array vazio para não quebrar a UI
+      }),
+  ]);
+
   return (
     <html lang="pt-br" suppressHydrationWarning>
       <body
@@ -35,9 +47,11 @@ export default async function RootLayout({
       >
         <CartProvider>
           <ThemeProviderWrapper>
-            <Header categories={categories} />
+            {/* Agora passamos tanto categorias quanto produtos para o Header */}
+            <Header categories={categories} featuredProducts={products} />
             <div className="pt-[--header-height]">{children}</div>
             <Footer />
+            <Toaster />
           </ThemeProviderWrapper>
         </CartProvider>
       </body>

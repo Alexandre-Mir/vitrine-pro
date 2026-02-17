@@ -1,7 +1,13 @@
 "use client";
 
 import { Product } from "@/types/product";
-import { createContext, ReactNode, useContext, useState } from "react";
+import {
+  createContext,
+  ReactNode,
+  useContext,
+  useEffect,
+  useState,
+} from "react";
 
 export interface CartItem extends Product {
   quantity: number;
@@ -10,6 +16,7 @@ export interface CartItem extends Product {
 interface ICartContext {
   items: CartItem[];
   addToCart: (product: Product) => void;
+  removeFromCart: (productId: number) => void;
   cartQuantity: number;
 }
 
@@ -17,6 +24,30 @@ export const CartContext = createContext({} as ICartContext);
 
 export function CartProvider({ children }: { children: ReactNode }) {
   const [items, setItems] = useState<CartItem[]>([]);
+
+  // 1. Mounted Check: Só acessamos window/localStorage após a montagem no cliente.
+  // Isso evita que o HTML do servidor (vazio) difira do HTML inicial do cliente.
+  useEffect(() => {
+    const storedCart = localStorage.getItem("vitrine-pro-cart");
+    if (storedCart) {
+      try {
+        setItems(JSON.parse(storedCart));
+      } catch (error) {
+        console.error("Failed to parse cart from localStorage:", error);
+      }
+    }
+  }, []); // Executa apenas uma vez na montagem
+
+  // 2. Persistência Automática: Qualquer mudança no items salva no storage
+  useEffect(() => {
+    // Evita sobrescrever o storage com array vazio durante a hidratação inicial
+    // Se quiser permitir limpar o carrinho, a lógica deve ser refinada, mas para refresh serve.
+    // Uma melhor abordagem é usar um ref 'isInitialized' se precisarmos diferenciar [] inicial de [] limpo.
+    // Neste caso simples, assumimos que se items mudou (e já montou), salvamos.
+    if (items.length > 0 || localStorage.getItem("vitrine-pro-cart")) {
+      localStorage.setItem("vitrine-pro-cart", JSON.stringify(items));
+    }
+  }, [items]);
 
   const cartQuantity = items.length;
 
@@ -38,8 +69,16 @@ export function CartProvider({ children }: { children: ReactNode }) {
     });
   }
 
+  function removeFromCart(productId: number) {
+    setItems((currentItems) =>
+      currentItems.filter((item) => item.id !== productId),
+    );
+  }
+
   return (
-    <CartContext.Provider value={{ items, addToCart, cartQuantity }}>
+    <CartContext.Provider
+      value={{ items, addToCart, removeFromCart, cartQuantity }}
+    >
       {children}
     </CartContext.Provider>
   );
