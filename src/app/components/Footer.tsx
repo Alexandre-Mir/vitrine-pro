@@ -1,8 +1,34 @@
-import { ChevronRight, GithubIcon, LinkedinIcon } from "lucide-react";
+"use client";
+
+import {
+  ChevronRight,
+  GithubIcon,
+  LinkedinIcon,
+  Loader2,
+  Check,
+} from "lucide-react";
+import { useState, FormEvent } from "react";
 import Button from "./ui/Button";
 import Link from "next/link";
 
 export default function Footer() {
+  const [email, setEmail] = useState("");
+  const [status, setStatus] = useState<"idle" | "loading" | "success">("idle");
+
+  async function handleSubscribe(e: FormEvent) {
+    e.preventDefault();
+    setStatus("loading");
+
+    await new Promise((resolve) => setTimeout(resolve, 2000));
+
+    setStatus("success");
+    setEmail("");
+
+    setTimeout(() => {
+      setStatus("idle");
+    }, 3000);
+  }
+
   return (
     <footer className="bg-background text-primary py-16 ">
       <div className="md:px-14 md:max-w-full max-w-xs mx-auto">
@@ -55,20 +81,34 @@ export default function Footer() {
             <p className="mt-5">
               Lorem ipsum dolor sit amet consectetur adipisicing elit.
             </p>
-            <form className="max-w-[304px] flex-nowrap flex flex-row mt-5">
+            <form
+              onSubmit={handleSubscribe}
+              className="max-w-[304px] flex-nowrap flex flex-row mt-5"
+            >
               <input
-                className="bg-background border border-primary h-14 w-full py-3 pl-5 rounded-l-full text-primary placeholder:text-primary"
+                className="bg-background border border-primary h-14 w-full py-3 pl-5 rounded-l-full text-primary placeholder:text-primary outline-none disabled:opacity-50"
                 type="email"
                 placeholder="Seu email"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                required
+                disabled={status !== "idle"}
               />
               <Button
                 type="submit"
                 variant="outline"
                 size="none"
-                className="rounded-r-full w-1/4"
+                className="rounded-r-full w-14 disabled:opacity-100"
                 aria-label="Assinar newsletter"
+                disabled={status === "loading"}
               >
-                <ChevronRight size={20} className="m-auto" />
+                {status === "loading" ? (
+                  <Loader2 size={20} className="m-auto animate-spin" />
+                ) : status === "success" ? (
+                  <Check size={20} className="m-auto text-green-600" />
+                ) : (
+                  <ChevronRight size={20} className="m-auto" />
+                )}
               </Button>
             </form>
           </div>
