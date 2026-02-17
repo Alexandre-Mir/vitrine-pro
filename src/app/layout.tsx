@@ -4,6 +4,7 @@ import "./globals.css";
 import Header from "./components/Header";
 import Footer from "./components/Footer";
 import ThemeProviderWrapper from "./providers/theme-provider";
+import { CartProvider } from "@/context/cart-context";
 import { getCategories } from "@/services/product";
 
 const geistSans = Geist({
@@ -32,11 +33,13 @@ export default async function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased `}
       >
-        <ThemeProviderWrapper>
-          <Header categories={categories} />
-          <div className="pt-[--header-height]">{children}</div>
-          <Footer />
-        </ThemeProviderWrapper>
+        <CartProvider>
+          <ThemeProviderWrapper>
+            <Header categories={categories} />
+            <div className="pt-[--header-height]">{children}</div>
+            <Footer />
+          </ThemeProviderWrapper>
+        </CartProvider>
       </body>
     </html>
   );

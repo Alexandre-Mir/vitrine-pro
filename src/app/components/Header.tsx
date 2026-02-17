@@ -6,6 +6,7 @@ import { ChevronDown, Search, ShoppingCart, User } from "lucide-react";
 import Button from "./ui/Button";
 import { useScrollDirection } from "@/hooks/use-scroll-direction";
 import { useLockedBody } from "@/hooks/use-locked-body";
+import Link from "next/link";
 
 interface HeaderProps {
   categories: string[];
@@ -48,7 +49,7 @@ export default function Header({ categories }: HeaderProps) {
           </Button>
 
           <h1 className="lg:static lg:px-5 lg:border-r lg:border-border lg:translate-0 lg:h-full lg:content-center lg:text-2xl h-full content-center text-2xl h1-logo absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 p-0 border-0">
-            <a href="#">Vitrine Pro</a>
+            <Link href="/">Vitrine Pro</Link>
           </h1>
           <ul className="gap-8 place-content-center lg:flex hidden">
             <li className="flex cursor-pointer">
@@ -64,20 +65,20 @@ export default function Header({ categories }: HeaderProps) {
               </Button>
             </li>
             <li className="flex">
-              <a
-                href="#"
+              <Link
+                href="/sobre"
                 className="text-xs font-medium tracking-widest uppercase"
               >
                 Sobre
-              </a>
+              </Link>
             </li>
             <li className="flex">
-              <a
-                href="#"
+              <Link
+                href="/contato"
                 className="text-xs font-medium tracking-widest uppercase"
               >
                 Contato
-              </a>
+              </Link>
             </li>
           </ul>
           <div className="flex items-center gap-6 h-full px-6 lg:border-l lg:border-border md:border-0">
@@ -92,13 +93,13 @@ export default function Header({ categories }: HeaderProps) {
               <Search size={20} className="" />
             </Button>
             {/* Implementar página de perfil */}
-            <a
-              href="#"
+            <Link
+              href="/perfil"
               className="color-primary cursor-pointer"
               aria-label="Abrir perfil"
             >
               <User size={20} />
-            </a>
+            </Link>
             {/* Implementar carrinho Mega Menu */}
             <Button
               variant="ghost"

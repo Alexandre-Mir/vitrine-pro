@@ -1,5 +1,6 @@
 import { ChevronRight, GithubIcon, LinkedinIcon } from "lucide-react";
 import Button from "./ui/Button";
+import Link from "next/link";
 
 export default function Footer() {
   return (
@@ -18,19 +19,19 @@ export default function Footer() {
           <div className="flex-col flex">
             <h4 className="tracking-tight font-bold text-xl">Lorem ipsum</h4>
             <ul className="mt-5">
-              <li>Shop</li>
-              <li>Bundle + Save</li>
-              <li>Sobre</li>
-              <li>Lorem</li>
+              <Link href="/">Shop</Link>
+              <Link href="/">Bundle + Save</Link>
+              <Link href="/">Sobre</Link>
+              <Link href="/">Lorem</Link>
             </ul>
           </div>
           <div className="flex-col flex">
             <h4 className="tracking-tight font-bold text-xl">Lorem ipsum</h4>
             <ul className="mt-5">
-              <li>Shop</li>
-              <li>Bundle + Save</li>
-              <li>Sobre</li>
-              <li>Lorem</li>
+              <Link href="/">Shop</Link>
+              <Link href="/">Bundle + Save</Link>
+              <Link href="/">Sobre</Link>
+              <Link href="/">Lorem</Link>
             </ul>
           </div>
           <div className="flex-col flex">

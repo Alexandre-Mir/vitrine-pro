@@ -1,5 +1,6 @@
 import { BadgeDollarSign } from "lucide-react";
 import ThemeToggle from "./ThemeToggle";
+import Link from "next/link";
 
 interface MegaMenuProps {
   isOpen: boolean;
@@ -24,8 +25,7 @@ export default function MegaMenu({ isOpen, categories }: MegaMenuProps) {
           </h4>
           <ul>
             <li className="border-b border-border py-5 ">
-              <a
-                href=""
+              <h5
                 className={`text-xl tracking-tight flex ${
                   isOpen
                     ? "animate-fade-right animate-once animate-normal animate-delay-100"
@@ -33,26 +33,27 @@ export default function MegaMenu({ isOpen, categories }: MegaMenuProps) {
                 }`}
               >
                 Categorias
-              </a>
+              </h5>
               <ul className="pt-3 pl-4 flex flex-col gap-1">
                 {categories.map((category, index) => (
                   <li key={index}>
-                    <a
-                      className={`flex ${
+                    <Link
+                      href={`/category/${category}`}
+                      className={`flex first-letter:capitalize ${
                         isOpen
-                          ? `animate-fade-right animate-once animate-normal animate-delay-${index * 100}`
+                          ? ` animate-fade-right animate-once animate-normal animate-delay-${index * 100}`
                           : ""
                       }`}
                     >
                       {category}
-                    </a>
+                    </Link>
                   </li>
                 ))}
               </ul>
             </li>
             <li className="pt-5 pb-1">
-              <a
-                href=""
+              <Link
+                href="/item"
                 className={`text-xl tracking-tight flex ${
                   isOpen
                     ? "animate-fade-right animate-once animate-normal  animate-delay-500"
@@ -60,11 +61,11 @@ export default function MegaMenu({ isOpen, categories }: MegaMenuProps) {
                 }`}
               >
                 Item
-              </a>
+              </Link>
             </li>
             <li className="pb-1">
-              <a
-                href=""
+              <Link
+                href="/item"
                 className={`text-xl tracking-tight flex ${
                   isOpen
                     ? "animate-fade-right animate-once animate-normal  animate-delay-600"
@@ -72,11 +73,11 @@ export default function MegaMenu({ isOpen, categories }: MegaMenuProps) {
                 }`}
               >
                 Item
-              </a>
+              </Link>
             </li>
             <li className="mt-4 border-y border-border py-5 ">
-              <a
-                href=""
+              <Link
+                href="/Coleção"
                 className={`text-xl tracking-tight flex items-center gap-2 ${
                   isOpen
                     ? "animate-fade-right animate-once animate-normal animate-delay-700"
@@ -87,11 +88,11 @@ export default function MegaMenu({ isOpen, categories }: MegaMenuProps) {
                   <BadgeDollarSign size={18} strokeWidth="1.5" />
                 </div>
                 Coleção
-              </a>
+              </Link>
             </li>
             <li className="py-5 ">
-              <a
-                href=""
+              <Link
+                href="/todos"
                 className={`text-xl tracking-tight flex ${
                   isOpen
                     ? "animate-fade-right animate-once animate-normal  animate-delay-800"
@@ -99,7 +100,7 @@ export default function MegaMenu({ isOpen, categories }: MegaMenuProps) {
                 }`}
               >
                 Todos os itens
-              </a>
+              </Link>
             </li>
           </ul>
         </div>
@@ -118,8 +119,8 @@ export default function MegaMenu({ isOpen, categories }: MegaMenuProps) {
           </h4>
           <ul>
             <li className="pt-5 pb-1">
-              <a
-                href=""
+              <Link
+                href="/sobre"
                 className={`text-xl tracking-tight flex ${
                   isOpen
                     ? "animate-fade-right animate-once animate-normal  animate-delay-1000"
@@ -127,11 +128,11 @@ export default function MegaMenu({ isOpen, categories }: MegaMenuProps) {
                 }`}
               >
                 Sobre
-              </a>
+              </Link>
             </li>
             <li>
-              <a
-                href=""
+              <Link
+                href="/contato"
                 className={`text-xl tracking-tight flex ${
                   isOpen
                     ? "animate-fade-right animate-once animate-normal  animate-delay-1100"
@@ -139,7 +140,7 @@ export default function MegaMenu({ isOpen, categories }: MegaMenuProps) {
                 }`}
               >
                 Contato
-              </a>
+              </Link>
             </li>
           </ul>
         </div>

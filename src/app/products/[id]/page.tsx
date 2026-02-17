@@ -1,4 +1,4 @@
-import Button from "@/app/components/ui/Button";
+import { AddToCart } from "@/app/components/AddToCart";
 import { getProductById } from "@/services/product";
 import Image from "next/image";
 import { Metadata } from "next";
@@ -72,7 +72,7 @@ export default async function ProductPage({ params }: PageProps) {
           </div>
           <p className="text-2xl">{formatCurrency(product.price)}</p>
         </div>
-        <Button>Adicionar ao carrinho</Button>
+        <AddToCart product={product} />
         <p className="first-letter:uppercase">{product.description}</p>
       </section>
     </main>

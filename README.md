@@ -1,36 +1,86 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Vitrine Pro
 
-## Getting Started
+Este projeto foi desenvolvido com o objetivo de demonstrar competências em **Next.js**, **SEO Avançado** e arquitetura de **E-commerce**, atendendo às demandas técnicas observadas em grandes players do mercado.
 
-First, run the development server:
+## 🎯 Conceito do Projeto
+
+O **Vitrine Pro** é uma loja virtual simulada cujo foco principal é a **performance (Core Web Vitals)** e a **indexabilidade (SEO)**.
+
+Diferente de um clone de e-commerce tradicional, este projeto prioriza a arquitetura de renderização e as melhores práticas de desenvolvimento web moderno:
+
+- **Arquitetura de Renderização:** Uso estratégico do **App Router** do Next.js para implementar Server-Side Rendering (SSR) e Static Site Generation (SSG), garantindo que o conteúdo seja entregue de forma rápida e otimizada para os motores de busca.
+- **Performance Web:** Foco em métricas essenciais como LCP, FID e CLS.
+- **SEO Técnico:** Implementação de meta tags dinâmicas (`generateMetadata`), estrutura semântica correta e otimização de ativos.
+
+## 🚀 Diferenciais Técnicos
+
+- **Core:** Next.js 16 (App Router)
+- **Estilização:** Tailwind CSS v4 (Design System utilitário e responsivo)
+- **Dados:** Consumo de API externa (FakeStoreAPI) simulando um cenário real de integração.
+- **Otimização de Imagens:** Uso do componente `next/image` para carregamento lazy, redimensionamento automático e formatos modernos (WebP/AVIF).
+- **Acessibilidade:** Códigos estruturados seguindo diretrizes WCAG para garantir uma web inclusiva.
+
+## �️ Stack Tecnológica
+
+O projeto utiliza as tecnologias mais recentes e estáveis do ecossistema React:
+
+- **[Next.js 16](https://nextjs.org/)** - Framework React para produção.
+- **[TypeScript](https://www.typescriptlang.org/)** - Superset JavaScript para tipagem estática e segurança.
+- **[Tailwind CSS v4](https://tailwindcss.com/)** - Framework CSS Utility-First.
+- **[Lucide React](https://lucide.dev/)** - Biblioteca de ícones consistente e leve.
+- **[Next Themes](https://github.com/pacocoursey/next-themes)** - Gerenciamento de temas (Dark/Light mode).
+
+## 📂 Estrutura do Projeto
 
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+src/
+├── app/                 # App Router (páginas, layouts, rotas dinâmicas)
+│   ├── components/      # Componentes de UI (Header, ProductCard, etc.)
+│   ├── products/        # Páginas de produtos ([id])
+│   ├── services/        # Lógica de consumo da API (fetch wrappers)
+│   ├── types/           # Definições de Tipos TypeScript
+│   └── utils/           # Funções utilitárias (formatação, etc.)
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## ⚡ Como Executar
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+Siga os passos abaixo para rodar o projeto localmente:
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+### Pré-requisitos
 
-## Learn More
+Certifique-se de ter o **Node.js** instalado em sua máquina.
 
-To learn more about Next.js, take a look at the following resources:
+### Instalação
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+1. Clone o repositório:
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+   ```bash
+   git clone <url-do-repositorio>
+   cd vitrine-pro
+   ```
 
-## Deploy on Vercel
+2. Instale as dependências:
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+   ```bash
+   npm install
+   # ou
+   yarn install
+   # ou
+   pnpm install
+   ```
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+3. Execute o servidor de desenvolvimento:
+
+   ```bash
+   npm run dev
+   ```
+
+4. Acesse [http://localhost:3000](http://localhost:3000) no seu navegador para ver o resultado.
+
+## 🤝 Contribuição
+
+Contribuições são bem-vindas! Sinta-se à vontade para abrir Issues ou enviar Pull Requests para melhorias no SEO, Performance ou Acessibilidade.
+
+## 📝 Licença
+
+Este projeto é desenvolvido para fins de portfólio e estudo.
