@@ -18,20 +18,36 @@ export default function Footer() {
           </div>
           <div className="flex-col flex">
             <h4 className="tracking-tight font-bold text-xl">Lorem ipsum</h4>
-            <ul className="mt-5">
-              <Link href="/">Shop</Link>
-              <Link href="/">Bundle + Save</Link>
-              <Link href="/">Sobre</Link>
-              <Link href="/">Lorem</Link>
+            <ul className="mt-5 flex flex-col gap-2">
+              <li>
+                <Link href="/">Shop</Link>
+              </li>
+              <li>
+                <Link href="/">Bundle + Save</Link>
+              </li>
+              <li>
+                <Link href="/about">Sobre</Link>
+              </li>
+              <li>
+                <Link href="/contact">Contato</Link>
+              </li>
             </ul>
           </div>
           <div className="flex-col flex">
             <h4 className="tracking-tight font-bold text-xl">Lorem ipsum</h4>
-            <ul className="mt-5">
-              <Link href="/">Shop</Link>
-              <Link href="/">Bundle + Save</Link>
-              <Link href="/">Sobre</Link>
-              <Link href="/">Lorem</Link>
+            <ul className="mt-5 flex flex-col gap-2">
+              <li>
+                <Link href="/">FAQ</Link>
+              </li>
+              <li>
+                <Link href="/">Envios e Devoluções</Link>
+              </li>
+              <li>
+                <Link href="/">Termos de Serviço</Link>
+              </li>
+              <li>
+                <Link href="/">Política de Privacidade</Link>
+              </li>
             </ul>
           </div>
           <div className="flex-col flex">
@@ -62,9 +78,23 @@ export default function Footer() {
         </div>
       </div>
       <div className="md:px-14 mt-4 md:max-w-full max-w-xs mx-auto flex md:justify-between flex-col md:flex-row justify-center ">
-        <div className="flex gap-2">
-          <LinkedinIcon />
-          <GithubIcon />
+        <div className="flex gap-4">
+          <a
+            href="https://www.linkedin.com/in/seu-perfil"
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label="LinkedIn"
+          >
+            <LinkedinIcon />
+          </a>
+          <a
+            href="https://github.com/seu-usuario"
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label="GitHub"
+          >
+            <GithubIcon />
+          </a>
         </div>
         <div className="mt-1">
           <span className="text-sm">
