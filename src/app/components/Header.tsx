@@ -7,12 +7,14 @@ import Button from "./ui/Button";
 import { useScrollDirection } from "@/hooks/use-scroll-direction";
 import { useLockedBody } from "@/hooks/use-locked-body";
 import Link from "next/link";
+import { useCart } from "@/context/cart-context";
 
 interface HeaderProps {
   categories: string[];
 }
 
 export default function Header({ categories }: HeaderProps) {
+  const { cartQuantity } = useCart();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const headerRef = useRef<HTMLElement>(null);
   const scrollDir = useScrollDirection();
@@ -101,14 +103,19 @@ export default function Header({ categories }: HeaderProps) {
               <User size={20} />
             </Link>
             {/* Implementar carrinho Mega Menu */}
-            <Button
-              variant="ghost"
-              size="none"
-              onClick={handleShopClick}
+            {/* Implementar carrinho Mega Menu */}
+            <Link
+              href="/carrinho"
+              className="relative"
               aria-label="Abrir carrinho"
             >
               <ShoppingCart size={20} />
-            </Button>
+              {cartQuantity > 0 && (
+                <span className="absolute -top-2 -right-2 bg-accent text-primary text-[10px] font-bold h-5 w-5 flex items-center justify-center rounded-full">
+                  {cartQuantity}
+                </span>
+              )}
+            </Link>
           </div>
         </nav>
         <MegaMenu categories={categories} isOpen={isMenuOpen} />
