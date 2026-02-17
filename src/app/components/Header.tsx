@@ -15,14 +15,18 @@ interface HeaderProps {
 
 export default function Header({ categories }: HeaderProps) {
   const { cartQuantity } = useCart();
-  const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [activeMenu, setActiveMenu] = useState<string | null>(null);
   const headerRef = useRef<HTMLElement>(null);
   const scrollDir = useScrollDirection();
-  useLockedBody(isMenuOpen);
+  useLockedBody(activeMenu !== null);
 
   // Função para abrir e fechar o menu
-  function handleShopClick() {
-    setIsMenuOpen(!isMenuOpen);
+  function handleToggleMenu(menu: string) {
+    if (activeMenu === menu) {
+      setActiveMenu(null);
+    } else {
+      setActiveMenu(menu);
+    }
   }
 
   return (
@@ -32,16 +36,16 @@ export default function Header({ categories }: HeaderProps) {
     >
       <div
         data-menu-blur
-        className={`bg-[#000000b3]  h-[200vh] w-full -z-10 fixed -top-4 left-0 pointer-events-none backdrop-blur-sm transition-all duration-(--menu-animation-slide-time) ease-(--menu-slide-down-curve) ${isMenuOpen ? "opacity-100" : "opacity-0"}`}
+        className={`bg-[#000000b3]  h-[200vh] w-full -z-10 fixed -top-4 left-0 pointer-events-none backdrop-blur-sm transition-all duration-(--menu-animation-slide-time) ease-(--menu-slide-down-curve) ${activeMenu ? "opacity-100" : "opacity-0"}`}
       ></div>
       <div className="relative md:max-w-2xl max-w-xs mx-auto overflow-hidden min-h-(--header-height)  text-primary color-primary  bg-background shadow-lg rounded-lg border border-border">
         <nav className="relative h-(--header-height) flex justify-between items-center border-b border-border ">
           <Button
             variant="ghost"
             size="none"
-            className={`lg:hidden ml-6 tham tham-e-slider tham-w-5 ${isMenuOpen ? "tham-active" : ""}`}
+            className={`lg:hidden ml-6 tham tham-e-slider tham-w-5 ${activeMenu === "shop" ? "tham-active" : ""}`}
             onClick={() => {
-              handleShopClick();
+              handleToggleMenu("shop");
             }}
             aria-label="Abrir menu"
           >
@@ -58,7 +62,7 @@ export default function Header({ categories }: HeaderProps) {
               <Button
                 variant="ghost"
                 size="none"
-                onClick={handleShopClick}
+                onClick={() => handleToggleMenu("shop")}
                 className="gap-1.5 text-xs font-medium tracking-widest uppercase"
                 aria-label="Abrir menu"
               >
@@ -89,7 +93,7 @@ export default function Header({ categories }: HeaderProps) {
               className="lg:static absolute left-16 top-[15px]"
               variant="ghost"
               size="none"
-              onClick={handleShopClick}
+              onClick={() => handleToggleMenu("search")}
               aria-label="Abrir busca"
             >
               <Search size={20} className="" />
@@ -103,10 +107,12 @@ export default function Header({ categories }: HeaderProps) {
               <User size={20} />
             </Link>
             {/* Implementar carrinho Mega Menu */}
-            {/* Implementar carrinho Mega Menu */}
-            <Link
-              href="/carrinho"
+            {/* Implementar carrinho Mega Menu, invés de abrir uma nova página, deve abrir um menu como o Button "SHOP" */}
+            <Button
               className="relative"
+              variant="ghost"
+              size="none"
+              onClick={() => handleToggleMenu("cart")}
               aria-label="Abrir carrinho"
             >
               <ShoppingCart size={20} />
@@ -115,10 +121,14 @@ export default function Header({ categories }: HeaderProps) {
                   {cartQuantity}
                 </span>
               )}
-            </Link>
+            </Button>
           </div>
         </nav>
-        <MegaMenu categories={categories} isOpen={isMenuOpen} />
+        <MegaMenu
+          categories={categories}
+          isOpen={activeMenu !== null}
+          activeMenu={activeMenu}
+        />
       </div>
     </header>
   );
