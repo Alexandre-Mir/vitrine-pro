@@ -6,8 +6,10 @@ import Image from "next/image";
 import formatCurrency from "@/utils/format-currency";
 import Button from "./ui/Button";
 import { SearchBar } from "./SearchBar";
-import { Suspense } from "react";
+import { Suspense, useEffect, useRef, useState } from "react";
 import { Product } from "@/types/product";
+
+import { useAutoAnimate } from "@formkit/auto-animate/react";
 
 interface MegaMenuProps {
   isOpen: boolean;
@@ -23,6 +25,69 @@ export default function MegaMenu({
   featuredProducts,
 }: MegaMenuProps) {
   const { items, removeFromCart } = useCart();
+  const [parent] = useAutoAnimate();
+  const [lastActiveMenu, setLastActiveMenu] = useState<string | null>(
+    activeMenu,
+  );
+  const [menuHeight, setMenuHeight] = useState(0);
+  const contentRef = useRef<HTMLDivElement>(null);
+  const wasOpen = useRef(isOpen);
+  const previousHeight = useRef(0);
+  const [isShrinking, setIsShrinking] = useState(false);
+
+  useEffect(() => {
+    if (activeMenu) {
+      setLastActiveMenu(activeMenu);
+    }
+  }, [activeMenu]);
+
+  useEffect(() => {
+    wasOpen.current = isOpen;
+  }, [isOpen]);
+
+  const isResizing = isOpen && wasOpen.current;
+
+  // Lógica de transição dinâmica
+  let transitionClass =
+    "duration-(--menu-animation-slide-time) ease-(--menu-slide-down-curve)";
+
+  if (isShrinking) {
+    transitionClass = "duration-200 ease-out";
+  } else if (isResizing) {
+    transitionClass = "duration-300 ease-(--menu-slide-down-curve)";
+  }
+
+  useEffect(() => {
+    if (!contentRef.current) return;
+
+    const observer = new ResizeObserver((entries) => {
+      for (const entry of entries) {
+        let newHeight = 0;
+        if (entry.borderBoxSize) {
+          newHeight = entry.borderBoxSize[0].blockSize;
+        } else {
+          newHeight = entry.contentRect.height;
+        }
+
+        // Detecta se o menu está encolhendo
+        if (newHeight < previousHeight.current) {
+          setIsShrinking(true);
+        } else {
+          setIsShrinking(false);
+        }
+
+        previousHeight.current = newHeight;
+        setMenuHeight(newHeight);
+      }
+    });
+
+    observer.observe(contentRef.current);
+
+    return () => observer.disconnect();
+  }, [activeMenu, lastActiveMenu]);
+
+  const menuToRender = activeMenu || lastActiveMenu;
+
   const total = items.reduce(
     (acc, item) => acc + item.price * item.quantity,
     0,
@@ -31,16 +96,16 @@ export default function MegaMenu({
   return (
     <nav
       data-main-menu
-      className={`z-10 w-full grid transition-all duration-(--menu-animation-slide-time) ease-(--menu-slide-down-curve) ${
-        isOpen ? "grid-rows-[1fr]" : "grid-rows-[0fr]"
-      }`}
+      style={{ height: isOpen ? menuHeight : 0 }}
+      className={`z-10 w-full overflow-hidden transition-all ${transitionClass}`}
     >
       <div className="overflow-hidden min-h-0">
         <div
+          ref={contentRef}
           data-menu-content
           className={`flex lg:flex-row flex-col px-5 lg:py-3 py-5  ${isOpen ? "opacity-100 backdrop-blur-2xl" : "opacity-0"} transition-opacity duration-1000 ease-in`}
         >
-          {activeMenu === "shop" && (
+          {menuToRender === "shop" && (
             <>
               <div className="w-full lg:w-1/2 lg:pr-5">
                 <h4
@@ -78,34 +143,51 @@ export default function MegaMenu({
                 </ul>
               </div>
 
-              <div className="hidden lg:flex w-1/2 gap-4">
-                {featuredProducts.map((product, index) => (
+              <div className="hidden lg:flex w-1/2">
+                {featuredProducts.length > 0 && (
                   <Link
-                    key={product.id}
-                    href={`/products/${product.id}`}
-                    className={`flex-1 group relative rounded-lg overflow-hidden border border-border bg-background p-4 flex flex-col gap-2 hover:border-primary transition-colors ${
+                    href={`/products/${featuredProducts[0].id}`}
+                    className={`group relative w-full h-full rounded-xl overflow-hidden border border-border bg-background p-4 flex flex-col gap-4 hover:border-primary transition-all hover:shadow-lg ${
                       isOpen
-                        ? `animate-fade-left animate-once animate-normal animate-delay-${index * 150}`
+                        ? "animate-fade-left animate-once animate-duration-500 animate-ease-out"
                         : ""
                     }`}
                   >
-                    <div className="relative w-full h-32 mb-2 bg-white rounded-md">
+                    <div className="relative w-full aspect-[4/3] bg-white rounded-lg shrink-0 overflow-hidden">
                       <Image
-                        src={product.image}
-                        alt={product.title}
+                        src={featuredProducts[0].image}
+                        alt={featuredProducts[0].title}
                         fill
-                        className="object-contain p-2 group-hover:scale-105 transition-transform duration-500"
-                        sizes="(max-width: 768px) 100vw, 33vw"
+                        className="object-contain p-4 group-hover:scale-110 transition-transform duration-700 ease-in-out"
+                        sizes="(max-width: 1024px) 100vw, 50vw"
+                        priority
                       />
                     </div>
-                    <p className="text-sm font-medium line-clamp-2 leading-tight">
-                      {product.title}
-                    </p>
-                    <span className="text-xs font-bold mt-auto text-primary">
-                      {formatCurrency(product.price)}
-                    </span>
+
+                    <div className="flex flex-col flex-1 w-full justify-between">
+                      <div>
+                        <span className="text-xs font-bold tracking-widest text-accent uppercase mb-1 block">
+                          Destaque
+                        </span>
+                        <h3 className="text-base font-bold leading-tight mb-2 group-hover:text-primary/80 transition-colors line-clamp-2">
+                          {featuredProducts[0].title}
+                        </h3>
+                        <p className="text-xs text-subtitle line-clamp-2 mb-3 leading-relaxed">
+                          {featuredProducts[0].description}
+                        </p>
+                      </div>
+
+                      <div className="flex items-center justify-between w-full pt-3 border-t border-border/50">
+                        <span className="text-lg font-bold text-primary">
+                          {formatCurrency(featuredProducts[0].price)}
+                        </span>
+                        <span className="bg-primary text-background px-3 py-1.5 text-[10px] font-bold uppercase tracking-wider rounded-md group-hover:bg-accent group-hover:text-primary transition-colors">
+                          Ver Detalhes
+                        </span>
+                      </div>
+                    </div>
                   </Link>
-                ))}
+                )}
               </div>
 
               <div className="lg:hidden py-5">
@@ -145,13 +227,8 @@ export default function MegaMenu({
             </>
           )}
 
-          {activeMenu === "search" && (
+          {menuToRender === "search" && (
             <div className="w-full max-w-xl mx-auto flex flex-col gap-4">
-              <h4
-                className={`tracking-widest uppercase text-subtitle text-xs font-medium ${isOpen ? "animate-fade-right animate-once animate-normal" : ""}`}
-              >
-                Buscar produtos
-              </h4>
               <Suspense
                 fallback={
                   <div className="w-full h-12 bg-gray-100 rounded animate-pulse" />
@@ -162,23 +239,18 @@ export default function MegaMenu({
             </div>
           )}
 
-          {activeMenu === "cart" && (
+          {menuToRender === "cart" && (
             <div className="w-full max-w-lg mx-auto flex flex-col h-full min-h-[300px]">
-              <h4
-                className={`tracking-widest uppercase text-subtitle text-xs font-medium mb-4 ${
-                  isOpen ? "animate-fade-right animate-once animate-normal" : ""
-                }`}
-              >
-                Seu Carrinho
-              </h4>
-
               {items.length === 0 ? (
                 <div className="flex-1 flex flex-col items-center justify-center gap-4 opacity-50">
                   <ShoppingBag size={48} strokeWidth={1} />
                   <p>Seu carrinho está vazio</p>
                 </div>
               ) : (
-                <ul className="flex flex-col gap-6 overflow-y-auto max-h-[60vh] pr-2 scrollbar-hide">
+                <ul
+                  ref={parent}
+                  className="flex flex-col gap-6 overflow-y-auto max-h-[60vh] pr-2 scrollbar-hide"
+                >
                   {items.map((item) => (
                     <li
                       key={item.id}

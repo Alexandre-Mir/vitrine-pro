@@ -15,19 +15,25 @@ Diferente de um clone de e-commerce tradicional, este projeto prioriza a arquite
 ## 🚀 Diferenciais Técnicos
 
 - **Core:** Next.js 16 (App Router) com React Server Components.
-- **Estilização:** Tailwind CSS v4 (Design System utilitário e responsivo).
+- **Estilização:** Tailwind CSS v4 (Design System utilitário e responsivo) + `tailwindcss-animated`.
+- **Animações de Alta Performance:**
+  - **MegaMenu Inteligente:** Utiliza `ResizeObserver` e lógica de "Delta de Altura" para detectar encolhimento de conteúdo e ajustar a curva de animação em tempo real (`ease-out` vs `custom-bezier`).
+  - **Contextual Mode:** O Header se adapta dinamicamente (mudando de Navegação para Título Contextual) ao abrir Busca ou Carrinho, preservando a hierarquia visual.
+  - **Auto-Animate:** Listas (como o carrinho) utilizam `@formkit/auto-animate` para reordenação fluida de elementos (Zero-Config).
 - **Dados:** Consumo de API externa (FakeStoreAPI) simulando integração real.
 - **Carrinho Inteligente:** Validação de preço no servidor antes de adicionar ao carrinho (`server action`), garantindo integridade dos dados.
-- **UI Responsiva:** Mega Menu dinâmico com visualização rápida do carrinho e navegação por categorias.
 
 ## ✨ Funcionalidades Recentes
 
 - **Global Cart Context:** Gerenciamento de estado do carrinho acessível em toda a aplicação.
-- **Mega Menu Interativo:** Navegação expandida com visualização direta dos itens do carrinho e cálculo de total em tempo real.
-- **Validação Server-Side:** Proteção contra diverciência de preços ao adicionar itens ao carrinho.
+- **Mega Menu Interativo (v2.0):**
+  - **Hero Card:** Destaque de produto com layout "Poster" vertical otimizado para containers compactos.
+  - **Route Observability:** Fechamento automático do menu ao navegar (`usePathname`), prevenindo "ghost menus".
+  - **Performance:** Física de animação condicional (entrada lenta / navegação interna rápida).
+- **Validação Server-Side:** Proteção contra divergência de preços ao adicionar itens ao carrinho.
 - **Newsletter:** Componente de inscrição com feedback visual de status (loading/success).
 
-## �️ Estratégia de Integridade de Dados (Carrinho)
+## 🛡️ Estratégia de Integridade de Dados (Carrinho)
 
 Este projeto implementa uma salvaguarda robusta contra dados obsoletos (_stale data_) oriundos da estratégia de ISR (Incremental Static Regeneration).
 
@@ -45,7 +51,7 @@ Implementamos uma verificação obrigatória no momento da ação de compra (`Ad
 3.  **Prevenção de Rage Clicks**: O botão entra em estado `disabled` + `loading` ("Verificando...") durante a validação, impedindo múltiplos cliques acidentais ou ansiosos que duplicariam itens.
 4.  **Tratamento de Falhas**: Erros de rede ou API não falham silenciosamente. O usuário recebe feedback visual e o sistema reseta para permitir uma nova tentativa, sem prender a UI em um estado inválido.
 
-## �🛠️ Stack Tecnológica
+## 🛠️ Stack Tecnológica
 
 O projeto utiliza as tecnologias mais recentes e estáveis do ecossistema React:
 
@@ -53,6 +59,7 @@ O projeto utiliza as tecnologias mais recentes e estáveis do ecossistema React:
 - **[TypeScript](https://www.typescriptlang.org/)** - Superset JavaScript para tipagem estática e segurança.
 - **[Tailwind CSS v4](https://tailwindcss.com/)** - Framework CSS Utility-First.
 - **[Lucide React](https://lucide.dev/)** - Biblioteca de ícones consistente e leve.
+- **[@formkit/auto-animate](https://auto-animate.formkit.com/)** - Animações de lista automáticas.
 - **[Zustand / Context API](https://react.dev/reference/react/createContext)** - Gerenciamento de estado (Context API nativa utilizada).
 
 ## 📂 Estrutura do Projeto
@@ -81,10 +88,11 @@ O roadmap de desenvolvimento inclui as seguintes melhorias estratégicas:
    - [x] Corrigir "zona morta" abaixo do header (ajuste de altura)
    - [x] Substituir placeholders do MegaMenu por produtos reais (Parallel Data Fetching)
    - [x] Persistir itens do carrinho no refresh (localStorage + Mounted Check)
-   - [ ] Suavizar animação de fechamento do MegaMenu (CSS Grid transition)
+   - [x] Suavizar animação de fechamento do MegaMenu (CSS Grid transition -> ResizeObserver height + AutoAnimate)
+   - [x] No MegaMenu Shop, ajustar o layout para destacar apenas 1 produto principal (Hero Card).
+   - [x] Corrigir alinhamentos verticais no Header e Botão de Busca.
    - [ ] No ProductCard, ao "hover" o botão deve se expandir para informar "adicionar ao carrinho"
    - [ ] Repensar a localização e UX do alternador de tema (claro/escuro).
-   - [ ] No MegaMenu Shop, ajustar o layout para destacar apenas 1 produto principal ao invés de 3 apertados.
 
 1. **Funcionalidade de Busca (Search):**
    - Evoluir o input de busca no menu (atualmente visual) para filtrar produtos em tempo real.
