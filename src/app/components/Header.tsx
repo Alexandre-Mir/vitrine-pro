@@ -4,6 +4,7 @@ import { useEffect, useRef, useState } from "react";
 import MegaMenu from "./MegaMenu";
 import { ChevronDown, Search, ShoppingCart, User, X } from "lucide-react";
 import Button from "./ui/Button";
+import ThemeToggle from "./ThemeToggle";
 import { useScrollDirection } from "@/hooks/use-scroll-direction";
 import { useLockedBody } from "@/hooks/use-locked-body";
 import Link from "next/link";
@@ -133,6 +134,7 @@ export default function Header({ categories, featuredProducts }: HeaderProps) {
               </li>
             </ul>
             <div className="flex items-center gap-6 h-full px-6 lg:border-l lg:border-border md:border-0">
+              <ThemeToggle className="hidden lg:flex" />
               {/* Implementar busca Mega Menu */}
               <Button
                 className="lg:static lg:translate-y-0 absolute left-16 top-1/2 -translate-y-1/2"
@@ -151,8 +153,6 @@ export default function Header({ categories, featuredProducts }: HeaderProps) {
               >
                 <User size={20} />
               </Link>
-              {/* Implementar carrinho Mega Menu */}
-              {/* Implementar carrinho Mega Menu, invés de abrir uma nova página, deve abrir um menu como o Button "SHOP" */}
               <Button
                 className="relative"
                 variant="ghost"
@@ -175,6 +175,7 @@ export default function Header({ categories, featuredProducts }: HeaderProps) {
           featuredProducts={featuredProducts}
           isOpen={activeMenu !== null}
           activeMenu={activeMenu}
+          onClose={() => setActiveMenu(null)}
         />
       </div>
     </header>

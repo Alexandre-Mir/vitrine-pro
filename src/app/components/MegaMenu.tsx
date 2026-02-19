@@ -16,6 +16,7 @@ interface MegaMenuProps {
   categories: string[];
   activeMenu: string | null;
   featuredProducts: Product[];
+  onClose: () => void;
 }
 
 export default function MegaMenu({
@@ -23,6 +24,7 @@ export default function MegaMenu({
   categories,
   activeMenu,
   featuredProducts,
+  onClose,
 }: MegaMenuProps) {
   const { items, removeFromCart } = useCart();
   const [parent] = useAutoAnimate();
@@ -228,13 +230,13 @@ export default function MegaMenu({
           )}
 
           {menuToRender === "search" && (
-            <div className="w-full max-w-xl mx-auto flex flex-col gap-4">
+            <div className="w-full max-w-xl mx-auto flex flex-col gap-4 pb-4">
               <Suspense
                 fallback={
                   <div className="w-full h-12 bg-gray-100 rounded animate-pulse" />
                 }
               >
-                <SearchBar />
+                <SearchBar onSubmit={onClose} />
               </Suspense>
             </div>
           )}
@@ -312,7 +314,7 @@ export default function MegaMenu({
         </div>
       </div>
       <div
-        className={`w-full mb-5 border-t border-border pt-5 flex justify-center items-center ${isOpen ? "animate-fade-right animate-once animate-normal animate-delay-1200" : ""}`}
+        className={`lg:hidden w-full mb-5 border-t border-border pt-5 flex justify-center items-center ${isOpen ? "animate-fade-right animate-once animate-normal animate-delay-1200" : ""}`}
       >
         <ThemeToggle />
       </div>

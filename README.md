@@ -32,6 +32,16 @@ Diferente de um clone de e-commerce tradicional, este projeto prioriza a arquite
   - **Performance:** Física de animação condicional (entrada lenta / navegação interna rápida).
 - **Validação Server-Side:** Proteção contra divergência de preços ao adicionar itens ao carrinho.
 - **Newsletter:** Componente de inscrição com feedback visual de status (loading/success).
+- **Theme Toggle Acessível:** Alternador de tema (claro/escuro) extraído do interior do MegaMenu e promovido ao grupo de ações principais do Header (junto com Busca, Perfil e Carrinho), garantindo acesso imediato (1-click) no Desktop. No Mobile, permanece acessível dentro do menu expansível para não sobrecarregar a barra de navegação.
+- **Busca com Preview Dinâmico:**
+  - **Debounced Search:** O `SearchBar` agora realiza fetch client-side com `useDebounce` (350ms), exibindo até 3 produtos como preview abaixo do input enquanto o usuário digita.
+  - **Feedback Visual:** Spinner animado (`Loader2`) aparece instantaneamente durante o debounce gap (`isTypingAhead`) e skeleton placeholders durante o carregamento, evitando submissões prematuras.
+  - **URL como SSoT:** Correção do bug de Estado Descolado (Stale State) — o input agora sincroniza com `searchParams` via `useEffect`, mantendo consistência com botão Voltar e navegação por categorias.
+  - **AbortController:** Requests cancelados automaticamente quando o usuário altera o termo antes da resposta chegar, eliminando race conditions.
+  - **Auto-Close:** O MegaMenu fecha automaticamente ao submeter a busca (Enter) ou clicar em um produto do preview, via callback `onClose` propagado do Header.
+- **AddToCart Hover Pill (CSS Grid Trick):**
+  - O botão de "Adicionar ao Carrinho" no `ProductCard` agora expande de um círculo (ícone) para uma pílula (ícone + "ADICIONAR") no hover.
+  - Utiliza transição de `grid-template-columns: 0fr → 1fr` para animar suavemente para o tamanho real do conteúdo, sem valores mágicos de `max-width`, sem quebra de linha e com zero Layout Shift nos elementos vizinhos do card.
 
 ## 🛡️ Estratégia de Integridade de Dados (Carrinho)
 
@@ -91,15 +101,17 @@ O roadmap de desenvolvimento inclui as seguintes melhorias estratégicas:
    - [x] Suavizar animação de fechamento do MegaMenu (CSS Grid transition -> ResizeObserver height + AutoAnimate)
    - [x] No MegaMenu Shop, ajustar o layout para destacar apenas 1 produto principal (Hero Card).
    - [x] Corrigir alinhamentos verticais no Header e Botão de Busca.
-   - [ ] No ProductCard, ao "hover" o botão deve se expandir para informar "adicionar ao carrinho"
-   - [ ] Repensar a localização e UX do alternador de tema (claro/escuro).
+   - [ ] Reformar lista dentro de Shop Megamenu
+   - [x] No ProductCard, ao "hover" o botão deve se expandir para informar "adicionar ao carrinho" (CSS Grid `0fr → 1fr`)
+   - [x] Repensar a localização e UX do alternador de tema (claro/escuro) — Promovido ao Header no Desktop, mantido no MegaMenu no Mobile.
 
 1. **Funcionalidade de Busca (Search):**
-   - Evoluir o input de busca no menu (atualmente visual) para filtrar produtos em tempo real.
-   - Implementar redirecionamento para uma página de resultados (`/search?q=...`) com SSR.
-   - Só pesquisar quando o usuário clicar para enviar ou Enter
-   - Mostrar produtos abaixo da barra de pesquisa, no MegaMenu, com o limite de 3 produtos.
-   - Ao enviar a pesquisa, o megamenu deve fechar
+   - [x] Evoluir o input de busca no menu (atualmente visual) para filtrar produtos em tempo real.
+   - [x] Implementar redirecionamento para uma página de resultados (`/search?q=...`) com SSR.
+   - [x] Só pesquisar quando o usuário clicar para enviar ou Enter
+   - [x] Mostrar produtos abaixo da barra de pesquisa, no MegaMenu, com o limite de 3 produtos.
+   - [x] Ao enviar a pesquisa, o megamenu deve fechar
+   - [x] Corrigir bug de Estado Descolado (Stale State) — sincronização do input com `searchParams` via `useEffect`.
 
 1. **Página de Checkout:**
    - Criar a rota de finalização de compra.

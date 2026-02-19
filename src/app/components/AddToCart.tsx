@@ -46,19 +46,26 @@ export function AddToCart({ product, variant = "primary" }: AddToCartProps) {
 
   if (variant === "icon") {
     return (
-      <Button
+      <button
         onClick={handleAddToCart}
         disabled={isValidating}
-        variant="icon"
-        size="icon"
         aria-label="Adicionar ao carrinho"
+        className="group/btn cursor-pointer flex items-center gap-0 bg-accent hover:bg-yellow-400 text-background rounded-full shadow-sm p-2.5 transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed"
       >
         {isValidating ? (
-          <div className="w-4 h-4 border-2 border-background border-t-transparent rounded-full animate-spin" />
+          <div className="w-[18px] h-[18px] border-2 border-background border-t-transparent rounded-full animate-spin" />
         ) : (
-          <ShoppingBag size={18} />
+          <ShoppingBag size={18} className="shrink-0" />
         )}
-      </Button>
+        {/* Grid 0fr → 1fr: anima para o tamanho real do conteúdo sem valor mágico */}
+        <div className="grid grid-cols-[0fr] group-hover/btn:grid-cols-[1fr] transition-[grid-template-columns] duration-300 ease-out">
+          <div className="overflow-hidden min-w-0">
+            <span className="whitespace-nowrap text-xs font-bold uppercase tracking-wider pl-2 pr-0.5">
+              Adicionar
+            </span>
+          </div>
+        </div>
+      </button>
     );
   }
 
