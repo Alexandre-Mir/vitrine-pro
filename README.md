@@ -33,6 +33,7 @@ Diferente de um clone de e-commerce tradicional, este projeto prioriza a arquite
 - **Validação Server-Side:** Proteção contra divergência de preços ao adicionar itens ao carrinho.
 - **Newsletter:** Componente de inscrição com feedback visual de status (loading/success).
 - **Theme Toggle Acessível:** Alternador de tema (claro/escuro) extraído do interior do MegaMenu e promovido ao grupo de ações principais do Header (junto com Busca, Perfil e Carrinho), garantindo acesso imediato (1-click) no Desktop. No Mobile, permanece acessível dentro do menu expansível para não sobrecarregar a barra de navegação.
+- **ThemeToggle CLS-Free (Dimensional Placeholder):** Refatoração do padrão de Mounted State Check — em vez de `return null` (que causava Layout Shift), o botão agora é sempre renderizado no HTML do servidor com um `<span>` placeholder de dimensões exatas (20×20px). O componente utiliza `opacity-0` + `pointer-events-none` pré-mount e transiciona suavemente para `opacity-100` após o tema ser resolvido pelo browser, eliminando CLS, hydration mismatch e flash de ícone incorreto. O `aria-label` é agora contextual ("Mudar para modo claro/escuro").
 - **Busca com Preview Dinâmico:**
   - **Debounced Search:** O `SearchBar` agora realiza fetch client-side com `useDebounce` (350ms), exibindo até 3 produtos como preview abaixo do input enquanto o usuário digita.
   - **Feedback Visual:** Spinner animado (`Loader2`) aparece instantaneamente durante o debounce gap (`isTypingAhead`) e skeleton placeholders durante o carregamento, evitando submissões prematuras.
@@ -104,6 +105,7 @@ O roadmap de desenvolvimento inclui as seguintes melhorias estratégicas:
    - [ ] Reformar lista dentro de Shop Megamenu
    - [x] No ProductCard, ao "hover" o botão deve se expandir para informar "adicionar ao carrinho" (CSS Grid `0fr → 1fr`)
    - [x] Repensar a localização e UX do alternador de tema (claro/escuro) — Promovido ao Header no Desktop, mantido no MegaMenu no Mobile.
+   - [x] Eliminar CLS do ThemeToggle — Placeholder dimensional (20×20 `<span>`) no SSR, `opacity` fade-in pós-mount.
 
 1. **Funcionalidade de Busca (Search):**
    - [x] Evoluir o input de busca no menu (atualmente visual) para filtrar produtos em tempo real.
