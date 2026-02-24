@@ -8,6 +8,7 @@ import Button from "./ui/Button";
 import { SearchBar } from "./SearchBar";
 import { Suspense, useEffect, useRef, useState } from "react";
 import { Product } from "@/types/product";
+import { CartPanel } from "./CartPanel";
 
 import { useAutoAnimate } from "@formkit/auto-animate/react";
 
@@ -89,11 +90,6 @@ export default function MegaMenu({
   }, [activeMenu, lastActiveMenu]);
 
   const menuToRender = activeMenu || lastActiveMenu;
-
-  const total = items.reduce(
-    (acc, item) => acc + item.price * item.quantity,
-    0,
-  );
 
   return (
     <nav
@@ -241,76 +237,7 @@ export default function MegaMenu({
             </div>
           )}
 
-          {menuToRender === "cart" && (
-            <div className="w-full max-w-lg mx-auto flex flex-col h-full min-h-[300px]">
-              {items.length === 0 ? (
-                <div className="flex-1 flex flex-col items-center justify-center gap-4 opacity-50">
-                  <ShoppingBag size={48} strokeWidth={1} />
-                  <p>Seu carrinho está vazio</p>
-                </div>
-              ) : (
-                <ul
-                  ref={parent}
-                  className="flex flex-col gap-6 overflow-y-auto max-h-[60vh] pr-2 scrollbar-hide"
-                >
-                  {items.map((item) => (
-                    <li
-                      key={item.id}
-                      className="flex gap-4 items-start border-b border-border pb-6 last:border-0"
-                    >
-                      <div className="relative w-20 h-20 bg-white rounded-lg overflow-hidden shrink-0 border border-border">
-                        <Image
-                          src={item.image}
-                          alt={item.title}
-                          fill
-                          className="object-contain p-2"
-                        />
-                      </div>
-                      <div className="flex-1 flex flex-col gap-1">
-                        <h5 className="font-medium line-clamp-2 leading-tight">
-                          {item.title}
-                        </h5>
-                        <p className="text-sm text-subtitle capitalize">
-                          {item.category}
-                        </p>
-                        <div className="flex justify-between items-end mt-2">
-                          <span className="text-xs font-medium bg-secondary px-2 py-1 rounded-md">
-                            Qtd: {item.quantity}
-                          </span>
-                          <span className="font-bold">
-                            {formatCurrency(item.price * item.quantity)}
-                          </span>
-                        </div>
-                      </div>
-                      <Button
-                        variant="ghost"
-                        size="none"
-                        className="text-subtitle hover:text-primary ml-auto"
-                        onClick={() => removeFromCart(item.id)}
-                        aria-label="Remover item"
-                      >
-                        <X size={20} />
-                      </Button>
-                    </li>
-                  ))}
-                </ul>
-              )}
-
-              {items.length > 0 && (
-                <div className="border-t border-border mt-auto pt-6">
-                  <div className="flex justify-between items-center mb-6">
-                    <span className="text-sm font-medium uppercase tracking-widest">
-                      Total
-                    </span>
-                    <span className="text-xl font-bold">
-                      {formatCurrency(total)}
-                    </span>
-                  </div>
-                  <Button className="w-full">Finalizar Compra</Button>
-                </div>
-              )}
-            </div>
-          )}
+          {menuToRender === "cart" && <CartPanel onClose={onClose} />}
         </div>
       </div>
       <div

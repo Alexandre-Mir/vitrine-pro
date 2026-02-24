@@ -1,6 +1,5 @@
-import { ShoppingBag, Star, StarHalf } from "lucide-react";
+import { Star, StarHalf } from "lucide-react";
 import Image from "next/image";
-import Button from "./ui/Button";
 import { Product } from "@/types/product";
 import Link from "next/link";
 import formatCurrency from "@/utils/format-currency";

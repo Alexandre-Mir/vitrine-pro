@@ -17,6 +17,7 @@ interface ICartContext {
   items: CartItem[];
   addToCart: (product: Product) => void;
   removeFromCart: (productId: number) => void;
+  clearCart: () => void;
   cartQuantity: number;
 }
 
@@ -75,9 +76,14 @@ export function CartProvider({ children }: { children: ReactNode }) {
     );
   }
 
+  function clearCart() {
+    setItems([]);
+    localStorage.removeItem("vitrine-pro-cart");
+  }
+
   return (
     <CartContext.Provider
-      value={{ items, addToCart, removeFromCart, cartQuantity }}
+      value={{ items, addToCart, removeFromCart, clearCart, cartQuantity }}
     >
       {children}
     </CartContext.Provider>
