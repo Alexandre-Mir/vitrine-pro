@@ -1,7 +1,11 @@
 import { Product } from "@/types/product";
 
-export default async function getProducts(): Promise<Product[]> {
-  const res = await fetch("https://fakestoreapi.com/products", {
+export default async function getProducts(limit?: number): Promise<Product[]> {
+  const url = limit
+    ? `https://fakestoreapi.com/products?limit=${limit}`
+    : "https://fakestoreapi.com/products";
+
+  const res = await fetch(url, {
     next: { revalidate: 3600 },
   });
 

@@ -32,12 +32,10 @@ export default async function RootLayout({
   // Se os produtos falharem, o site ainda carrega o menu básico.
   const [categories, products] = await Promise.all([
     getCategories().catch(() => []), // Fallback para array vazio em caso de erro crítico
-    getProducts()
-      .then((p) => p.slice(0, 3))
-      .catch((err) => {
-        console.error("Falha ao carregar destaques do menu:", err);
-        return []; // Retorna array vazio para não quebrar a UI
-      }),
+    getProducts(3).catch((err) => {
+      console.error("Falha ao carregar destaques do menu:", err);
+      return []; // Retorna array vazio para não quebrar a UI
+    }),
   ]);
 
   return (
