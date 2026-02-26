@@ -17,6 +17,7 @@ interface ICartContext {
   items: CartItem[];
   addToCart: (product: Product) => void;
   removeFromCart: (productId: number) => void;
+  decreaseQuantity: (productId: number) => void;
   clearCart: () => void;
   cartQuantity: number;
 }
@@ -76,6 +77,20 @@ export function CartProvider({ children }: { children: ReactNode }) {
     );
   }
 
+  function decreaseQuantity(productId: number) {
+    setItems((currentItems) => {
+      const itemToDecrease = currentItems.find((item) => item.id === productId);
+
+      if (itemToDecrease?.quantity === 1) {
+        return currentItems.filter((item) => item.id !== productId);
+      }
+
+      return currentItems.map((item) =>
+        item.id === productId ? { ...item, quantity: item.quantity - 1 } : item,
+      );
+    });
+  }
+
   function clearCart() {
     setItems([]);
     localStorage.removeItem("vitrine-pro-cart");
@@ -83,7 +98,14 @@ export function CartProvider({ children }: { children: ReactNode }) {
 
   return (
     <CartContext.Provider
-      value={{ items, addToCart, removeFromCart, clearCart, cartQuantity }}
+      value={{
+        items,
+        addToCart,
+        removeFromCart,
+        decreaseQuantity,
+        clearCart,
+        cartQuantity,
+      }}
     >
       {children}
     </CartContext.Provider>

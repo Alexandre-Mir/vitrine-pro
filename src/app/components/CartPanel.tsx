@@ -1,4 +1,11 @@
-import { ShoppingBag, X, Loader2, CheckCircle2 } from "lucide-react";
+import {
+  ShoppingBag,
+  X,
+  Loader2,
+  CheckCircle2,
+  Minus,
+  Plus,
+} from "lucide-react";
 import Image from "next/image";
 import { useCart } from "@/context/cart-context";
 import formatCurrency from "@/utils/format-currency";
@@ -11,7 +18,8 @@ interface CartPanelProps {
 }
 
 export function CartPanel({ onClose }: CartPanelProps) {
-  const { items, removeFromCart, clearCart } = useCart();
+  const { items, addToCart, removeFromCart, decreaseQuantity, clearCart } =
+    useCart();
   const [parent] = useAutoAnimate();
   const [checkoutState, setCheckoutState] = useState<
     "idle" | "loading" | "success"
@@ -103,9 +111,27 @@ export function CartPanel({ onClose }: CartPanelProps) {
                   {item.category}
                 </p>
                 <div className="flex justify-between items-end mt-2">
-                  <span className="text-xs font-medium bg-secondary px-2 py-1 rounded-md">
-                    Qtd: {item.quantity}
-                  </span>
+                  <div className="flex items-center gap-1 bg-secondary rounded-md px-1 py-0.5 border border-border/50">
+                    <button
+                      onClick={() => decreaseQuantity(item.id)}
+                      className="w-6 h-6 flex items-center justify-center rounded text-subtitle hover:bg-background hover:text-foreground transition-colors disabled:opacity-50"
+                      aria-label="Diminuir quantidade"
+                      disabled={checkoutState === "loading"}
+                    >
+                      <Minus size={14} />
+                    </button>
+                    <span className="text-xs font-medium w-6 text-center">
+                      {item.quantity}
+                    </span>
+                    <button
+                      onClick={() => addToCart(item)}
+                      className="w-6 h-6 flex items-center justify-center rounded text-subtitle hover:bg-background hover:text-foreground transition-colors disabled:opacity-50"
+                      aria-label="Aumentar quantidade"
+                      disabled={checkoutState === "loading"}
+                    >
+                      <Plus size={14} />
+                    </button>
+                  </div>
                   <span className="font-bold">
                     {formatCurrency(item.price * item.quantity)}
                   </span>
