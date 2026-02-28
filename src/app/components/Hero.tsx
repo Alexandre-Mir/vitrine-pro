@@ -1,5 +1,4 @@
 import Image from "next/image";
-import Button from "./ui/Button";
 import { Redo } from "lucide-react";
 import { HeroScrollWrapper } from "./HeroScrollWrapper";
 import HeroLeft from "@/assets/hero-left.jpg";
@@ -35,10 +34,13 @@ export default function Hero() {
         <h2 className="text-2xl font-medium mb-6 tracking-widest">
           Coleção Verão 2026!
         </h2>
-        <Button className="gap-2">
+        <a
+          href="#destaques"
+          className="cursor-pointer transition-all flex items-center justify-center bg-accent hover:bg-[#f9e3ae] text-black uppercase tracking-widest rounded-lg font-medium py-3 px-8 text-xs gap-2"
+        >
           Confira
           <Redo className="rotate-x-180" strokeWidth={1} />
-        </Button>
+        </a>
       </section>
     </HeroScrollWrapper>
   );

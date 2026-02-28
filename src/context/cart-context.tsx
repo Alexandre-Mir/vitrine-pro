@@ -18,6 +18,7 @@ interface ICartContext {
   addToCart: (product: Product) => void;
   removeFromCart: (productId: number) => void;
   decreaseQuantity: (productId: number) => void;
+  updateItemPrice: (productId: number, newPrice: number) => void;
   clearCart: () => void;
   cartQuantity: number;
 }
@@ -91,6 +92,14 @@ export function CartProvider({ children }: { children: ReactNode }) {
     });
   }
 
+  function updateItemPrice(productId: number, newPrice: number) {
+    setItems((currentItems) =>
+      currentItems.map((item) =>
+        item.id === productId ? { ...item, price: newPrice } : item,
+      ),
+    );
+  }
+
   function clearCart() {
     setItems([]);
     localStorage.removeItem("vitrine-pro-cart");
@@ -103,6 +112,7 @@ export function CartProvider({ children }: { children: ReactNode }) {
         addToCart,
         removeFromCart,
         decreaseQuantity,
+        updateItemPrice,
         clearCart,
         cartQuantity,
       }}

@@ -78,7 +78,7 @@ export default async function Home() {
         </div>
 
         {/* Mais vendidos */}
-        <div className="mt-10">
+        <div id="destaques" className="mt-10 scroll-mt-4">
           <div className="bg-secondary p-4 rounded-2xl lg:rounded-none flex gap-4 ml-4 lg:flex-col lg:items-center lg:justify-center lg:mx-auto lg:py-12">
             <div className="flex-none flex items-center justify-center w-12 lg:mr-10 lg:py-4 lg:mb-6 lg:w-full">
               <h2 className="leading-none font-bold text-primary text-3xl mb-0.5 lg:text-5xl uppercase -rotate-90 lg:rotate-0 whitespace-nowrap">

@@ -12,14 +12,22 @@ import formatCurrency from "@/utils/format-currency";
 import Button from "./ui/Button";
 import { useAutoAnimate } from "@formkit/auto-animate/react";
 import { useState } from "react";
+import { validateCartItem } from "../actions/validate-cart-item";
+import { toast } from "sonner";
 
 interface CartPanelProps {
   onClose: () => void;
 }
 
 export function CartPanel({ onClose }: CartPanelProps) {
-  const { items, addToCart, removeFromCart, decreaseQuantity, clearCart } =
-    useCart();
+  const {
+    items,
+    addToCart,
+    removeFromCart,
+    decreaseQuantity,
+    updateItemPrice,
+    clearCart,
+  } = useCart();
   const [parent] = useAutoAnimate();
   const [checkoutState, setCheckoutState] = useState<
     "idle" | "loading" | "success"
@@ -30,12 +38,46 @@ export function CartPanel({ onClose }: CartPanelProps) {
     0,
   );
 
-  const handleFakeCheckout = () => {
+  const handleFakeCheckout = async () => {
     setCheckoutState("loading");
-    // Simula o delay de um request para um gateway de pagamento real
-    setTimeout(() => {
+
+    try {
+      // Revalida TODOS os itens do carrinho contra o servidor
+      const results = await Promise.all(
+        items.map((item) => validateCartItem(item)),
+      );
+
+      const errors = results.filter((r) => !r.success);
+      if (errors.length > 0) {
+        toast.error("Falha ao validar itens. Tente novamente.");
+        setCheckoutState("idle");
+        return;
+      }
+
+      // Identifica itens com preço divergente e atualiza
+      let priceChanges = 0;
+      results.forEach((result, index) => {
+        const { isValid, freshProduct } = result.data!;
+        if (!isValid) {
+          updateItemPrice(items[index].id, freshProduct.price);
+          priceChanges++;
+        }
+      });
+
+      if (priceChanges > 0) {
+        toast.warning(
+          `${priceChanges} ${priceChanges === 1 ? "item teve o preço atualizado" : "itens tiveram o preço atualizado"}. Revise o carrinho antes de confirmar.`,
+        );
+        setCheckoutState("idle");
+        return;
+      }
+
+      // Todos os preços válidos — prossegue com o checkout
       setCheckoutState("success");
-    }, 1500);
+    } catch {
+      toast.error("Erro de conexão. Tente novamente.");
+      setCheckoutState("idle");
+    }
   };
 
   const handleFinishAndClose = () => {
