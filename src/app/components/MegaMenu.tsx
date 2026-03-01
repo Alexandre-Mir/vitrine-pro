@@ -115,7 +115,7 @@ export default function MegaMenu({
                   {categories.map((category, index) => (
                     <li key={index}>
                       <Link
-                        href={`/category/${category}`}
+                        href={`/categorias/${encodeURIComponent(category)}`}
                         className={`flex first-letter:capitalize hover:text-primary/70 transition-colors py-1 ${
                           isOpen
                             ? ` animate-fade-right animate-once animate-normal animate-delay-${index * 100}`

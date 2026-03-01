@@ -43,24 +43,24 @@ export default function Footer() {
             </p>
           </div>
           <div className="flex-col flex">
-            <h4 className="tracking-tight font-bold text-xl">Lorem ipsum</h4>
+            <h4 className="tracking-tight font-bold text-xl">Navegação</h4>
             <ul className="mt-5 flex flex-col gap-2">
               <li>
                 <Link href="/">Shop</Link>
               </li>
               <li>
-                <Link href="/">Bundle + Save</Link>
+                <Link href="/categorias">Categorias</Link>
               </li>
               <li>
-                <Link href="/about">Sobre</Link>
+                <Link href="/sobre">Sobre</Link>
               </li>
               <li>
-                <Link href="/contact">Contato</Link>
+                <Link href="/contato">Contato</Link>
               </li>
             </ul>
           </div>
           <div className="flex-col flex">
-            <h4 className="tracking-tight font-bold text-xl">Lorem ipsum</h4>
+            <h4 className="tracking-tight font-bold text-xl">Suporte</h4>
             <ul className="mt-5 flex flex-col gap-2">
               <li>
                 <Link href="/">FAQ</Link>
