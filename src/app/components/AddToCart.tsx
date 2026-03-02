@@ -50,7 +50,7 @@ export function AddToCart({ product, variant = "primary" }: AddToCartProps) {
         onClick={handleAddToCart}
         disabled={isValidating}
         aria-label="Adicionar ao carrinho"
-        className="group/btn cursor-pointer flex items-center gap-0 bg-accent hover:bg-yellow-400 text-background rounded-full shadow-sm p-2.5 transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed"
+        className="group/btn cursor-pointer flex items-center justify-center gap-0 bg-accent hover:bg-yellow-400 text-background rounded-full shadow-sm h-10 min-w-10 px-2.5 transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed"
       >
         {isValidating ? (
           <div className="w-[18px] h-[18px] border-2 border-background border-t-transparent rounded-full animate-spin" />
