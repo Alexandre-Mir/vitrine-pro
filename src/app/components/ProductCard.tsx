@@ -5,6 +5,13 @@ import Link from "next/link";
 import formatCurrency from "@/utils/format-currency";
 import { AddToCart } from "./AddToCart";
 
+const categoryTranslations: Record<string, string> = {
+  electronics: "Eletrônicos",
+  jewelery: "Joalheria",
+  "men's clothing": "Moda masculina",
+  "women's clothing": "Moda feminina",
+};
+
 export default function ProductCard(product: Product) {
   const { title, price, image, rating, category, id } = product;
   const fullStars = Math.floor(rating.rate);
@@ -73,7 +80,9 @@ export default function ProductCard(product: Product) {
               </span>
             </div>
             <div className="flex gap-2 mt-1 text-xs">
-              <span className="first-letter:uppercase">{category}</span>
+              <span className="first-letter:uppercase">
+                {categoryTranslations[category] ?? category}
+              </span>
             </div>
           </div>
           {/* Ação isolada com z-index superior para capturar o clique acima do link estendido */}

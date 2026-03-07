@@ -94,7 +94,10 @@ export default async function Home() {
         </div>
 
         {/* Eletrônicos em Destaque */}
-        <div className="mt-16 bg-secondary/30 py-12">
+        <div
+          id="eletronicos"
+          className="mt-16 bg-secondary/30 py-12 scroll-mt-4"
+        >
           <div className="max-w-7xl mx-auto px-4 lg:px-8">
             <div className="flex items-center justify-between mb-8">
               <h2 className="text-2xl lg:text-4xl font-bold text-primary">
@@ -110,7 +113,7 @@ export default async function Home() {
         </div>
 
         {/* Moda em Alta */}
-        <div className="mt-16 bg-secondary/50 py-16">
+        <div id="moda" className="mt-16 bg-secondary/50 py-16 scroll-mt-4">
           <div className="max-w-7xl mx-auto px-4 lg:px-8">
             <div className="flex items-center justify-between mb-8">
               <h2 className="text-2xl lg:text-4xl font-bold text-primary">
@@ -126,7 +129,7 @@ export default async function Home() {
         </div>
 
         {/* Bem Avaliados */}
-        <div className="bg-secondary/30 py-12">
+        <div id="bem-avaliados" className="bg-secondary/30 py-12 scroll-mt-4">
           <div className="max-w-7xl mx-auto px-4 lg:px-8">
             <div className="flex items-center justify-between mb-8">
               <h2 className="text-2xl lg:text-4xl font-bold text-primary">

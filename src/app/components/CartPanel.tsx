@@ -156,7 +156,7 @@ export function CartPanel({ onClose }: CartPanelProps) {
                   <div className="flex items-center gap-1 bg-secondary rounded-md px-1 py-0.5 border border-border/50">
                     <button
                       onClick={() => decreaseQuantity(item.id)}
-                      className="w-6 h-6 flex items-center justify-center rounded text-subtitle hover:bg-background hover:text-foreground transition-colors disabled:opacity-50"
+                      className="w-6 h-6 flex items-center justify-center rounded text-subtitle hover:bg-background hover:text-foreground transition-colors disabled:opacity-50 cursor-pointer"
                       aria-label="Diminuir quantidade"
                       disabled={checkoutState === "loading"}
                     >
@@ -167,7 +167,7 @@ export function CartPanel({ onClose }: CartPanelProps) {
                     </span>
                     <button
                       onClick={() => addToCart(item)}
-                      className="w-6 h-6 flex items-center justify-center rounded text-subtitle hover:bg-background hover:text-foreground transition-colors disabled:opacity-50"
+                      className="w-6 h-6 flex items-center justify-center rounded text-subtitle hover:bg-background hover:text-foreground transition-colors disabled:opacity-50 cursor-pointer"
                       aria-label="Aumentar quantidade"
                       disabled={checkoutState === "loading"}
                     >

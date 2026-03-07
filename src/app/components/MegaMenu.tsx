@@ -116,7 +116,7 @@ export default function MegaMenu({
                     <li key={index}>
                       <Link
                         href={`/categorias/${encodeURIComponent(category)}`}
-                        className={`flex first-letter:capitalize hover:text-primary/70 transition-colors py-1 ${
+                        className={`flex capitalize hover:text-primary/70 transition-colors py-1 ${
                           isOpen
                             ? ` animate-fade-right animate-once animate-normal animate-delay-${index * 100}`
                             : ""
@@ -127,11 +127,40 @@ export default function MegaMenu({
                     </li>
                   ))}
                   <li className="mt-2 pt-2 border-t border-border">
+                    <h5
+                      className={`tracking-widest uppercase text-subtitle text-[10px] font-medium mb-1 ${isOpen ? "animate-fade-right animate-once animate-normal animate-delay-500" : ""}`}
+                    >
+                      Seções
+                    </h5>
+                    <ul className="flex flex-col gap-0.5">
+                      {[
+                        { href: "/#destaques", label: "Mais Vendidos" },
+                        { href: "/#eletronicos", label: "Eletrônicos" },
+                        { href: "/#moda", label: "Moda em Alta" },
+                        { href: "/#bem-avaliados", label: "Bem Avaliados" },
+                      ].map((section, i) => (
+                        <li key={section.href}>
+                          <Link
+                            href={section.href}
+                            onClick={onClose}
+                            className={`text-sm tracking-tight flex items-center gap-2 hover:text-primary/70 transition-colors py-0.5 ${
+                              isOpen
+                                ? `animate-fade-right animate-once animate-normal animate-delay-${(i + 5) * 100}`
+                                : ""
+                            }`}
+                          >
+                            {section.label}
+                          </Link>
+                        </li>
+                      ))}
+                    </ul>
+                  </li>
+                  <li className="mt-2 pt-2 border-t border-border">
                     <Link
                       href="/products"
                       className={`text-sm tracking-tight flex items-center gap-2 font-medium ${
                         isOpen
-                          ? "animate-fade-right animate-once animate-normal animate-delay-500"
+                          ? "animate-fade-right animate-once animate-normal animate-delay-1000"
                           : ""
                       }`}
                     >
