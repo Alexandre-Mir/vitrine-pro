@@ -85,6 +85,30 @@ const timeline = [
   },
 ];
 
+function StatsSection({
+  stats,
+}: {
+  stats: { value: string; label: string }[];
+}) {
+  return (
+    <section className="relative z-10 max-w-7xl mx-auto px-4 lg:px-8 -mt-12">
+      <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
+        {stats.map((stat) => (
+          <div
+            key={stat.label}
+            className="text-center p-8 rounded-2xl bg-background border border-border shadow-sm hover:shadow-lg transition-shadow duration-300"
+          >
+            <p className="text-3xl lg:text-4xl font-bold text-primary">
+              {stat.value}
+            </p>
+            <p className="mt-2 text-sm text-subtitle">{stat.label}</p>
+          </div>
+        ))}
+      </div>
+    </section>
+  );
+}
+
 export default function SobrePage() {
   return (
     <main className="min-h-screen bg-background pb-20">
@@ -102,13 +126,13 @@ export default function SobrePage() {
         </div>
         <div className="max-w-7xl mx-auto px-4 lg:px-8 relative">
           <div className="max-w-3xl">
-            <span className="inline-block text-xs font-medium tracking-widest uppercase text-accent-bg mb-4">
+            <span className="inline-block text-xs font-medium tracking-widest uppercase text-accent-bg dark:text-accent mb-4">
               Nossa história
             </span>
             <h1 className="text-4xl lg:text-6xl font-bold text-primary tracking-tight leading-tight">
               Mais do que uma loja.
               <br />
-              <span className="text-accent-bg">Uma experiência.</span>
+              <span className="text-accent-bg dark:text-accent">Uma experiência.</span>
             </h1>
             <p className="mt-6 text-lg text-subtitle max-w-2xl leading-relaxed">
               A Vitrine Pro nasceu da vontade de transformar o e-commerce
@@ -121,27 +145,13 @@ export default function SobrePage() {
       </section>
 
       {/* Estatísticas */}
-      <section className="max-w-7xl mx-auto px-4 lg:px-8 -mt-12">
-        <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
-          {stats.map((stat) => (
-            <div
-              key={stat.label}
-              className="text-center p-8 rounded-2xl bg-background border border-border shadow-sm hover:shadow-lg transition-shadow duration-300"
-            >
-              <p className="text-3xl lg:text-4xl font-bold text-primary">
-                {stat.value}
-              </p>
-              <p className="mt-2 text-sm text-subtitle">{stat.label}</p>
-            </div>
-          ))}
-        </div>
-      </section>
+      <StatsSection stats={stats} />
 
       {/* Missão */}
       <section className="max-w-7xl mx-auto px-4 lg:px-8 py-20 lg:py-28">
         <div className="grid lg:grid-cols-2 gap-16 items-center">
           <div>
-            <span className="text-xs font-medium tracking-widest uppercase text-accent-bg">
+            <span className="text-xs font-medium tracking-widest uppercase text-accent-bg dark:text-accent">
               Nossa missão
             </span>
             <h2 className="mt-4 text-3xl lg:text-4xl font-bold text-primary tracking-tight">
@@ -162,9 +172,9 @@ export default function SobrePage() {
 
           {/* Cards de diferencial */}
           <div className="grid grid-cols-2 gap-4">
-            <div className="p-6 rounded-2xl bg-secondary flex flex-col items-center text-center gap-3 hover:scale-105 transition-transform duration-300">
+            <div className="p-6 rounded-2xl bg-secondary flex flex-col items-center text-center gap-3 transition-colors duration-300">
               <div className="w-12 h-12 rounded-full bg-accent/20 flex items-center justify-center">
-                <Truck size={22} className="text-accent-bg" />
+                <Truck size={22} className="text-accent-bg dark:text-accent" />
               </div>
               <h3 className="text-sm font-semibold text-primary">
                 Entrega Rápida
@@ -173,9 +183,9 @@ export default function SobrePage() {
                 Envio expresso para todo o Brasil
               </p>
             </div>
-            <div className="p-6 rounded-2xl bg-secondary flex flex-col items-center text-center gap-3 hover:scale-105 transition-transform duration-300">
+            <div className="p-6 rounded-2xl bg-secondary flex flex-col items-center text-center gap-3 transition-colors duration-300">
               <div className="w-12 h-12 rounded-full bg-accent/20 flex items-center justify-center">
-                <ShoppingBag size={22} className="text-accent-bg" />
+                <ShoppingBag size={22} className="text-accent-bg dark:text-accent" />
               </div>
               <h3 className="text-sm font-semibold text-primary">
                 Produtos Curados
@@ -184,9 +194,9 @@ export default function SobrePage() {
                 Seleção premium de qualidade
               </p>
             </div>
-            <div className="p-6 rounded-2xl bg-secondary flex flex-col items-center text-center gap-3 hover:scale-105 transition-transform duration-300">
+            <div className="p-6 rounded-2xl bg-secondary flex flex-col items-center text-center gap-3 transition-colors duration-300">
               <div className="w-12 h-12 rounded-full bg-accent/20 flex items-center justify-center">
-                <Globe size={22} className="text-accent-bg" />
+                <Globe size={22} className="text-accent-bg dark:text-accent" />
               </div>
               <h3 className="text-sm font-semibold text-primary">
                 Alcance Nacional
@@ -195,9 +205,9 @@ export default function SobrePage() {
                 Presente em todos os estados
               </p>
             </div>
-            <div className="p-6 rounded-2xl bg-secondary flex flex-col items-center text-center gap-3 hover:scale-105 transition-transform duration-300">
+            <div className="p-6 rounded-2xl bg-secondary flex flex-col items-center text-center gap-3 transition-colors duration-300">
               <div className="w-12 h-12 rounded-full bg-accent/20 flex items-center justify-center">
-                <Award size={22} className="text-accent-bg" />
+                <Award size={22} className="text-accent-bg dark:text-accent" />
               </div>
               <h3 className="text-sm font-semibold text-primary">
                 Qualidade Garantida
@@ -214,7 +224,7 @@ export default function SobrePage() {
       <section className="bg-secondary/30 py-20 lg:py-28">
         <div className="max-w-7xl mx-auto px-4 lg:px-8">
           <div className="text-center mb-16">
-            <span className="text-xs font-medium tracking-widest uppercase text-accent-bg">
+            <span className="text-xs font-medium tracking-widest uppercase text-accent-bg dark:text-accent">
               O que nos guia
             </span>
             <h2 className="mt-4 text-3xl lg:text-4xl font-bold text-primary tracking-tight">
@@ -227,12 +237,12 @@ export default function SobrePage() {
               return (
                 <div
                   key={value.title}
-                  className="p-8 rounded-2xl bg-background border border-border group hover:border-accent-bg/30 transition-all duration-300 hover:shadow-lg"
+                  className="p-8 rounded-2xl bg-background border border-border group hover:border-accent-bg/30 dark:hover:border-accent/30 transition-all duration-300 hover:shadow-lg"
                 >
                   <div className="w-14 h-14 rounded-2xl bg-secondary group-hover:bg-accent/20 flex items-center justify-center transition-colors duration-300">
                     <Icon
                       size={24}
-                      className="text-primary group-hover:text-accent-bg transition-colors duration-300"
+                      className="text-primary group-hover:text-accent-bg dark:group-hover:text-accent transition-colors duration-300"
                     />
                   </div>
                   <h3 className="mt-6 text-lg font-semibold text-primary">
@@ -251,7 +261,7 @@ export default function SobrePage() {
       {/* Timeline */}
       <section className="max-w-7xl mx-auto px-4 lg:px-8 py-20 lg:py-28">
         <div className="text-center mb-16">
-          <span className="text-xs font-medium tracking-widest uppercase text-accent-bg">
+          <span className="text-xs font-medium tracking-widest uppercase text-accent-bg dark:text-accent">
             Nossa trajetória
           </span>
           <h2 className="mt-4 text-3xl lg:text-4xl font-bold text-primary tracking-tight">
@@ -276,7 +286,7 @@ export default function SobrePage() {
                   className={`ml-12 lg:ml-0 lg:w-[calc(50%-2rem)] ${index % 2 === 1 ? "lg:mr-auto" : "lg:ml-auto"}`}
                 >
                   <div className="p-6 rounded-2xl bg-secondary/50 border border-border hover:bg-secondary transition-colors duration-300">
-                    <span className="text-sm font-bold text-accent-bg">
+                    <span className="text-sm font-bold text-accent-bg dark:text-accent">
                       {item.year}
                     </span>
                     <h3 className="mt-2 text-lg font-semibold text-primary">

@@ -98,7 +98,7 @@ export default function ContatoPage() {
       {/* Hero */}
       <section className="relative bg-secondary py-16 lg:py-24">
         <div className="max-w-7xl mx-auto px-4 lg:px-8 text-center">
-          <div className="inline-flex items-center gap-2 bg-accent-bg/10 text-accent-bg px-4 py-2 rounded-full text-xs font-medium tracking-widest uppercase mb-6">
+          <div className="inline-flex items-center gap-2 bg-accent-bg/10 dark:bg-accent/10 text-accent-bg dark:text-accent px-4 py-2 rounded-full text-xs font-medium tracking-widest uppercase mb-6">
             <MessageCircle size={14} />
             Fale Conosco
           </div>
@@ -114,7 +114,7 @@ export default function ContatoPage() {
       </section>
 
       {/* Métodos de contato */}
-      <section className="max-w-7xl mx-auto px-4 lg:px-8 -mt-8">
+      <section className="relative z-10 max-w-7xl mx-auto px-4 lg:px-8 -mt-8">
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
           {contactMethods.map((method) => {
             const Icon = method.icon;
@@ -122,12 +122,12 @@ export default function ContatoPage() {
               <a
                 key={method.title}
                 href={method.href}
-                className="group p-6 rounded-2xl bg-background border border-border shadow-sm hover:shadow-lg hover:border-accent-bg/30 transition-all duration-300 text-center"
+                className="group p-6 rounded-2xl bg-background border border-border shadow-sm hover:shadow-lg hover:border-accent-bg/30 dark:hover:border-accent/30 transition-all duration-300 text-center"
               >
                 <div className="w-12 h-12 mx-auto rounded-2xl bg-secondary group-hover:bg-accent/20 flex items-center justify-center transition-colors duration-300">
                   <Icon
                     size={20}
-                    className="text-primary group-hover:text-accent-bg transition-colors duration-300"
+                    className="text-primary group-hover:text-accent-bg dark:group-hover:text-accent transition-colors duration-300"
                   />
                 </div>
                 <h3 className="mt-4 text-sm font-semibold text-primary">
@@ -150,7 +150,7 @@ export default function ContatoPage() {
         <div className="grid lg:grid-cols-2 gap-16">
           {/* Formulário */}
           <div>
-            <span className="text-xs font-medium tracking-widest uppercase text-accent-bg">
+            <span className="text-xs font-medium tracking-widest uppercase text-accent-bg dark:text-accent">
               Envie uma mensagem
             </span>
             <h2 className="mt-4 text-3xl font-bold text-primary tracking-tight">
@@ -178,7 +178,7 @@ export default function ContatoPage() {
                       setFormData({ ...formData, nome: e.target.value })
                     }
                     disabled={status !== "idle"}
-                    className="w-full bg-background border border-border rounded-xl py-3 px-4 text-primary placeholder:text-subtitle/50 outline-none focus:border-accent-bg/50 focus:ring-2 focus:ring-accent-bg/10 transition-all disabled:opacity-50"
+                    className="w-full bg-background border border-border rounded-xl py-3 px-4 text-primary placeholder:text-subtitle/50 outline-none focus:border-accent-bg/50 dark:focus:border-accent/50 focus:ring-2 focus:ring-accent-bg/10 dark:focus:ring-accent/10 transition-all disabled:opacity-50"
                     placeholder="Seu nome completo"
                   />
                 </div>
@@ -198,7 +198,7 @@ export default function ContatoPage() {
                       setFormData({ ...formData, email: e.target.value })
                     }
                     disabled={status !== "idle"}
-                    className="w-full bg-background border border-border rounded-xl py-3 px-4 text-primary placeholder:text-subtitle/50 outline-none focus:border-accent-bg/50 focus:ring-2 focus:ring-accent-bg/10 transition-all disabled:opacity-50"
+                    className="w-full bg-background border border-border rounded-xl py-3 px-4 text-primary placeholder:text-subtitle/50 outline-none focus:border-accent-bg/50 dark:focus:border-accent/50 focus:ring-2 focus:ring-accent-bg/10 dark:focus:ring-accent/10 transition-all disabled:opacity-50"
                     placeholder="seu@email.com"
                   />
                 </div>
@@ -219,7 +219,7 @@ export default function ContatoPage() {
                     setFormData({ ...formData, assunto: e.target.value })
                   }
                   disabled={status !== "idle"}
-                  className="w-full bg-background border border-border rounded-xl py-3 px-4 text-primary placeholder:text-subtitle/50 outline-none focus:border-accent-bg/50 focus:ring-2 focus:ring-accent-bg/10 transition-all disabled:opacity-50"
+                  className="w-full bg-background border border-border rounded-xl py-3 px-4 text-primary placeholder:text-subtitle/50 outline-none focus:border-accent-bg/50 dark:focus:border-accent/50 focus:ring-2 focus:ring-accent-bg/10 dark:focus:ring-accent/10 transition-all disabled:opacity-50"
                   placeholder="Do que se trata?"
                 />
               </div>
@@ -239,7 +239,7 @@ export default function ContatoPage() {
                     setFormData({ ...formData, mensagem: e.target.value })
                   }
                   disabled={status !== "idle"}
-                  className="w-full bg-background border border-border rounded-xl py-3 px-4 text-primary placeholder:text-subtitle/50 outline-none focus:border-accent-bg/50 focus:ring-2 focus:ring-accent-bg/10 transition-all resize-none disabled:opacity-50"
+                  className="w-full bg-background border border-border rounded-xl py-3 px-4 text-primary placeholder:text-subtitle/50 outline-none focus:border-accent-bg/50 dark:focus:border-accent/50 focus:ring-2 focus:ring-accent-bg/10 dark:focus:ring-accent/10 transition-all resize-none disabled:opacity-50"
                   placeholder="Descreva como podemos ajudar..."
                 />
               </div>
@@ -273,7 +273,7 @@ export default function ContatoPage() {
 
           {/* FAQ */}
           <div>
-            <span className="text-xs font-medium tracking-widest uppercase text-accent-bg">
+            <span className="text-xs font-medium tracking-widest uppercase text-accent-bg dark:text-accent">
               Dúvidas frequentes
             </span>
             <h2 className="mt-4 text-3xl font-bold text-primary tracking-tight">
@@ -287,7 +287,7 @@ export default function ContatoPage() {
               {faqItems.map((item, index) => (
                 <div
                   key={index}
-                  className="rounded-2xl border border-border overflow-hidden transition-all duration-300 hover:border-accent-bg/20"
+                  className="rounded-2xl border border-border overflow-hidden transition-all duration-300 hover:border-accent-bg/20 dark:hover:border-accent/20"
                 >
                   <button
                     onClick={() =>
