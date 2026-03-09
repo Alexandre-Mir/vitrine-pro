@@ -22,8 +22,8 @@ import Button from "../components/ui/Button";
 
 // Dados simulados do perfil
 const userProfile = {
-  name: "Alexandre Miranda",
-  email: "alexandre@email.com",
+  name: "Username",
+  email: "email@example.com",
   joinDate: "Membro desde Jan 2025",
   avatar: null, // Sem avatar real por enquanto
 };
@@ -80,14 +80,13 @@ export default function PerfilPage() {
       {/* Header do Perfil */}
       <section className="relative bg-secondary overflow-hidden">
         {/* Padrão decorativo */}
-        <div className="absolute inset-0 opacity-[0.03]">
+        <div className="absolute inset-0 opacity-5">
           <div
             className="absolute inset-0"
             style={{
               backgroundImage:
-                "linear-gradient(45deg, var(--primary) 25%, transparent 25%), linear-gradient(-45deg, var(--primary) 25%, transparent 25%), linear-gradient(45deg, transparent 75%, var(--primary) 75%), linear-gradient(-45deg, transparent 75%, var(--primary) 75%)",
-              backgroundSize: "20px 20px",
-              backgroundPosition: "0 0, 0 10px, 10px -10px, -10px 0px",
+                "radial-gradient(circle at 25% 25%, var(--primary) 1px, transparent 1px), radial-gradient(circle at 75% 75%, var(--primary) 1px, transparent 1px)",
+              backgroundSize: "50px 50px",
             }}
           />
         </div>
@@ -96,8 +95,8 @@ export default function PerfilPage() {
           <div className="flex flex-col lg:flex-row items-center lg:items-end gap-8">
             {/* Avatar */}
             <div className="relative">
-              <div className="w-28 h-28 lg:w-36 lg:h-36 rounded-full bg-accent-bg flex items-center justify-center shadow-lg ring-4 ring-background">
-                <span className="text-white text-4xl lg:text-5xl font-bold">
+              <div className="w-28 h-28 lg:w-36 lg:h-36 rounded-full bg-accent-bg dark:bg-accent flex items-center justify-center shadow-lg ring-4 ring-background">
+                <span className="text-white dark:text-black text-4xl lg:text-5xl font-bold">
                   {userProfile.name
                     .split(" ")
                     .map((n) => n[0])
@@ -141,7 +140,7 @@ export default function PerfilPage() {
                   className="bg-background/80 backdrop-blur-sm rounded-2xl p-5 flex items-center gap-4 border border-border shadow-sm"
                 >
                   <div className="w-11 h-11 rounded-xl bg-secondary flex items-center justify-center shrink-0">
-                    <Icon size={18} className="text-accent-bg" />
+                    <Icon size={18} className="text-accent-bg dark:text-accent" />
                   </div>
                   <div>
                     <p className="text-xl font-bold text-primary leading-none">
@@ -171,20 +170,20 @@ export default function PerfilPage() {
                   <div className="w-10 h-10 rounded-xl bg-secondary group-hover:bg-accent/20 flex items-center justify-center transition-colors duration-300">
                     <Icon
                       size={18}
-                      className="text-subtitle group-hover:text-accent-bg transition-colors duration-300"
+                      className="text-subtitle group-hover:text-accent-bg dark:group-hover:text-accent transition-colors duration-300"
                     />
                   </div>
                   <span className="flex-1 text-sm font-medium text-primary">
                     {item.label}
                   </span>
                   {item.count !== undefined && (
-                    <span className="text-xs bg-secondary text-subtitle px-2.5 py-1 rounded-full group-hover:bg-accent/20 group-hover:text-accent-bg transition-colors duration-300">
+                    <span className="text-xs bg-secondary text-subtitle px-2.5 py-1 rounded-full group-hover:bg-accent/20 group-hover:text-accent-bg dark:group-hover:text-accent transition-colors duration-300">
                       {item.count}
                     </span>
                   )}
                   <ChevronRight
                     size={14}
-                    className="text-subtitle/40 group-hover:text-accent-bg transition-colors duration-300"
+                    className="text-subtitle/40 group-hover:text-accent-bg dark:group-hover:text-accent transition-colors duration-300"
                   />
                 </button>
               );
@@ -213,7 +212,7 @@ export default function PerfilPage() {
               </h2>
               <Link
                 href="#"
-                className="text-xs font-medium tracking-widest uppercase text-accent-bg hover:underline"
+                className="text-xs font-medium tracking-widest uppercase text-accent-bg dark:text-accent hover:underline"
               >
                 Ver Todos
               </Link>
@@ -252,7 +251,7 @@ export default function PerfilPage() {
                       </span>
                       <ChevronRight
                         size={16}
-                        className="text-subtitle/40 group-hover:text-accent-bg transition-colors duration-300 hidden sm:block"
+                        className="text-subtitle/40 group-hover:text-accent-bg dark:group-hover:text-accent transition-colors duration-300 hidden sm:block"
                       />
                     </div>
                   </div>
@@ -264,7 +263,7 @@ export default function PerfilPage() {
             <div className="mt-8 p-6 rounded-2xl bg-secondary/50 border border-border">
               <div className="flex gap-4 items-start">
                 <div className="w-10 h-10 rounded-xl bg-accent/20 flex items-center justify-center shrink-0">
-                  <Bell size={18} className="text-accent-bg" />
+                  <Bell size={18} className="text-accent-bg dark:text-accent" />
                 </div>
                 <div>
                   <h3 className="font-semibold text-primary text-sm">
