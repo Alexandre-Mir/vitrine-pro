@@ -1,5 +1,5 @@
 import { Metadata } from "next";
-import Image from "next/image";
+import FallbackImage from "@/app/components/FallbackImage";
 import Link from "next/link";
 import { ChevronRight, Package } from "lucide-react";
 import getProducts from "@/services/product";
@@ -132,7 +132,7 @@ export default async function CategoriasPage() {
                         }}
                       >
                         <div className="relative w-full h-full">
-                          <Image
+                          <FallbackImage
                             src={product.image}
                             alt={product.title}
                             fill

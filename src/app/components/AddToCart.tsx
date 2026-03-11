@@ -3,7 +3,7 @@
 import { useCart } from "@/context/cart-context";
 import { Product } from "@/types/product";
 import Button from "./ui/Button";
-import { validateCartItem } from "../actions/validate-cart-item";
+import { validateCartItems } from "../actions/validate-cart-items";
 import { useState } from "react";
 import { toast } from "sonner";
 import { ShoppingBag } from "lucide-react";
@@ -21,21 +21,27 @@ export function AddToCart({ product, variant = "primary" }: AddToCartProps) {
     // ... lógica existente ...
     setIsValidating(true);
     try {
-      const result = await validateCartItem(product);
+      const result = await validateCartItems([product]);
 
-      if (!result.success) {
-        toast.error(result.error);
+      if (!result.success || !result.data) {
+        toast.error(result.error || "Falha ao validar.");
         return;
       }
 
-      const { isValid, freshProduct } = result.data!;
+      const { isValid, freshProduct } = result.data[0];
 
-      if (!isValid) {
+      if (!isValid && freshProduct) {
         toast.info(
           "O preço mudou! O carrinho foi atualizado com o novo valor.",
         );
+        addToCart(freshProduct);
+      } else if (isValid && freshProduct) {
+        addToCart(freshProduct);
+      } else {
+        toast.error("Produto indisponível.");
+        return;
       }
-      addToCart(freshProduct);
+      
       toast.success("Produto adicionado ao carrinho!");
     } catch {
       toast.error("Erro inesperado. Tente novamente.");

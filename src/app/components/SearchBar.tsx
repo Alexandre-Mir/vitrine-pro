@@ -5,7 +5,7 @@ import { Loader2, Search } from "lucide-react";
 import { useEffect, useState } from "react";
 import { useDebounce } from "@/hooks/use-debounce";
 import { Product } from "@/types/product";
-import Image from "next/image";
+import FallbackImage from "./FallbackImage";
 import Link from "next/link";
 import formatCurrency from "@/utils/format-currency";
 import { fetchSearchPreview } from "../actions/fetch-search-preview";
@@ -89,7 +89,6 @@ export function SearchBar({ onSubmit }: SearchBarProps) {
           className="w-full border-b border-primary py-2 text-2xl bg-transparent outline-none placeholder:text-primary/50 pr-10"
           value={term}
           onChange={(e) => setTerm(e.target.value)}
-          autoFocus
         />
         <button
           type="submit"
@@ -128,7 +127,7 @@ export function SearchBar({ onSubmit }: SearchBarProps) {
                   className="flex gap-3 items-center p-2 -mx-2 rounded-lg hover:bg-secondary/50 transition-colors group"
                 >
                   <div className="relative w-12 h-12 bg-white rounded-lg overflow-hidden shrink-0 border border-border">
-                    <Image
+                    <FallbackImage
                       src={product.image}
                       alt={product.title}
                       fill

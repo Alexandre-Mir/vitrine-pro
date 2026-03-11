@@ -2,7 +2,7 @@ import { BadgeDollarSign, ShoppingBag, X } from "lucide-react";
 import ThemeToggle from "./ThemeToggle";
 import Link from "next/link";
 import { useCart } from "@/context/cart-context";
-import Image from "next/image";
+import FallbackImage from "./FallbackImage";
 import formatCurrency from "@/utils/format-currency";
 import Button from "./ui/Button";
 import { SearchBar } from "./SearchBar";
@@ -49,6 +49,23 @@ export default function MegaMenu({
   }, [isOpen]);
 
   const isResizing = isOpen && wasOpen.current;
+
+  // A11y: Fechar a gaveta (seja de Busca, Loja ou Carrinho) ao apertar "Escape" do teclado
+  useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === "Escape" && isOpen) {
+        onClose();
+      }
+    };
+
+    if (isOpen) {
+      document.addEventListener("keydown", handleKeyDown);
+    }
+
+    return () => {
+      document.removeEventListener("keydown", handleKeyDown);
+    };
+  }, [isOpen, onClose]);
 
   // Lógica de transição dinâmica
   let transitionClass =
@@ -181,7 +198,7 @@ export default function MegaMenu({
                     }`}
                   >
                     <div className="relative w-full aspect-[4/3] bg-white rounded-lg shrink-0 overflow-hidden">
-                      <Image
+                      <FallbackImage
                         src={featuredProducts[0].image}
                         alt={featuredProducts[0].title}
                         fill

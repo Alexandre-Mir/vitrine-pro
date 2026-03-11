@@ -1,5 +1,5 @@
 import { Star, StarHalf } from "lucide-react";
-import Image from "next/image";
+import FallbackImage from "./FallbackImage";
 import { Product } from "@/types/product";
 import Link from "next/link";
 import formatCurrency from "@/utils/format-currency";
@@ -27,12 +27,12 @@ export default function ProductCard(product: Product) {
         className="contents group/link after:absolute after:inset-0 after:z-0"
       >
         <div className={`relative w-full h-full overflow-hidden rounded-xl `}>
-          <Image
-            className="object-contain group-hover:scale-105 transition-transform duration-500 bg-secondary p-4"
+          <FallbackImage
             src={image}
             alt={title}
             fill
             sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+            className="object-contain p-6 group-hover/card:scale-110 transition-transform duration-500 will-change-transform"
           />
           <div className="absolute top-2.5 left-2.5 flex gap-2">
             {fullStars >= 4 && (

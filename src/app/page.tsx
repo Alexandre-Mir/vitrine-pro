@@ -1,7 +1,7 @@
 import { ChevronRight } from "lucide-react";
 import Hero from "./components/Hero";
 import ProductCard from "./components/ProductCard";
-import Image from "next/image";
+import FallbackImage from "./components/FallbackImage";
 
 import { Metadata } from "next";
 import getProducts from "@/services/product";
@@ -61,7 +61,7 @@ export default async function Home() {
               key={product.id}
             >
               <div className="w-20 h-20 bg-white/30 relative overflow-hidden rounded-lg shrink-0">
-                <Image
+                <FallbackImage
                   src={product.image}
                   alt={product.title}
                   fill

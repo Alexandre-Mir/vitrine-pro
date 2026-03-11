@@ -1,6 +1,6 @@
 import { AddToCart } from "@/app/components/AddToCart";
 import { getProductById } from "@/services/product";
-import Image from "next/image";
+import FallbackImage from "@/app/components/FallbackImage";
 import { Metadata } from "next";
 import Breadcrumbs from "@/app/components/ui/Breadcrumbs";
 import formatCurrency from "@/utils/format-currency";
@@ -50,7 +50,7 @@ export default async function ProductPage({ params }: PageProps) {
       <section className="bg-background p-8 rounded-lg flex flex-col gap-6">
         <Breadcrumbs items={breadcrumbItems} />
         <div className="relative w-full h-96 lg:h-[800px]  bg-black/5 rounded-lg ">
-          <Image
+          <FallbackImage
             src={product.image}
             alt={product.title}
             fill
