@@ -41,15 +41,18 @@ export function CartProvider({ children }: { children: ReactNode }) {
     }
   }, []); // Executa apenas uma vez na montagem
 
-  // 2. Persistência Automática: Qualquer mudança no items salva no storage
+  // 2. Persistência Automática: Qualquer mudança no items salva no storage de forma optimizada (Debounce)
   useEffect(() => {
-    // Evita sobrescrever o storage com array vazio durante a hidratação inicial
-    // Se quiser permitir limpar o carrinho, a lógica deve ser refinada, mas para refresh serve.
-    // Uma melhor abordagem é usar um ref 'isInitialized' se precisarmos diferenciar [] inicial de [] limpo.
-    // Neste caso simples, assumimos que se items mudou (e já montou), salvamos.
-    if (items.length > 0 || localStorage.getItem("vitrine-pro-cart")) {
-      localStorage.setItem("vitrine-pro-cart", JSON.stringify(items));
-    }
+    // Cria um timeout para debouncer a serialização e gravação (impede engasgos na main thread)
+    const timeoutId = setTimeout(() => {
+      // Evita sobrescrever o storage com array vazio durante a hidratação inicial
+      if (items.length > 0 || localStorage.getItem("vitrine-pro-cart")) {
+        localStorage.setItem("vitrine-pro-cart", JSON.stringify(items));
+      }
+    }, 500); // Aguarda 500ms de ociosidade antes de serializar
+
+    // Cleanup: se o usuário clicar novamente antes dos 500ms, o timeout anterior é cancelado
+    return () => clearTimeout(timeoutId);
   }, [items]);
 
   const cartQuantity = items.length;

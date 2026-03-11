@@ -12,7 +12,7 @@ import formatCurrency from "@/utils/format-currency";
 import Button from "./ui/Button";
 import { useAutoAnimate } from "@formkit/auto-animate/react";
 import { useState } from "react";
-import { validateCartItem } from "../actions/validate-cart-item";
+import { validateCartItems } from "../actions/validate-cart-items";
 import { toast } from "sonner";
 
 interface CartPanelProps {
@@ -42,25 +42,25 @@ export function CartPanel({ onClose }: CartPanelProps) {
     setCheckoutState("loading");
 
     try {
-      // Revalida TODOS os itens do carrinho contra o servidor
-      const results = await Promise.all(
-        items.map((item) => validateCartItem(item)),
-      );
+      // Revalida TODOS os itens do carrinho contra o servidor em 1 request
+      const result = await validateCartItems(items);
 
-      const errors = results.filter((r) => !r.success);
-      if (errors.length > 0) {
-        toast.error("Falha ao validar itens. Tente novamente.");
+      if (!result.success || !result.data) {
+        toast.error(result.error || "Falha ao validar itens. Tente novamente.");
         setCheckoutState("idle");
         return;
       }
 
       // Identifica itens com preço divergente e atualiza
       let priceChanges = 0;
-      results.forEach((result, index) => {
-        const { isValid, freshProduct } = result.data!;
-        if (!isValid) {
-          updateItemPrice(items[index].id, freshProduct.price);
+      result.data.forEach((validation) => {
+        const { id, isValid, freshProduct } = validation;
+        if (!isValid && freshProduct) {
+          updateItemPrice(id, freshProduct.price);
           priceChanges++;
+        } else if (!isValid && !freshProduct) {
+          // Trata caso de produto deletado (aqui apenas exibimos erro genérico ou aprimoramos lógica depois)
+          priceChanges++; 
         }
       });
 

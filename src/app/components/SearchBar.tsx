@@ -8,6 +8,7 @@ import { Product } from "@/types/product";
 import Image from "next/image";
 import Link from "next/link";
 import formatCurrency from "@/utils/format-currency";
+import { fetchSearchPreview } from "../actions/fetch-search-preview";
 
 interface SearchBarProps {
   onSubmit?: () => void;
@@ -36,40 +37,30 @@ export function SearchBar({ onSubmit }: SearchBarProps) {
       return;
     }
 
-    const controller = new AbortController();
+    // Não precisamos mais do AbortController local aqui já que a chamada vai para Server Action
+    let isActive = true;
 
     async function fetchPreview() {
       setIsLoading(true);
       try {
-        const res = await fetch("https://fakestoreapi.com/products", {
-          signal: controller.signal,
-        });
-        if (!res.ok) throw new Error("Falha ao buscar");
-
-        const allProducts: Product[] = await res.json();
-        const lowerQuery = debouncedTerm.toLowerCase();
-
-        const filtered = allProducts
-          .filter(
-            (p) =>
-              p.title.toLowerCase().includes(lowerQuery) ||
-              p.description.toLowerCase().includes(lowerQuery) ||
-              p.category.toLowerCase().includes(lowerQuery),
-          )
-          .slice(0, 3);
-
-        setResults(filtered);
-      } catch (err: unknown) {
-        if (err instanceof DOMException && err.name === "AbortError") return;
-        setResults([]);
+        // Agora invocamos a Server Action que devolve DTO de 3 posições
+        const filtered = await fetchSearchPreview(debouncedTerm);
+        
+        if (isActive) {
+          setResults(filtered);
+        }
+      } catch {
+        if (isActive) setResults([]);
       } finally {
-        setIsLoading(false);
+        if (isActive) setIsLoading(false);
       }
     }
 
     fetchPreview();
 
-    return () => controller.abort();
+    return () => {
+      isActive = false;
+    };
   }, [debouncedTerm]);
 
   // Indica visualmente que a digitação vai disparar uma busca (antes do debounce resolver)

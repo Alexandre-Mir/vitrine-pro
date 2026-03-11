@@ -25,13 +25,14 @@ Diferente de um clone tradicional, este projeto não foca apenas na elaboração
 
 ### 🛍️ Experiência de Compra
 
-- **Carrinho de Compras Global:** Gerenciamento centralizado por _Context API_, contando com persistência nativa via `localStorage`. Impede múltiplos cliques maliciosos (_rage clicks_) inativando e exibindo uma _UI_ de carregamento na hora da validação da compra.
+- **Carrinho de Compras Global:** Gerenciamento centralizado por _Context API_, contando com persistência nativa via `localStorage`. A serialização na Storage API dispõe de uma política de _Debounce_ de proteção à _Main Thread_ (linhas de renderização UI), mitigando _Layout Janks_ e picos de processamento em manipulações sequenciais rápidas do utilizador (aumento constante no volume de itens).
 - **Add to Cart Modular:** A chamada à ação nos _Cards_ de Produto aproveita de animação _CSS Grid_ (`grid-template-columns: 0fr → 1fr`), transformando de maneira suave de um disco para uma cápsula completa em eventos de _hover_.
+- **Sincronização Integrada em Lote:** O fechamento do Carrinho descarta múltiplas resoluções _HTTP_ isoladas por objeto para conter a latência global do funil de conversão. Executa um _Batch Request_ que analisa e concilia, numa única viagem via `validateCartItems`, os produtos cliente/servidor mitigando pontos solitários de quebra.
 
 ### 🔍 Busca Robusta (Live Search)
 
-- **Preview em Tempo Real:** Listagem dos _matches_ exatos exibidos de modo reativo diretamente no topo, simplificando a jornada e promovendo uma redução substancial em cliques.
-- **Debounce & Controle de Concorrência:** Disparo de chamadas atrasadas por 350ms em prol de uma maior economia de banda na API. Inclui aniquilamento de requisições caducas por meio da instância do `AbortController`.
+- **Preview em Tempo Real Server-Side (Thin Client):** A listagem dos _matches_ exatos exibidos de modo reativo é processada diretamente pelas _Server Actions_, livrando o JavaScript do cliente de varrer o volume abismal do catálogo integral localmente. Apenas fragmentos pré-computados e de baixo peso trafegam da Borda Vercel para o usuário final.
+- **Debounce & Controle de Concorrência:** Disparo de digitação atrasada por 350ms em prol de uma maior economia de banda na API somada a descarte de corridas assíncronas (_Race Conditions_) invalidando promessas antigas pendentes caso haja trocas abruptas no termo pesquisado.
 - **URL atuando como SSoT:** O estado textual mapeia inequivocamente os `searchParams` na URL, fortalecendo as capacidades de integração e de compartilhamento natural pelo usuário, preservando coerência de acesso e retornos.
 
 ### 🧭 Navegação Ergonômica
