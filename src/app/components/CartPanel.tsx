@@ -6,12 +6,13 @@ import {
   Minus,
   Plus,
 } from "lucide-react";
-import Image from "next/image";
+import FallbackImage from "./FallbackImage";
 import { useCart } from "@/context/cart-context";
 import formatCurrency from "@/utils/format-currency";
 import Button from "./ui/Button";
 import { useAutoAnimate } from "@formkit/auto-animate/react";
 import { useState } from "react";
+import { useRouter } from "next/navigation";
 import { validateCartItems } from "../actions/validate-cart-items";
 import { toast } from "sonner";
 
@@ -30,8 +31,10 @@ export function CartPanel({ onClose }: CartPanelProps) {
   } = useCart();
   const [parent] = useAutoAnimate();
   const [checkoutState, setCheckoutState] = useState<
-    "idle" | "loading" | "success"
+    "idle" | "loading" | "review"
   >("idle");
+  const [hasReviewed, setHasReviewed] = useState(false);
+  const router = useRouter();
 
   const total = items.reduce(
     (acc, item) => acc + item.price * item.quantity,
@@ -39,6 +42,14 @@ export function CartPanel({ onClose }: CartPanelProps) {
   );
 
   const handleFakeCheckout = async () => {
+    // O usuário acabou de revisar do estado 'review', prosseguir!
+    if (hasReviewed) {
+      onClose();
+      router.push("/checkout");
+      setCheckoutState("idle");
+      return;
+    }
+
     setCheckoutState("loading");
 
     try {
@@ -66,59 +77,23 @@ export function CartPanel({ onClose }: CartPanelProps) {
 
       if (priceChanges > 0) {
         toast.warning(
-          `${priceChanges} ${priceChanges === 1 ? "item teve o preço atualizado" : "itens tiveram o preço atualizado"}. Revise o carrinho antes de confirmar.`,
+          `${priceChanges} ${priceChanges === 1 ? "item teve o preço atualizado" : "itens tiveram o preço atualizado"} devido a alta demanda.`,
         );
-        setCheckoutState("idle");
+        // Interrompe o fluxo e pede permissão explícita
+        setCheckoutState("review");
+        setHasReviewed(true);
         return;
       }
 
       // Todos os preços válidos — prossegue com o checkout
-      setCheckoutState("success");
+      onClose();
+      router.push("/checkout");
+      setCheckoutState("idle");
     } catch {
       toast.error("Erro de conexão. Tente novamente.");
       setCheckoutState("idle");
     }
   };
-
-  const handleFinishAndClose = () => {
-    clearCart();
-    onClose();
-    // Pequeno delay para a animação de fechar antes de resetar o estado
-    setTimeout(() => {
-      setCheckoutState("idle");
-    }, 500);
-  };
-
-  if (checkoutState === "success") {
-    return (
-      <div className="w-full max-w-lg mx-auto flex flex-col items-center justify-center text-center h-full min-h-[400px] px-6 animate-fade-in">
-        <div className="w-16 h-16 bg-green-100 text-green-600 rounded-full flex items-center justify-center mb-6">
-          <CheckCircle2 size={32} strokeWidth={2.5} />
-        </div>
-        <h3 className="text-2xl font-bold mb-3 text-foreground">
-          Fluxo de Carrinho Concluído! 🚀
-        </h3>
-        <p className="text-subtitle font-medium mb-2">
-          Obrigado por testar o aplicativo.
-        </p>
-        <p className="text-sm text-subtitle/80 leading-relaxed max-w-sm mb-8">
-          O objetivo técnico desta etapa (Validação de Preços Server-Side e
-          Sincronização de Estado via Context) foi demonstrado com sucesso.
-          <br />
-          <br />
-          Em um produto real, esta ação iniciaria a transação via gateway de
-          pagamento. Para manter o foco deste projeto em Performance e
-          Arquitetura, o fluxo financeiro foi omitido.
-        </p>
-        <Button
-          onClick={handleFinishAndClose}
-          className="w-full sm:w-auto px-8"
-        >
-          Esvaziar Carrinho e Voltar à Loja
-        </Button>
-      </div>
-    );
-  }
 
   return (
     <div className="w-full max-w-lg mx-auto flex flex-col h-full min-h-[300px]">
@@ -138,7 +113,7 @@ export function CartPanel({ onClose }: CartPanelProps) {
               className="flex gap-4 items-start border-b border-border pb-6 last:border-0"
             >
               <div className="relative w-20 h-20 bg-white rounded-lg overflow-hidden shrink-0 border border-border">
-                <Image
+                <FallbackImage
                   src={item.image}
                   alt={item.title}
                   fill
@@ -202,20 +177,45 @@ export function CartPanel({ onClose }: CartPanelProps) {
             </span>
             <span className="text-xl font-bold">{formatCurrency(total)}</span>
           </div>
-          <Button
-            className="w-full overflow-hidden relative"
-            onClick={handleFakeCheckout}
-            disabled={checkoutState === "loading"}
-          >
-            {checkoutState === "loading" ? (
-              <span className="flex items-center justify-center gap-2">
-                <Loader2 size={18} className="animate-spin" />
-                Processando...
-              </span>
-            ) : (
-              "Finalizar Compra"
+          
+          {checkoutState === "review" && (
+            <div className="mb-4 bg-red-50 border border-red-200 text-red-700 text-xs p-3 rounded-lg flex flex-col gap-1.5 animate-fade-in">
+              <strong className="font-bold">Atenção: Variação de Catálogo</strong>
+              <p>Os preços de alguns itens foram atualizados em nosso servidor desde que foram adicionados. Por favor, revise o novo Total.</p>
+            </div>
+          )}
+
+          <div className="flex flex-col gap-2">
+            <Button
+              className="w-full overflow-hidden relative transition-all"
+              onClick={handleFakeCheckout}
+              disabled={checkoutState === "loading"}
+            >
+              {checkoutState === "loading" ? (
+                <span className="flex items-center justify-center gap-2">
+                  <Loader2 size={18} className="animate-spin" />
+                  Verificando Disponibilidade e Valores...
+                </span>
+              ) : checkoutState === "review" ? (
+                "Estou ciente e desejo Finalizar a Compra"
+              ) : (
+                "Prosseguir para o Checkout"
+              )}
+            </Button>
+            
+            {checkoutState === "review" && (
+              <Button
+                variant="outline"
+                className="w-full"
+                onClick={() => {
+                  setCheckoutState("idle");
+                  setHasReviewed(false);
+                }}
+              >
+                Voltar e Revisar o Carrinho
+              </Button>
             )}
-          </Button>
+          </div>
         </div>
       )}
     </div>

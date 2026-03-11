@@ -77,6 +77,33 @@ export default function ContatoPage() {
   });
   const [status, setStatus] = useState<"idle" | "loading" | "success">("idle");
   const [expandedFaq, setExpandedFaq] = useState<number | null>(null);
+  const [deflectedFaq, setDeflectedFaq] = useState<number | null>(null);
+
+  const handleMensagemChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
+    const text = e.target.value;
+    setFormData({ ...formData, mensagem: text });
+
+    const lowerText = text.toLowerCase();
+    
+    let detectedIndex: number | null = null;
+    if (lowerText.includes("prazo") || lowerText.includes("demora") || lowerText.includes("chegar")) {
+      detectedIndex = 0;
+    } else if (lowerText.includes("rastrear") || lowerText.includes("rastreio") || lowerText.includes("onde")) {
+      detectedIndex = 1;
+    } else if (lowerText.includes("devolução") || lowerText.includes("troca") || lowerText.includes("devolver")) {
+      detectedIndex = 2;
+    } else if (lowerText.includes("pagamento") || lowerText.includes("parcela") || lowerText.includes("pix") || lowerText.includes("cartão")) {
+      detectedIndex = 3;
+    }
+
+    if (detectedIndex !== null && deflectedFaq !== detectedIndex) {
+      setExpandedFaq(detectedIndex);
+      setDeflectedFaq(detectedIndex);
+    } else if (detectedIndex === null && text.length === 0) {
+      // reseta caso apague tudo
+      setDeflectedFaq(null);
+    }
+  };
 
   async function handleSubmit(e: FormEvent) {
     e.preventDefault();
@@ -235,9 +262,7 @@ export default function ContatoPage() {
                   rows={5}
                   required
                   value={formData.mensagem}
-                  onChange={(e) =>
-                    setFormData({ ...formData, mensagem: e.target.value })
-                  }
+                  onChange={handleMensagemChange}
                   disabled={status !== "idle"}
                   className="w-full bg-background border border-border rounded-xl py-3 px-4 text-primary placeholder:text-subtitle/50 outline-none focus:border-accent-bg/50 dark:focus:border-accent/50 focus:ring-2 focus:ring-accent-bg/10 dark:focus:ring-accent/10 transition-all resize-none disabled:opacity-50"
                   placeholder="Descreva como podemos ajudar..."
@@ -282,6 +307,13 @@ export default function ContatoPage() {
             <p className="mt-3 text-subtitle">
               Confira as respostas para as perguntas mais comuns.
             </p>
+
+            {deflectedFaq !== null && expandedFaq === deflectedFaq && (
+              <div className="mt-4 bg-accent-bg/10 text-accent-bg dark:bg-accent/10 dark:text-accent px-4 py-3 rounded-xl text-sm font-medium flex gap-2 items-center animate-fade-down">
+                <CheckCircle2 size={16} />
+                Achamos uma resposta que pode te ajudar agora!
+              </div>
+            )}
 
             <div className="mt-8 space-y-3">
               {faqItems.map((item, index) => (
