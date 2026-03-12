@@ -205,7 +205,7 @@ export default function ContatoPage() {
                       setFormData({ ...formData, nome: e.target.value })
                     }
                     disabled={status !== "idle"}
-                    className="w-full bg-background border border-border rounded-xl py-3 px-4 text-primary placeholder:text-subtitle/50 outline-none focus:border-accent-bg/50 dark:focus:border-accent/50 focus:ring-2 focus:ring-accent-bg/10 dark:focus:ring-accent/10 transition-all disabled:opacity-50"
+                    className="w-full bg-background border border-border rounded-xl py-3 px-4 text-primary placeholder:text-subtitle/50 outline-none focus:border-accent-bg dark:focus:border-accent focus:ring-2 focus:ring-accent-bg focus:ring-offset-2 focus:ring-offset-background dark:focus:ring-accent transition-all disabled:opacity-50"
                     placeholder="Seu nome completo"
                   />
                 </div>
@@ -225,7 +225,7 @@ export default function ContatoPage() {
                       setFormData({ ...formData, email: e.target.value })
                     }
                     disabled={status !== "idle"}
-                    className="w-full bg-background border border-border rounded-xl py-3 px-4 text-primary placeholder:text-subtitle/50 outline-none focus:border-accent-bg/50 dark:focus:border-accent/50 focus:ring-2 focus:ring-accent-bg/10 dark:focus:ring-accent/10 transition-all disabled:opacity-50"
+                    className="w-full bg-background border border-border rounded-xl py-3 px-4 text-primary placeholder:text-subtitle/50 outline-none focus:border-accent-bg dark:focus:border-accent focus:ring-2 focus:ring-accent-bg focus:ring-offset-2 focus:ring-offset-background dark:focus:ring-accent transition-all disabled:opacity-50"
                     placeholder="seu@email.com"
                   />
                 </div>
@@ -246,7 +246,7 @@ export default function ContatoPage() {
                     setFormData({ ...formData, assunto: e.target.value })
                   }
                   disabled={status !== "idle"}
-                  className="w-full bg-background border border-border rounded-xl py-3 px-4 text-primary placeholder:text-subtitle/50 outline-none focus:border-accent-bg/50 dark:focus:border-accent/50 focus:ring-2 focus:ring-accent-bg/10 dark:focus:ring-accent/10 transition-all disabled:opacity-50"
+                  className="w-full bg-background border border-border rounded-xl py-3 px-4 text-primary placeholder:text-subtitle/50 outline-none focus:border-accent-bg dark:focus:border-accent focus:ring-2 focus:ring-accent-bg focus:ring-offset-2 focus:ring-offset-background dark:focus:ring-accent transition-all disabled:opacity-50"
                   placeholder="Do que se trata?"
                 />
               </div>
@@ -264,7 +264,7 @@ export default function ContatoPage() {
                   value={formData.mensagem}
                   onChange={handleMensagemChange}
                   disabled={status !== "idle"}
-                  className="w-full bg-background border border-border rounded-xl py-3 px-4 text-primary placeholder:text-subtitle/50 outline-none focus:border-accent-bg/50 dark:focus:border-accent/50 focus:ring-2 focus:ring-accent-bg/10 dark:focus:ring-accent/10 transition-all resize-none disabled:opacity-50"
+                  className="w-full bg-background border border-border rounded-xl py-3 px-4 text-primary placeholder:text-subtitle/50 outline-none focus:border-accent-bg dark:focus:border-accent focus:ring-2 focus:ring-accent-bg focus:ring-offset-2 focus:ring-offset-background dark:focus:ring-accent transition-all resize-none disabled:opacity-50"
                   placeholder="Descreva como podemos ajudar..."
                 />
               </div>

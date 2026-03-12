@@ -144,7 +144,7 @@ export default function CheckoutPage() {
 
         <div className="grid lg:grid-cols-3 gap-8 items-start">
           {/* Coluna do Formulário (2/3) */}
-          <div className="lg:col-span-2 flex flex-col gap-6">
+          <div className="lg:col-span-2 flex flex-col gap-6 order-2 lg:order-1">
             
             {/* Bloco de Contato */}
             <section className="bg-background border border-border rounded-2xl p-6 lg:p-8 shadow-sm">
@@ -168,7 +168,7 @@ export default function CheckoutPage() {
                     required
                     value={formData.nome}
                     onChange={handleInputChange}
-                    className="w-full bg-background border border-border rounded-xl py-3 px-4 outline-none focus:border-accent-bg/50 dark:focus:border-accent/50 focus:ring-2 focus:ring-accent-bg/10 transition-all"
+                    className="w-full bg-background border border-border rounded-xl py-3 px-4 outline-none focus:border-accent-bg dark:focus:border-accent focus:ring-2 focus:ring-accent-bg focus:ring-offset-2 focus:ring-offset-background dark:focus:ring-accent transition-all"
                   />
                 </div>
                 <div>
@@ -182,7 +182,7 @@ export default function CheckoutPage() {
                     required
                     value={formData.email}
                     onChange={handleInputChange}
-                    className="w-full bg-background border border-border rounded-xl py-3 px-4 outline-none focus:border-accent-bg/50 dark:focus:border-accent/50 focus:ring-2 focus:ring-accent-bg/10 transition-all"
+                    className="w-full bg-background border border-border rounded-xl py-3 px-4 outline-none focus:border-accent-bg dark:focus:border-accent focus:ring-2 focus:ring-accent-bg focus:ring-offset-2 focus:ring-offset-background dark:focus:ring-accent transition-all"
                   />
                 </div>
               </div>
@@ -217,7 +217,7 @@ export default function CheckoutPage() {
                       value={formData.cep}
                       onChange={handleCepChange}
                       placeholder="00000-000"
-                      className="w-full bg-background border border-border rounded-xl py-3 pl-4 pr-10 outline-none focus:border-accent-bg/50 dark:focus:border-accent/50 focus:ring-2 focus:ring-accent-bg/10 transition-all font-mono"
+                      className="w-full bg-background border border-border rounded-xl py-3 pl-4 pr-10 outline-none focus:border-accent-bg dark:focus:border-accent focus:ring-2 focus:ring-accent-bg focus:ring-offset-2 focus:ring-offset-background dark:focus:ring-accent transition-all font-mono"
                     />
                     {isFetchingCep ? (
                       <Loader2 size={18} className="absolute right-3 top-1/2 -translate-y-1/2 text-primary animate-spin" />
@@ -318,7 +318,7 @@ export default function CheckoutPage() {
           </div>
 
           {/* Resumo do Pedido (1/3) */}
-          <div className="lg:col-span-1">
+          <div className="lg:col-span-1 order-1 lg:order-2">
             <div className="bg-background border border-border rounded-2xl p-6 sticky top-[calc(var(--header-height)+2rem)] shadow-sm flex flex-col h-fit">
               <div className="flex items-center gap-3 mb-6 pb-4 border-b border-border">
                 <div className="w-10 h-10 bg-accent-bg/10 dark:bg-accent/10 text-accent-bg dark:text-accent rounded-full flex items-center justify-center">
