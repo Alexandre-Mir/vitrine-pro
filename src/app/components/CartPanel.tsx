@@ -110,110 +110,122 @@ export function CartPanel({ onClose }: CartPanelProps) {
           {items.map((item) => (
             <li
               key={item.id}
-              className="flex gap-4 items-start border-b border-border pb-6 last:border-0"
+              className="flex gap-5 items-start bg-secondary/10 dark:bg-secondary/5 p-4 rounded-2xl border border-secondary/20 transition-all hover:border-secondary/40"
             >
-              <div className="relative w-20 h-20 bg-white rounded-lg overflow-hidden shrink-0 border border-border">
+              <div className="relative w-24 h-24 bg-white dark:bg-white/10 rounded-xl overflow-hidden shrink-0 border border-secondary/30 flex items-center justify-center p-2">
                 <FallbackImage
                   src={item.image}
                   alt={item.title}
                   fill
-                  className="object-contain p-2"
+                  className="object-contain p-2 mix-blend-multiply dark:mix-blend-normal"
                 />
               </div>
-              <div className="flex-1 flex flex-col gap-1">
-                <h5 className="font-medium line-clamp-2 leading-tight">
-                  {item.title}
-                </h5>
-                <p className="text-sm text-subtitle capitalize">
+              <div className="flex-1 flex flex-col gap-1.5 h-full">
+                <div className="flex justify-between items-start">
+                  <h5 className="font-semibold text-primary line-clamp-2 leading-tight">
+                    {item.title}
+                  </h5>
+                  <button
+                    onClick={() => removeFromCart(item.id)}
+                    className="text-subtitle hover:text-red-500 transition-colors p-1"
+                    aria-label="Remover item"
+                    disabled={checkoutState === "loading"}
+                  >
+                    <X size={18} strokeWidth={2.5} />
+                  </button>
+                </div>
+                <p className="text-xs font-bold uppercase tracking-wider text-subtitle">
                   {item.category}
                 </p>
-                <div className="flex justify-between items-end mt-2">
-                  <div className="flex items-center gap-1 bg-secondary rounded-md px-1 py-0.5 border border-border/50">
+                <div className="flex justify-between items-center mt-auto pt-2">
+                  <div className="flex items-center bg-background dark:bg-secondary/20 rounded-full border border-border/60 shadow-sm p-0.5">
                     <button
                       onClick={() => decreaseQuantity(item.id)}
-                      className="w-6 h-6 flex items-center justify-center rounded text-subtitle hover:bg-background hover:text-foreground transition-colors disabled:opacity-50 cursor-pointer"
+                      className="w-7 h-7 flex items-center justify-center rounded-full text-primary hover:bg-secondary/40 transition-colors disabled:opacity-30 cursor-pointer"
                       aria-label="Diminuir quantidade"
                       disabled={checkoutState === "loading"}
                     >
-                      <Minus size={14} />
+                      <Minus size={14} strokeWidth={3} />
                     </button>
-                    <span className="text-xs font-medium w-6 text-center">
+                    <span className="text-sm font-bold w-7 text-center">
                       {item.quantity}
                     </span>
                     <button
                       onClick={() => addToCart(item)}
-                      className="w-6 h-6 flex items-center justify-center rounded text-subtitle hover:bg-background hover:text-foreground transition-colors disabled:opacity-50 cursor-pointer"
+                      className="w-7 h-7 flex items-center justify-center rounded-full text-primary hover:bg-secondary/40 transition-colors disabled:opacity-30 cursor-pointer"
                       aria-label="Aumentar quantidade"
                       disabled={checkoutState === "loading"}
                     >
-                      <Plus size={14} />
+                      <Plus size={14} strokeWidth={3} />
                     </button>
                   </div>
-                  <span className="font-bold">
+                  <span className="font-extrabold text-lg tracking-tight text-primary">
                     {formatCurrency(item.price * item.quantity)}
                   </span>
                 </div>
               </div>
-              <Button
-                variant="ghost"
-                size="none"
-                className="text-subtitle hover:text-primary ml-auto"
-                onClick={() => removeFromCart(item.id)}
-                aria-label="Remover item"
-                disabled={checkoutState === "loading"}
-              >
-                <X size={20} />
-              </Button>
             </li>
           ))}
         </ul>
       )}
 
       {items.length > 0 && (
-        <div className="border-t border-border mt-auto pt-6 bg-background/95 backdrop-blur-sm sticky bottom-0">
-          <div className="flex justify-between items-center mb-6">
-            <span className="text-sm font-medium uppercase tracking-widest">
-              Total
+        <div className="border-t border-border mt-auto pt-8 pb-4 bg-background/95 backdrop-blur-sm sticky bottom-0">
+          <div className="flex justify-between items-center mb-8 px-2">
+            <span className="text-xs font-bold uppercase tracking-[0.3em] text-subtitle">
+              Subtotal
             </span>
-            <span className="text-xl font-bold">{formatCurrency(total)}</span>
+            <span className="text-2xl font-extrabold tracking-tighter text-primary">
+              {formatCurrency(total)}
+            </span>
           </div>
           
           {checkoutState === "review" && (
-            <div className="mb-4 bg-red-50 border border-red-200 text-red-700 text-xs p-3 rounded-lg flex flex-col gap-1.5 animate-fade-in">
-              <strong className="font-bold">Atenção: Variação de Catálogo</strong>
-              <p>Os preços de alguns itens foram atualizados em nosso servidor desde que foram adicionados. Por favor, revise o novo Total.</p>
+            <div className="mb-6 bg-red-50 dark:bg-red-950/20 border border-red-200 dark:border-red-800/50 text-red-700 dark:text-red-400 text-xs p-4 rounded-2xl flex flex-col gap-1.5 animate-fade-in">
+              <div className="flex items-center gap-2">
+                <div className="w-1.5 h-1.5 bg-red-500 rounded-full animate-pulse" />
+                <strong className="font-bold">Atenção: Variação de Catálogo</strong>
+              </div>
+              <p className="opacity-80">Os preços de alguns itens foram atualizados em nosso servidor. Por favor, revise o novo Total antes de prosseguir.</p>
             </div>
           )}
 
-          <div className="flex flex-col gap-2">
+          <div className="flex flex-col gap-3">
             <Button
-              className="w-full overflow-hidden relative transition-all"
+              className="w-full h-14 rounded-2xl text-base font-bold overflow-hidden relative transition-all shadow-lg shadow-accent/20 active:scale-[0.98]"
               onClick={handleFakeCheckout}
               disabled={checkoutState === "loading"}
             >
               {checkoutState === "loading" ? (
                 <span className="flex items-center justify-center gap-2">
                   <Loader2 size={18} className="animate-spin" />
-                  Verificando Disponibilidade e Valores...
+                  Validando Carrinho...
                 </span>
               ) : checkoutState === "review" ? (
-                "Estou ciente e desejo Finalizar a Compra"
+                "Estou ciente e desejo Finalizar"
               ) : (
-                "Prosseguir para o Checkout"
+                "Finalizar Compra"
               )}
             </Button>
             
-            {checkoutState === "review" && (
+            {checkoutState === "review" ? (
               <Button
                 variant="outline"
-                className="w-full"
+                className="w-full h-12 rounded-xl text-sm font-semibold border-secondary/60"
                 onClick={() => {
                   setCheckoutState("idle");
                   setHasReviewed(false);
                 }}
               >
-                Voltar e Revisar o Carrinho
+                Voltar e Revisar
               </Button>
+            ) : (
+               <button 
+                onClick={onClose}
+                className="text-center text-xs font-bold uppercase tracking-widest text-subtitle hover:text-primary transition-colors py-2"
+               >
+                  Continuar Comprando
+               </button>
             )}
           </div>
         </div>

@@ -78,14 +78,14 @@ export default async function Home() {
         </div>
 
         {/* Mais vendidos */}
-        <div id="destaques" className="mt-10 scroll-mt-4">
-          <div className="bg-secondary p-4 rounded-2xl lg:rounded-none flex gap-4 ml-4 lg:flex-col lg:items-center lg:justify-center lg:mx-auto lg:py-12">
-            <div className="flex-none flex items-center justify-center w-12 lg:mr-10 lg:py-4 lg:mb-6 lg:w-full">
-              <h2 className="leading-none font-bold text-primary text-3xl mb-0.5 lg:text-5xl uppercase -rotate-90 lg:rotate-0 whitespace-nowrap">
+        <div id="destaques" className="mt-10 scroll-mt-4 bg-secondary py-12 lg:py-16">
+          <div className="max-w-7xl mx-auto px-4 lg:px-8">
+            <div className="flex items-center justify-between mb-8">
+              <h2 className="text-3xl lg:text-5xl font-bold text-primary uppercase tracking-tight">
                 Mais vendidos
               </h2>
             </div>
-            <div className="flex-1 flex overflow-x-auto snap-x scrollbar-hide gap-4 lg:grid lg:grid-cols-4 max-w-7xl mx-auto w-full">
+            <div className="flex overflow-x-auto snap-x scrollbar-hide gap-4 lg:grid lg:grid-cols-4 w-full">
               {bestSellers.slice(0, 4).map((product) => (
                 <ProductCard key={product.id} {...product} />
               ))}

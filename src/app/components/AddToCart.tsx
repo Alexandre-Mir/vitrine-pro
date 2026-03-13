@@ -4,9 +4,9 @@ import { useCart } from "@/context/cart-context";
 import { Product } from "@/types/product";
 import Button from "./ui/Button";
 import { validateCartItems } from "../actions/validate-cart-items";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { toast } from "sonner";
-import { ShoppingBag } from "lucide-react";
+import { ShoppingBag, Plus, Check } from "lucide-react";
 
 interface AddToCartProps {
   product: Product;
@@ -16,9 +16,16 @@ interface AddToCartProps {
 export function AddToCart({ product, variant = "primary" }: AddToCartProps) {
   const { addToCart } = useCart();
   const [isValidating, setIsValidating] = useState(false);
+  const [isAdded, setIsAdded] = useState(false);
+
+  useEffect(() => {
+    if (isAdded) {
+      const timeout = setTimeout(() => setIsAdded(false), 2000);
+      return () => clearTimeout(timeout);
+    }
+  }, [isAdded]);
 
   async function handleAddToCart() {
-    // ... lógica existente ...
     setIsValidating(true);
     try {
       const result = await validateCartItems([product]);
@@ -42,6 +49,7 @@ export function AddToCart({ product, variant = "primary" }: AddToCartProps) {
         return;
       }
       
+      setIsAdded(true);
       toast.success("Produto adicionado ao carrinho!");
     } catch {
       toast.error("Erro inesperado. Tente novamente.");
@@ -54,23 +62,40 @@ export function AddToCart({ product, variant = "primary" }: AddToCartProps) {
     return (
       <button
         onClick={handleAddToCart}
-        disabled={isValidating}
+        disabled={isValidating || isAdded}
         aria-label="Adicionar ao carrinho"
-        className="group/btn cursor-pointer flex items-center justify-center gap-0 bg-accent hover:bg-yellow-400 text-background rounded-full shadow-sm h-10 min-w-10 px-2.5 transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed"
+        className={`group/btn cursor-pointer flex items-center justify-center rounded-full shadow-sm h-12 w-12 transition-all duration-500 active:scale-90 disabled:cursor-not-allowed overflow-hidden
+          ${isAdded ? "bg-green-500 text-white shadow-green-200" : "bg-accent hover:bg-yellow-400 text-primary"}
+        `}
       >
         {isValidating ? (
-          <div className="w-[18px] h-[18px] border-2 border-background border-t-transparent rounded-full animate-spin" />
+          <div className="w-[20px] h-[20px] border-2 border-primary border-t-transparent rounded-full animate-spin" />
         ) : (
-          <ShoppingBag size={18} className="shrink-0" />
-        )}
-        {/* Grid 0fr → 1fr: anima para o tamanho real do conteúdo sem valor mágico */}
-        <div className="grid grid-cols-[0fr] group-hover/btn:grid-cols-[1fr] transition-[grid-template-columns] duration-300 ease-out">
-          <div className="overflow-hidden min-w-0">
-            <span className="whitespace-nowrap text-xs font-bold uppercase tracking-wider pl-2 pr-0.5">
-              Adicionar
-            </span>
+          <div className="relative w-6 h-6 flex items-center justify-center">
+            {/* Bag Icon: Visible by default, hidden on hover or when added */}
+            <ShoppingBag 
+              size={22} 
+              className={`absolute transition-all duration-300 ease-out 
+                ${isAdded ? "opacity-0 scale-50 -translate-y-4" : "opacity-100 scale-100 group-hover/btn:opacity-0 group-hover/btn:scale-50 group-hover/btn:rotate-12"}
+              `}
+            />
+            {/* Plus Icon: Visible only on hover, hidden when added */}
+            <Plus 
+              size={24} 
+              className={`absolute transition-all duration-300 ease-out
+                ${isAdded ? "opacity-0 scale-50 -translate-y-4" : "opacity-0 scale-50 -rotate-12 group-hover/btn:opacity-100 group-hover/btn:scale-100 group-hover/btn:rotate-0"}
+              `}
+            />
+            {/* Check Icon: Visible only when added */}
+            <Check 
+              size={26} 
+              strokeWidth={3.5} 
+              className={`absolute transition-all duration-500 cubic-bezier(0.34, 1.56, 0.64, 1)
+                ${isAdded ? "opacity-100 scale-100 rotate-0 translate-y-0" : "opacity-0 scale-50 rotate-12 translate-y-4"}
+              `}
+            />
           </div>
-        </div>
+        )}
       </button>
     );
   }
