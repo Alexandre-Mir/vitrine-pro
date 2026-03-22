@@ -16,6 +16,8 @@ export const metadata: Metadata = {
   },
 };
 
+export const dynamic = "force-dynamic";
+
 const categoryTranslations: Record<string, string> = {
   "men's clothing": "Moda Masculina",
   "women's clothing": "Moda Feminina",

@@ -6,6 +6,8 @@ import FallbackImage from "./components/FallbackImage";
 import { Metadata } from "next";
 import getProducts from "@/services/product";
 
+export const dynamic = "force-dynamic";
+
 export async function generateMetadata(): Promise<Metadata> {
   const products = await getProducts();
   const uniqueCategories = products.filter(

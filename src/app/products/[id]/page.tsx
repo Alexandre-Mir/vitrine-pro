@@ -7,6 +7,8 @@ import Breadcrumbs from "@/app/components/ui/Breadcrumbs";
 import formatCurrency from "@/utils/format-currency";
 import { notFound } from "next/navigation";
 
+export const dynamic = "force-dynamic";
+
 interface PageProps {
   params: Promise<{ id: string }>;
 }
