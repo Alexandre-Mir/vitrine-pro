@@ -15,21 +15,17 @@
   <a href="https://github.com/Alexandre-Mir/vitrine-pro">
     <img alt="Repo" src="https://img.shields.io/badge/GitHub-Repositório-181717?style=flat-square&logo=github"/>
   </a>
-  <!-- Descomente quando fizer deploy: -->
-  <!-- <a href="https://vitrine-pro.vercel.app">
+  <a href="https://vitrine-pro.vercel.app">
     <img alt="Deploy" src="https://img.shields.io/badge/Vercel-Live_Demo-000?style=flat-square&logo=vercel"/>
-  </a> -->
+  </a>
 </p>
 
 ---
 
 ## 📸 Preview
 
-<!-- Adicione screenshots do projeto aqui. Exemplo: -->
-<!-- ![Homepage](./docs/screenshots/homepage.png) -->
-<!-- ![Checkout](./docs/screenshots/checkout.png) -->
-
-> **Dica:** Adicione capturas de tela ou um GIF demonstrando a navegação para dar impacto visual ao portfólio.
+![Homepage](./docs/screenshots/homepage.png)
+![Checkout](./docs/screenshots/checkout.png)
 
 ---
 

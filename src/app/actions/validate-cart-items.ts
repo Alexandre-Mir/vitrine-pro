@@ -1,18 +1,15 @@
 "use server";
 
 import { Product } from "@/types/product";
+import getProducts from "@/services/product";
 
 export async function validateCartItems(clientItems: Product[]) {
   try {
-    const res = await fetch(`https://fakestoreapi.com/products`, {
-      cache: "no-store",
-    });
+    const allProducts = await getProducts();
 
-    if (!res.ok) {
+    if (!allProducts || allProducts.length === 0) {
       return { success: false, error: "Falha ao consultar catálogo do servidor." };
     }
-
-    const allProducts: Product[] = await res.json();
 
     const serverProductsMap = new Map(allProducts.map((p) => [p.id, p]));
 
