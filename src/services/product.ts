@@ -5,15 +5,22 @@ export default async function getProducts(limit?: number): Promise<Product[]> {
     ? `https://fakestoreapi.com/products?limit=${limit}`
     : "https://fakestoreapi.com/products";
 
-  const res = await fetch(url, {
-    next: { revalidate: 3600 },
-  });
+  try {
+    const res = await fetch(url, {
+      next: { revalidate: 3600 },
+    });
 
-  if (!res.ok) {
-    throw new Error("Falha ao buscar produtos");
+    if (!res.ok) {
+      console.error(`Falha ao buscar produtos: ${res.status}`);
+      return [];
+    }
+
+    const data = await res.json();
+    return Array.isArray(data) ? data : [];
+  } catch (error) {
+    console.error("Erro de rede ao buscar produtos:", error);
+    return [];
   }
-
-  return res.json();
 }
 
 export async function getProductById(id: string): Promise<Product | null> {
@@ -33,15 +40,22 @@ export async function getProductById(id: string): Promise<Product | null> {
 }
 
 export async function getCategories(): Promise<string[]> {
-  const res = await fetch("https://fakestoreapi.com/products/categories", {
-    next: { revalidate: 3600 },
-  });
+  try {
+    const res = await fetch("https://fakestoreapi.com/products/categories", {
+      next: { revalidate: 3600 },
+    });
 
-  if (!res.ok) {
-    throw new Error("Falha ao buscar produto");
+    if (!res.ok) {
+      console.error(`Falha ao buscar categorias: ${res.status}`);
+      return [];
+    }
+
+    const data = await res.json();
+    return Array.isArray(data) ? data : [];
+  } catch (error) {
+    console.error("Erro de rede ao buscar categorias:", error);
+    return [];
   }
-
-  return res.json();
 }
 
 export async function searchProducts(query: string): Promise<Product[]> {
