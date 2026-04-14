@@ -42,14 +42,17 @@ Instead of a simple responsive UI clone, this project solves real-world e-commer
 This project avoids over-engineering while utilizing the latest capabilities of Next.js to provide an exceptional user and developer experience.
 
 ### Why Next.js 16 App Router?
+
 **Goal:** Balance optimal SEO performance with fresh data.  
 Using the App Router enables a hybrid rendering approach. Product catalog pages leverage **SSR (Server-Side Rendering)** combined with **ISR (Incremental Static Regeneration)**. This ensures that the initial HTML is pre-rendered for search engine crawlers and users experience a fast TTFB (Time to First Byte), while keeping stock availability and pricing updated in the background without sacrificing performance.
 
 ### Why Server Actions?
+
 **Goal:** Secure data processing without the overhead of standalone API routes.  
 Server Actions are used for real-time search processing and shopping cart validation. For example, before proceeding to checkout, a Server Action validates the batch of cart items directly on the server. This guarantees that prices haven't been tampered with on the client-side while entirely bypassing the need to create, type, and maintain dedicated API endpoints.
 
 ### Why Context API + `localStorage` with Debounce?
+
 **Goal:** Lightweight global state without the boilerplate of Redux or Zustand.  
 For the specific scope of this project, the shopping cart only requires a simple, persistent global state. By utilizing the native **Context API**, we avoid unnecessary external dependencies. To prevent performance bottlenecks from continuous IO operations, cart state updates to `localStorage` are wrapped in a **custom `useDebounce` hook**, significantly reducing the write frequency during rapid user interactions.
 
@@ -69,22 +72,23 @@ For the specific scope of this project, the shopping cart only requires a simple
 
 ## 🛠️ Tech Stack
 
-| Technology | Version | Description |
-|:---|:---|:---|
-| **Next.js** | `16.1.4` | Fullstack Framework (App Router, RSC, Server Actions) |
-| **React** | `19.2.3` | UI Library with React Compiler enabled |
-| **TypeScript** | `^5.x` | Static typing |
-| **Tailwind CSS** | `^4.x` | Utility-first styling and responsive design |
-| **Context API** | - | Native global state management |
-| **FakeStoreAPI** | - | External mocked inventory API |
-| **ViaCEP API** | - | Brazilian postal code data auto-completion |
+| Technology       | Version  | Description                                           |
+| :--------------- | :------- | :---------------------------------------------------- |
+| **Next.js**      | `16.1.4` | Fullstack Framework (App Router, RSC, Server Actions) |
+| **React**        | `19.2.3` | UI Library with React Compiler enabled                |
+| **TypeScript**   | `^5.x`   | Static typing                                         |
+| **Tailwind CSS** | `^4.x`   | Utility-first styling and responsive design           |
+| **Context API**  | -        | Native global state management                        |
+| **FakeStoreAPI** | -        | External mocked inventory API                         |
+| **ViaCEP API**   | -        | Brazilian postal code data auto-completion            |
 
 ---
 
 ## 🚀 How to Run Locally
 
 ### Prerequisites
-- **Node.js** 18+ 
+
+- **Node.js** 18+
 - **Git**
 
 ### Installation
@@ -113,7 +117,7 @@ Open [http://localhost:3000](http://localhost:3000) in your browser.
 
 ## 📌 Sobre o Projeto
 
-O **Vitrine Pro** é uma loja virtual funcional, construída para demonstrar domínio em **arquitetura frontend moderna**, **otimização de performance** e **estratégias de obtenção de dados**. 
+O **Vitrine Pro** é uma loja virtual funcional, construída para demonstrar domínio em **arquitetura frontend moderna**, **otimização de performance** e **estratégias de obtenção de dados**.
 
 Ele vai além de um clone visual, resolvendo problemas reais de e-commerce, como cache inteligente, validação de dados no servidor e formulários focados em conversão.
 
@@ -122,16 +126,19 @@ Ele vai além de um clone visual, resolvendo problemas reais de e-commerce, como
 ## 🧠 Decisões Técnicas
 
 ### Por que Next.js 16 App Router?
+
 **Objetivo**: Equilibrar performance com dados frescos.  
-O projeto renderiza a vitrine com **SSR + ISR**, o que garante um HTML imediato para SEO e uma performance impressionante de TTFB, enquanto revalida estoques e preços nos bastidores sem prejudicar a experiência do usuário. 
+O projeto renderiza a vitrine com **SSR + ISR**, o que garante um HTML imediato para SEO e uma performance impressionante de TTFB, enquanto revalida estoques e preços nos bastidores sem prejudicar a experiência do usuário.
 
 ### Por que Server Actions?
+
 **Objetivo**: Processamento de busca e validação de carrinho no servidor sem criar API Routes.  
 O carrinho e a busca são validados em tempo real no servidor via Server Actions. Ao finalizar a compra, os preços no carrinho do cliente são checados novamente pela fonte de dados no servidor, prevenindo fraudes no cliente e economizando a criação das tradicionais rotas em `/api`.
 
 ### Por que Context API + debounce no localStorage?
+
 **Objetivo**: Estado global leve sem Redux para este escopo.  
-Para evitar depender de bibliotecas externas complexas num estado simples, o projeto usa a Context API do React. Toda alteração no carrinho enviada para o `localStorage` é processada com um mecanismo de *debounce* para não travar o *main thread* do navegador com IO contínuo durante ações super rápidas do usuário.
+Para evitar depender de bibliotecas externas complexas num estado simples, o projeto usa a Context API do React. Toda alteração no carrinho enviada para o `localStorage` é processada com um mecanismo de _debounce_ para não travar o _main thread_ do navegador com IO contínuo durante ações super rápidas do usuário.
 
 ---
 
@@ -166,4 +173,5 @@ cd vitrine-pro
 npm install
 npm run dev
 ```
+
 Acesse `http://localhost:3000` no seu navegador.
