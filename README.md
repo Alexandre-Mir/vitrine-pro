@@ -1,7 +1,7 @@
 <h1 align="center">🛒 Vitrine Pro</h1>
 
 <p align="center">
-  E-commerce simulado com foco em performance, SEO e experiência do usuário — construído com Next.js 16, React 19 e Tailwind CSS v4.
+  A high-performance simulated e-commerce platform built with Next.js 16, React 19, and Tailwind CSS v4, demonstrating modern frontend architecture and SEO optimization.
 </p>
 
 <p align="center">
@@ -12,11 +12,11 @@
 </p>
 
 <p align="center">
-  <a href="https://github.com/Alexandre-Mir/vitrine-pro">
-    <img alt="Repo" src="https://img.shields.io/badge/GitHub-Repositório-181717?style=flat-square&logo=github"/>
-  </a>
   <a href="https://vitrine-pro.vercel.app">
     <img alt="Deploy" src="https://img.shields.io/badge/Vercel-Live_Demo-000?style=flat-square&logo=vercel"/>
+  </a>
+  <a href="#-português">
+    <img alt="PT-BR" src="https://img.shields.io/badge/Leia_em-Português-2196F3?style=flat-square"/>
   </a>
 </p>
 
@@ -29,139 +29,141 @@
 
 ---
 
+## 📌 About the Project
+
+**Vitrine Pro** is a fully functional e-commerce storefront designed to showcase expertise in **modern frontend architecture**, **performance optimization**, and **advanced data fetching strategies**.
+
+Instead of a simple responsive UI clone, this project solves real-world e-commerce challenges such as intelligent caching mechanisms, server-side data validation, payload limits, and high-conversion accessible forms.
+
+---
+
+## 🧠 Technical Decisions
+
+This project avoids over-engineering while utilizing the latest capabilities of Next.js to provide an exceptional user and developer experience.
+
+### Why Next.js 16 App Router?
+**Goal:** Balance optimal SEO performance with fresh data.  
+Using the App Router enables a hybrid rendering approach. Product catalog pages leverage **SSR (Server-Side Rendering)** combined with **ISR (Incremental Static Regeneration)**. This ensures that the initial HTML is pre-rendered for search engine crawlers and users experience a fast TTFB (Time to First Byte), while keeping stock availability and pricing updated in the background without sacrificing performance.
+
+### Why Server Actions?
+**Goal:** Secure data processing without the overhead of standalone API routes.  
+Server Actions are used for real-time search processing and shopping cart validation. For example, before proceeding to checkout, a Server Action validates the batch of cart items directly on the server. This guarantees that prices haven't been tampered with on the client-side while entirely bypassing the need to create, type, and maintain dedicated API endpoints.
+
+### Why Context API + `localStorage` with Debounce?
+**Goal:** Lightweight global state without the boilerplate of Redux or Zustand.  
+For the specific scope of this project, the shopping cart only requires a simple, persistent global state. By utilizing the native **Context API**, we avoid unnecessary external dependencies. To prevent performance bottlenecks from continuous IO operations, cart state updates to `localStorage` are wrapped in a **custom `useDebounce` hook**, significantly reducing the write frequency during rapid user interactions.
+
+---
+
+## ⚙️ Features
+
+- **Hybrid Rendering (SSR + ISR):** SEO-optimized content delivery with smart cache revalidation.
+- **Real-time Server Search:** Live search powered by Server Actions with debouncing and race-condition control.
+- **State URL Synchronization:** Search parameters reflect directly into the URL `searchParams`, establishing a Single Source of Truth to allow link sharing.
+- **Dynamic Mega Menu:** Responsive advanced navigation utilizing `ResizeObserver` for dynamic transitions.
+- **Secure Cart & Checkout Verification:** Double-check price validation logic triggered upon adding units and during batch checkout.
+- **Smart Address Auto-Fill:** Integration with the ViaCEP API directly auto-completes address details upon entering the postal code.
+- **Resiliency & Error Handling:** Implementation of `FallbackImage` for missing assets without layout shifts (Zero CLS) and strategic `ErrorBoundaries` for graceful degradation.
+
+---
+
+## 🛠️ Tech Stack
+
+| Technology | Version | Description |
+|:---|:---|:---|
+| **Next.js** | `16.1.4` | Fullstack Framework (App Router, RSC, Server Actions) |
+| **React** | `19.2.3` | UI Library with React Compiler enabled |
+| **TypeScript** | `^5.x` | Static typing |
+| **Tailwind CSS** | `^4.x` | Utility-first styling and responsive design |
+| **Context API** | - | Native global state management |
+| **FakeStoreAPI** | - | External mocked inventory API |
+| **ViaCEP API** | - | Brazilian postal code data auto-completion |
+
+---
+
+## 🚀 How to Run Locally
+
+### Prerequisites
+- **Node.js** 18+ 
+- **Git**
+
+### Installation
+
+```bash
+# Clone the repository
+git clone https://github.com/Alexandre-Mir/vitrine-pro.git
+
+# Enter the directory
+cd vitrine-pro
+
+# Install dependencies
+npm install
+
+# Start the development server
+npm run dev
+```
+
+Open [http://localhost:3000](http://localhost:3000) in your browser.
+
+---
+
+<br/>
+
+<h2 id="-português">🇧🇷 Português</h2>
+
 ## 📌 Sobre o Projeto
 
-O **Vitrine Pro** é uma loja virtual completa e funcional, construída como projeto de portfólio para demonstrar domínio prático em **arquitetura frontend moderna**, **otimização de performance** e **boas práticas de desenvolvimento**.
+O **Vitrine Pro** é uma loja virtual funcional, construída para demonstrar domínio em **arquitetura frontend moderna**, **otimização de performance** e **estratégias de obtenção de dados**. 
 
-Vai além de um clone visual: o projeto resolve problemas reais de e-commerce como cache inteligente com ISR, validação de integridade de dados, navegação acessível e formulários otimizados para conversão.
+Ele vai além de um clone visual, resolvendo problemas reais de e-commerce, como cache inteligente, validação de dados no servidor e formulários focados em conversão.
 
-### O que esse projeto demonstra
+---
 
-- Domínio do **App Router** do Next.js (RSC, Server Actions, layouts aninhados)
-- Estratégias avançadas de **cache e revalidação** (ISR, `revalidate`)
-- Componentização resiliente com **Error Boundaries** e fallbacks graceful
-- Gerenciamento de estado global com **Context API** + persistência em `localStorage`
-- Integração com APIs externas (FakeStoreAPI, ViaCEP)
-- Acessibilidade, SEO técnico e Core Web Vitals otimizados
+## 🧠 Decisões Técnicas
+
+### Por que Next.js 16 App Router?
+**Objetivo**: Equilibrar performance com dados frescos.  
+O projeto renderiza a vitrine com **SSR + ISR**, o que garante um HTML imediato para SEO e uma performance impressionante de TTFB, enquanto revalida estoques e preços nos bastidores sem prejudicar a experiência do usuário. 
+
+### Por que Server Actions?
+**Objetivo**: Processamento de busca e validação de carrinho no servidor sem criar API Routes.  
+O carrinho e a busca são validados em tempo real no servidor via Server Actions. Ao finalizar a compra, os preços no carrinho do cliente são checados novamente pela fonte de dados no servidor, prevenindo fraudes no cliente e economizando a criação das tradicionais rotas em `/api`.
+
+### Por que Context API + debounce no localStorage?
+**Objetivo**: Estado global leve sem Redux para este escopo.  
+Para evitar depender de bibliotecas externas complexas num estado simples, o projeto usa a Context API do React. Toda alteração no carrinho enviada para o `localStorage` é processada com um mecanismo de *debounce* para não travar o *main thread* do navegador com IO contínuo durante ações super rápidas do usuário.
 
 ---
 
 ## ⚙️ Funcionalidades
 
-### Vitrine & Catálogo
-- Renderização híbrida com **SSR + ISR** — TTFB otimizado para SEO, cache de 1h para window shoppers
-- Busca em tempo real processada no servidor (**Server Actions**) com debounce e controle de race conditions
-- Estado da busca sincronizado com a URL (`searchParams` como SSoT) para compartilhamento e navegação
-- **Mega Menu** com transição dinâmica via `ResizeObserver`, alternando entre busca, categorias e carrinho
-
-### Carrinho de Compras
-- Estado global via **Context API** com persistência em `localStorage` (escrita com debounce)
-- Validação "double-check" de preços: no **add to cart** (unitário) e no **checkout** (batch) via Server Actions
-- Botão Add to Cart com animação **CSS Grid** (`0fr → 1fr`) no hover
-- Animações de lista com `@formkit/auto-animate`
-
-### Checkout
-- Autopreenchimento de endereço via **ViaCEP API** com foco automático no campo "Número"
-- Validação em lote dos itens do carrinho antes de prosseguir
-
-### Páginas Institucionais
-- **Sobre** e **Contato** com formulário inteligente que sugere respostas do FAQ em tempo real (ticket deflection)
-
-### Resiliência & Performance
-- **FallbackImage**: componente que substitui imagens quebradas (404) por skeleton, sem quebrar o layout
-- **Error Boundaries** estratégicos: graceful degradation no layout raiz, fail-fast nas rotas folha
-- **Zero CLS**: placeholders dimensionados no servidor para componentes como o Theme Toggle
+- **Renderização Híbrida (SSR + ISR):** Caching inteligente de catálogo.
+- **Busca em tempo real:** Processada via servidor com de-duplicação de chamadas.
+- **SSoT na URL:** Filtros e pesquisa injetados diretamente na URL (`searchParams`).
+- **Mega Menu Dinâmico:** Layout otimizado responsivo.
+- **Checkout Seguro:** Dupla validação do carrinho em lote antes da compra.
+- **Autopreenchimento Inteligente:** Consumo da ViaCEP API com auto-focus pós-preenchimento.
+- **Experiência sem quebras (Graceful Fallback):** Image skeletons e Error Boundaries instalados em rotas chave.
 
 ---
 
 ## 🛠️ Tecnologias
 
-| Tecnologia | Uso |
-|:---|:---|
-| **Next.js 16** | Framework fullstack — App Router, RSC, Server Actions |
-| **React 19** | Biblioteca de UI com React Compiler habilitado |
-| **TypeScript** | Tipagem estática em todo o projeto |
-| **Tailwind CSS v4** | Estilização utilitária com design responsivo |
-| **Context API** | Gerenciamento de estado global (carrinho) |
-| **FakeStoreAPI** | API externa simulando catálogo de produtos |
-| **ViaCEP API** | Autopreenchimento de endereço por CEP |
-| **Lucide React** | Biblioteca de ícones |
-| **Auto-Animate** | Animações automáticas em listas |
-| **Sonner** | Notificações toast |
+- **Next.js 16.1.4** (App Router, Server Actions)
+- **React 19.2.3**
+- **TypeScript** ~5
+- **Tailwind CSS v4**
+- **Context API**
+- **ViaCEP & FakeStore API**
 
 ---
 
-## 📂 Estrutura do Projeto
-
-```
-src/
-├── app/
-│   ├── actions/          # Server Actions (busca, validação de carrinho)
-│   ├── components/       # Componentes globais (Header, MegaMenu, CartPanel...)
-│   ├── providers/        # Context Providers (tema, carrinho)
-│   ├── checkout/         # Rota de checkout
-│   ├── contato/          # Formulário de contato com ticket deflection
-│   ├── sobre/            # Página institucional
-│   ├── perfil/           # Página de perfil
-│   ├── products/         # Rota dinâmica de produto ([id])
-│   ├── categorias/       # Navegação por categorias
-│   └── search/           # Página de resultados de busca
-├── context/              # Context API (CartContext)
-├── hooks/                # Custom hooks (useDebounce, useScrollDirection...)
-├── services/             # Camada de acesso a dados (fetch wrappers)
-├── types/                # Interfaces TypeScript
-└── utils/                # Utilitários (formatação monetária, constantes)
-```
-
----
-
-## 🚀 Como Executar
-
-### Pré-requisitos
-
-- **Node.js** 18+ 
-- **Git**
-
-### Instalação
+## 🚀 Como Rodar Localmente
 
 ```bash
-# Clone o repositório
 git clone https://github.com/Alexandre-Mir/vitrine-pro.git
-
-# Acesse a pasta
 cd vitrine-pro
-
-# Instale as dependências
 npm install
-
-# Inicie o servidor de desenvolvimento
 npm run dev
 ```
-
-Acesse [http://localhost:3000](http://localhost:3000) no navegador.
-
----
-
-## 📅 Roadmap
-
-- [x] Carrinho de compras com persistência e validação
-- [x] Busca em tempo real com Server Actions
-- [x] Checkout com autopreenchimento via ViaCEP
-- [x] Páginas institucionais (Sobre, Contato)
-- [x] Mega Menu com transições dinâmicas
-- [ ] Filtros avançados (preço, ordenação, avaliação)
-- [ ] Refatoração responsiva do menu de categorias
-
----
-
-## 👤 Autor
-
-**Alexandre Mir**
-
-[![GitHub](https://img.shields.io/badge/GitHub-Alexandre--Mir-181717?style=flat-square&logo=github)](https://github.com/Alexandre-Mir)
-
----
-
-## 📄 Licença
-
-Este projeto é de uso pessoal para fins de portfólio e aprendizado.
+Acesse `http://localhost:3000` no seu navegador.
