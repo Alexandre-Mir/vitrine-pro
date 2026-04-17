@@ -56,7 +56,7 @@ export default async function Home() {
       <Hero />
       <section className="relative z-10 bg-background">
         {/* Lista de Categorias */}
-        <div className="flex gap-4 p-4 lg:justify-center py-10 overflow-x-auto snap-x scrollbar-hide border-b border-secondary/20">
+        <div className="flex gap-4 p-4 lg:justify-center py-10 overflow-x-auto snap-x scrollbar-hide">
           {uniqueCategories.map((product) => (
             <a
               className="flex gap-6 max-w-[300px] w-[300px] items-center p-2.5 group bg-foreground/10 border border-foreground/15 rounded-lg transition-colors cursor-pointer hover:bg-foreground/15"
@@ -80,7 +80,7 @@ export default async function Home() {
         </div>
 
         {/* Mais vendidos */}
-        <div id="destaques" className="mt-10 scroll-mt-4 bg-secondary py-12 lg:py-16">
+        <div id="destaques" className="scroll-mt-4 bg-secondary py-12 lg:py-16">
           <div className="max-w-7xl mx-auto px-4 lg:px-8">
             <div className="flex items-center justify-between mb-8">
               <h2 className="text-3xl lg:text-5xl font-bold text-primary uppercase tracking-tight">
@@ -98,7 +98,7 @@ export default async function Home() {
         {/* Eletrônicos em Destaque */}
         <div
           id="eletronicos"
-          className="mt-16 bg-secondary/30 py-12 scroll-mt-4"
+          className="bg-secondary/30 py-12 lg:py-16 scroll-mt-4"
         >
           <div className="max-w-7xl mx-auto px-4 lg:px-8">
             <div className="flex items-center justify-between mb-8">
@@ -115,7 +115,7 @@ export default async function Home() {
         </div>
 
         {/* Moda em Alta */}
-        <div id="moda" className="mt-16 bg-secondary/50 py-16 scroll-mt-4">
+        <div id="moda" className="bg-secondary/50 py-12 lg:py-16 scroll-mt-4">
           <div className="max-w-7xl mx-auto px-4 lg:px-8">
             <div className="flex items-center justify-between mb-8">
               <h2 className="text-2xl lg:text-4xl font-bold text-primary">
