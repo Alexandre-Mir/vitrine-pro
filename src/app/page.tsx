@@ -2,6 +2,7 @@ import { ChevronRight } from "lucide-react";
 import Hero from "./components/Hero";
 import ProductCard from "./components/ProductCard";
 import FallbackImage from "./components/FallbackImage";
+import Link from "next/link";
 
 import { Metadata } from "next";
 import getProducts from "@/services/product";
@@ -52,13 +53,14 @@ export default async function Home() {
   };
 
   return (
-    <main className="pb-20">
+    <main className="pb-20 pt-(--header-offset)">
       <Hero />
       <section className="relative z-10 bg-background">
         {/* Lista de Categorias */}
         <div className="flex gap-4 p-4 lg:justify-center py-10 overflow-x-auto snap-x scrollbar-hide">
           {uniqueCategories.map((product) => (
-            <a
+            <Link
+              href={`/categorias/${encodeURIComponent(product.category)}`}
               className="flex gap-6 max-w-[300px] w-[300px] items-center p-2.5 group bg-foreground/10 border border-foreground/15 rounded-lg transition-colors cursor-pointer hover:bg-foreground/15"
               key={product.id}
             >
@@ -75,7 +77,7 @@ export default async function Home() {
                 {categoryTranslations[product.category] || product.category}
               </h4>
               <ChevronRight size={20} className="opacity-40" />
-            </a>
+            </Link>
           ))}
         </div>
 

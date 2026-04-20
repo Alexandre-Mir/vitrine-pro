@@ -76,7 +76,7 @@ export default function PerfilPage() {
   const [activeTab, setActiveTab] = useState("pedidos");
 
   return (
-    <main className="min-h-screen bg-background pb-20">
+    <main className="min-h-screen bg-background pb-20 pt-(--header-offset)">
       {/* Header do Perfil */}
       <section className="relative bg-secondary overflow-hidden">
         {/* Padrão decorativo */}

@@ -56,7 +56,7 @@ export default async function CategoriasPage() {
   });
 
   return (
-    <main className="min-h-screen bg-background pb-20">
+    <main className="min-h-screen bg-background pb-20 pt-(--header-offset)">
       {/* Hero Banner */}
       <section className="relative bg-secondary py-16 lg:py-24">
         <div className="max-w-7xl mx-auto px-4 lg:px-8">

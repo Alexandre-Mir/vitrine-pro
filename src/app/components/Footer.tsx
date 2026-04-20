@@ -35,11 +35,11 @@ export default function Footer() {
         <div className="grid lg:grid-cols-4 md:grid-cols-2 grid-cols-1 grid-rows-2 gap-12 lg:gap-16">
           <div className="flex-col flex">
             <h4 className="tracking-tight font-bold text-xl">Sobre </h4>
-            <p className="mt-5">
-              Lorem ipsum dolor sit amet consectetur, adipisicing elit.
-              Molestiae temporibus reiciendis modi repellat dolorem placeat
-              quidem facilis voluptatum repellendus, voluptatem sunt alias quis
-              ab distinctio aspernatur reprehenderit illo veritatis optio.
+            <p className="mt-5 text-subtitle leading-relaxed">
+              A Vitrine Pro é um e-commerce de alta performance construído com
+              Next.js 16, Server Actions e integração de IA. Um projeto de
+              portfólio com foco em Web Vitals, SEO técnico e acessibilidade
+              WCAG AA.
             </p>
           </div>
           <div className="flex-col flex">
@@ -78,8 +78,9 @@ export default function Footer() {
           </div>
           <div className="flex-col flex">
             <h4 className="tracking-tight font-bold text-xl">Newsletter</h4>
-            <p className="mt-5">
-              Lorem ipsum dolor sit amet consectetur adipisicing elit.
+            <p className="mt-5 text-subtitle leading-relaxed">
+              Receba novidades, promoções exclusivas e lançamentos diretamente
+              no seu e-mail. Sem spam, apenas o que importa.
             </p>
             <form
               onSubmit={handleSubscribe}

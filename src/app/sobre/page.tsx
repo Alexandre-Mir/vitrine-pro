@@ -111,7 +111,7 @@ function StatsSection({
 
 export default function SobrePage() {
   return (
-    <main className="min-h-screen bg-background pb-20">
+    <main className="min-h-screen bg-background pb-20 pt-(--header-offset)">
       {/* Hero */}
       <section className="relative overflow-hidden bg-secondary py-20 lg:py-32">
         <div className="absolute inset-0 opacity-5">
