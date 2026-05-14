@@ -63,16 +63,16 @@ export default function Footer() {
             <h4 className="tracking-tight font-bold text-xl">Suporte</h4>
             <ul className="mt-5 flex flex-col gap-2">
               <li>
-                <Link href="/">FAQ</Link>
+                <Link href="#">FAQ</Link>
               </li>
               <li>
-                <Link href="/">Envios e Devoluções</Link>
+                <Link href="#">Envios e Devoluções</Link>
               </li>
               <li>
-                <Link href="/">Termos de Serviço</Link>
+                <Link href="#">Termos de Serviço</Link>
               </li>
               <li>
-                <Link href="/">Política de Privacidade</Link>
+                <Link href="#">Política de Privacidade</Link>
               </li>
             </ul>
           </div>

@@ -12,6 +12,7 @@ import formatCurrency from "@/utils/format-currency";
 import Button from "./ui/Button";
 import { useAutoAnimate } from "@formkit/auto-animate/react";
 import { useState } from "react";
+import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { validateCartItems } from "../actions/validate-cart-items";
 import { toast } from "sonner";
@@ -112,19 +113,19 @@ export function CartPanel({ onClose }: CartPanelProps) {
               key={item.id}
               className="flex gap-5 items-start bg-secondary/10 dark:bg-secondary/5 p-4 rounded-2xl border border-secondary/20 transition-all hover:border-secondary/40"
             >
-              <div className="relative w-24 h-24 bg-white dark:bg-white/10 rounded-xl overflow-hidden shrink-0 border border-secondary/30 flex items-center justify-center p-2">
+              <Link href={`/products/${item.id}`} className="relative w-24 h-24 bg-white dark:bg-white/10 rounded-xl overflow-hidden shrink-0 border border-secondary/30 flex items-center justify-center p-2 hover:border-primary transition-colors" onClick={onClose}>
                 <FallbackImage
                   src={item.image}
                   alt={item.title}
                   fill
                   className="object-contain p-2 mix-blend-multiply dark:mix-blend-normal"
                 />
-              </div>
+              </Link>
               <div className="flex-1 flex flex-col gap-1.5 h-full">
                 <div className="flex justify-between items-start">
-                  <h5 className="font-semibold text-primary line-clamp-2 leading-tight">
+                  <Link href={`/products/${item.id}`} onClick={onClose} className="font-semibold text-primary line-clamp-2 leading-tight hover:underline">
                     {item.title}
-                  </h5>
+                  </Link>
                   <button
                     onClick={() => removeFromCart(item.id)}
                     className="text-subtitle hover:text-red-500 transition-colors p-1"

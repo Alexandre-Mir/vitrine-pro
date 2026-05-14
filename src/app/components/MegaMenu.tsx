@@ -129,7 +129,14 @@ export default function MegaMenu({
                   Categorias
                 </h4>
                 <ul className="pt-3 flex flex-col gap-1">
-                  {categories.map((category, index) => (
+                  {categories.map((category, index) => {
+                    const categoryTranslations: Record<string, string> = {
+                      "men's clothing": "Moda Masculina",
+                      "women's clothing": "Moda Feminina",
+                      "electronics": "Eletrônicos",
+                      "jewelery": "Joias",
+                    };
+                    return (
                     <li key={index}>
                       <Link
                         href={`/categorias/${encodeURIComponent(category)}`}
@@ -139,10 +146,10 @@ export default function MegaMenu({
                             : ""
                         }`}
                       >
-                        {category.replace("-", " ")}
+                        {categoryTranslations[category] || category.replace("-", " ")}
                       </Link>
                     </li>
-                  ))}
+                  )})}
                   <li className="mt-2 pt-2 border-t border-border">
                     <h5
                       className={`tracking-widest uppercase text-subtitle text-[10px] font-medium mb-1 ${isOpen ? "animate-fade-right animate-once animate-normal animate-delay-500" : ""}`}

@@ -48,7 +48,7 @@ export default async function CategoryPage({ params }: CategoryPageProps) {
   const categoryName = categoryTranslations[decodedSlug] || decodedSlug;
 
   return (
-    <main className="min-h-screen bg-background pb-20">
+    <main className="min-h-screen bg-background pb-20 pt-(--header-offset)">
       {/* Breadcrumb */}
       <div className="max-w-7xl mx-auto px-4 lg:px-8 pt-6">
         <nav

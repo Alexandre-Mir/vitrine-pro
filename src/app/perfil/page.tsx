@@ -118,7 +118,7 @@ export default function PerfilPage() {
                 {userProfile.name}
               </h1>
               <p className="mt-1 text-subtitle">{userProfile.email}</p>
-              <p className="mt-1 text-xs text-subtitle/70">
+              <p className="mt-1 text-xs text-subtitle">
                 {userProfile.joinDate}
               </p>
             </div>
@@ -183,7 +183,7 @@ export default function PerfilPage() {
                   )}
                   <ChevronRight
                     size={14}
-                    className="text-subtitle/40 group-hover:text-accent-bg dark:group-hover:text-accent transition-colors duration-300"
+                    className="text-subtitle/70 group-hover:text-accent-bg dark:group-hover:text-accent transition-colors duration-300"
                   />
                 </button>
               );
@@ -251,7 +251,7 @@ export default function PerfilPage() {
                       </span>
                       <ChevronRight
                         size={16}
-                        className="text-subtitle/40 group-hover:text-accent-bg dark:group-hover:text-accent transition-colors duration-300 hidden sm:block"
+                        className="text-subtitle/70 group-hover:text-accent-bg dark:group-hover:text-accent transition-colors duration-300 hidden sm:block"
                       />
                     </div>
                   </div>

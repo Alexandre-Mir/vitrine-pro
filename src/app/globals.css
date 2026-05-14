@@ -9,10 +9,10 @@
   --primary: #242424;
   --secondary: #e0ddd7;
   --accent: #f1ba35;
-  --accent-bg: #8a4d40;
+  --accent-bg: #6e3a2f; /* Darker for better contrast over light backgrounds */
   --border: #f5f5f5;
-  /* #595959 garante ratio ≥ 4.5:1 (WCAG AA) sobre #ffffff e #e0ddd7 */
-  --subtitle: #595959;
+  /* Garante ratio ≥ 4.5:1 (WCAG AA) com mais folga */
+  --subtitle: #4a4a4a;
 
   /* Offset para compensar o header fixo (top-4 = 16px + header 68px + margem 4px) */
   --header-offset: 92px;
